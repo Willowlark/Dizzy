@@ -1,0 +1,13 @@
+_site
+.sass-cache
+Gemfile.lock
+*.gem
+_drafts
+.DS_Store
+
+# Bill's workspace additions
+_*
+.vscode
+**/.DS_Store
+.idea
+**/*.pyc
