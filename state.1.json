@@ -1,0 +1,31 @@
+{
+    "Dizzy":
+    {
+        "Happiness": 
+        {
+            "Value": 0,
+            "Min": -100,
+            "Max": 100
+        }
+    },
+    "Tallies":
+    {
+        "drankaloos": 0
+    },
+    "Scores":
+    {
+        "Willowlark": 
+        {
+            "Snarks": 100,
+            "Cosfame": 0
+        }
+    },
+    "Gifts":
+    {
+        "Caramel": 
+        {
+            "Reply": "I love caramel, thank you!",
+            "Gifted": "caramel"
+        }
+    }
+}
