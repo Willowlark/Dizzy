@@ -61,6 +61,11 @@ async def on_message(message):
             link = 'https://i.imgur.com/hXuK1cP.png'
             await client.send_message(message.channel, link)
         
+        # teamwork
+        if cmd == 'teamwork':
+            link = 'https://i.imgur.com/gilOf0I.gif'
+            await client.send_message(message.channel, link)
+        
         # Prick
         if cmd == 'prick':
             link = 'https://i.imgur.com/no93Chq.png'
