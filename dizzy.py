@@ -27,8 +27,8 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
-    # entrance = "Hello! I made it a'okay!" if random.randint(1,10) != 1 else "*Trips on the doorframe* Auu~" 
-    # await client.send_message(get_channel_by_name('general'), entrance)
+    entrance = "Hello! I made it a'okay!" if random.randint(1,10) != 1 else "*Trips on the doorframe* Auu~" 
+    await client.send_message(get_channel_by_name('general'), entrance)
 
 @client.event
 async def on_message(message):
@@ -212,7 +212,10 @@ def get_channel_by_name(string):
 
 # Return a formatted string to add to a log.
 def logged_format(log):
-    name = log.author.nick if log.author.nick else log.author.name
+    try:
+        name = log.author.nick 
+    except:
+        name = log.author.name
     return "**"+name + ':**\n\n' + log.content + '\n\n'
 
 def load_state():
