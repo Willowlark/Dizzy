@@ -10,15 +10,18 @@ from os.path import join
 from datetime import datetime
 from datetime import timedelta
 from collections import Mapping
+from diary import Diary
 
+diary = Diary('0b7824b2-ff6a-43c8-b37e-770568551b7e-bluemix', '0b7998d6d61162eba46ef2c369c22b4beab3237596454454017196b65389f1a4')
+diary.select_db('dizzy')
+
+LEWDS = []
+BANS = []
 TRIGGERS = ['!', '<:spiral:392726979197140992>', 'Dizzy,', '\U0001F51E']
 # Matches either the first word of a string, returning the trigger and whatever followed the trigger, 
 # or the first word which is entirely a trigger and the immediately following word.
 TRIGGER_MATCH = re.compile('^({t})(\w+)|^({t}) (\w+)'.format(t='|'.join(TRIGGERS)))
 TOKEN = 'MzkyNjk1MDg5NTQ3NDQ0MjU2.DRq9Ug.NSGrtWvwAk3fONQ6mACtRNoZP7Q'
-STATE = {}
-LEWDS = open('lewd_links').readlines()
-BANS = open('ban_responses').readlines()
 client = discord.Client()
 
 @client.event
@@ -28,7 +31,7 @@ async def on_ready():
     print(client.user.id)
     print('------')
     entrance = "Hello! I made it a'okay!" if random.randint(1,10) != 1 else "*Trips on the doorframe* Auu~" 
-    await client.send_message(get_channel_by_name('general'), entrance)
+    # await client.send_message(get_channel_by_name('general'), entrance)
 
 @client.event
 async def on_message(message):
@@ -50,7 +53,15 @@ async def on_message(message):
                 if log.author == message.author:
                     counter += 1
             await client.edit_message(tmp, 'You have sent {} messages.'.format(counter))
-        
+
+        if cmd == 'timecheck':
+            now = datetime.utcnow()
+            nowam = now - timedelta(hours=5)
+            nowjp = now + timedelta(hours=9)
+            msg = "It's currently {} in EST and {} in Weebland.".format(
+                nowam.strftime("%H:%M"), nowjp.strftime("%H:%M"))
+            await client.send_message(message.channel, msg)
+
         # Tsundere mode
         if cmd == 'tsun':
             link = 'https://i.imgur.com/55sx3FG.png'
@@ -195,9 +206,10 @@ async def time_trigger():
     while not client.is_closed:
         now = datetime.now()
         if now.weekday() in [0,3]:
-            if now.hour == 11:
+            if now.hour == 12:
                 await client.send_message(get_channel_by_name("general"), "GM posts come out today.")
-        await asyncio.sleep(((now + timedelta(hours=1))-now).total_seconds())
+                await asyncio.sleep(3600)
+        await asyncio.sleep(60)
 
 # Returns the trigger used and the command sent via
 def get_cmd(string):
@@ -224,17 +236,11 @@ def logged_format(log):
     return "**"+name + ':**\n\n' + log.content + '\n\n'
 
 def load_state():
-    global STATE
-    STATE = json.loads(open('state.json').read())
-
-def save_state():
-    open('state.json', 'w').write(json.dumps(STATE))
-
-def savenow(func):
-    def wrapper(*args, **kwargs):
-        func(*args, **kwargs)
-        save_state()
-    return wrapper
+    global LEWDS
+    global BANS
+    optionals = diary.load_document('sets')
+    LEWDS = optionals['lewds']
+    BANS = optionals['ban_reasons']
 
 def _stat_search(depth, keys, deep=1):
     for key in keys:
