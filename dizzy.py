@@ -11,8 +11,9 @@ from datetime import datetime
 from datetime import timedelta
 from collections import Mapping
 from diary import Diary
+from auth import *
 
-diary = Diary('0b7824b2-ff6a-43c8-b37e-770568551b7e-bluemix', '0b7998d6d61162eba46ef2c369c22b4beab3237596454454017196b65389f1a4')
+diary = Diary(CLOUDANT)
 diary.select_db('dizzy')
 
 LEWDS = []
@@ -21,7 +22,7 @@ TRIGGERS = ['!', '<:spiral:392726979197140992>', 'Dizzy,', '\U0001F51E']
 # Matches either the first word of a string, returning the trigger and whatever followed the trigger, 
 # or the first word which is entirely a trigger and the immediately following word.
 TRIGGER_MATCH = re.compile('^({t})(\w+)|^({t}) (\w+)'.format(t='|'.join(TRIGGERS)))
-TOKEN = 'MzkyNjk1MDg5NTQ3NDQ0MjU2.DRq9Ug.NSGrtWvwAk3fONQ6mACtRNoZP7Q'
+
 client = discord.Client()
 
 @client.event
