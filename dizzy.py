@@ -13,7 +13,7 @@ from collections import Mapping
 from diary import Diary
 from auth import *
 
-diary = Diary(CLOUDANT)
+diary = Diary(CLOUDANT_USER, CLOUDANT_PASS)
 diary.select_db('dizzy')
 
 LEWDS = []
