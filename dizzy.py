@@ -19,6 +19,7 @@ diary.select_db('dizzy')
 
 LEWDS = []
 BANS = []
+COUNTERS = {}
 
 client = discord.Client()
 parser = commander.Commander(client, ['!', '<:spiral:392726979197140992>', 'Dizzy,'])
@@ -37,13 +38,13 @@ async def on_message(message):
     
     io = parser.getio(message)
     
-    if io > 1:
+    if io in [1, 3]:
         load_state()
         build_commands()
 
     await parser.execute(message)
     
-    if io:
+    if io in [2, 3]:
         save_state()
         load_state()
         build_commands()
@@ -67,16 +68,22 @@ def get_channel_by_name(string):
 def load_state():
     global LEWDS
     global BANS
+    global COUNTERS
     optionals = diary.load_document('sets')
     LEWDS.clear()
     BANS.clear()
     LEWDS.extend(optionals['lewds'])
     BANS.extend(optionals['ban_reasons'])
 
+    COUNTERS = diary.load_document("counters")
+
     print('Loaded data from Diary.')
 
 def save_state():
-    pass
+    global COUNTERS
+    # remote = diary.load_document('counters')
+    # remote = COUNTERS
+    COUNTERS.save()
 
 def build_commands():
     parser.commands.clear()
@@ -86,6 +93,7 @@ def build_commands():
     parser.add(commander.Timecheck(pattern='(timecheck)'))
     parser.add(commander.Choose(pattern='(choose) (.*)'))
     parser.add(commander.Stab(pattern='(stab)'))
+    parser.add(commander.Refresh(pattern='(refresh)', io=3))
 
     log = commander.Log(pattern='(log) ([^ ]*)')
     log.requireauthor('Willowlark')
@@ -104,6 +112,13 @@ def build_commands():
     parser.add(commander.Reply(options='https://i.imgur.com/gilOf0I.gif', pattern='(teamwork)'))
     parser.add(commander.Reply(options='https://i.imgur.com/no93Chq.png', pattern='(prick)'))
     parser.add(commander.Reply(options='I ship Knight Light!', triggers=[''], pattern='.*ship.*knight light.*|.*knight light.*ship.*'))
+
+    parser.add(commander.CounterIncrement(options=COUNTERS, pattern='(counter) ([^ ]+) (add|sub) ([0-9]+)', io=3))
+    parser.add(commander.CounterCheck(options=COUNTERS, pattern='(counter) ([^ ]+) (check)', io=3))
+    parser.add(commander.CounterList(options=COUNTERS, pattern='(counter) (list)', io=1))
+    setcounter = commander.CounterSet(options=COUNTERS, pattern='(counter) ([^ ]+) (set) ([0-9]+)', io=3)
+    setcounter.requireauthor('Willowlark')
+    parser.add(setcounter)
 
 def _stat_search(depth, keys, deep=1):
     for key in keys:

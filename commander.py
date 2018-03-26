@@ -72,8 +72,11 @@ class Command(object):
 
     async def execute(self, message):
         match = self.match(message)
-        if match and self.check(message):
-            await self.action(message, match)
+        if match: 
+            if self.check(message):
+                await self.action(message, match)
+            else:
+                await self.client.send_message(message.channel, "I'm not allowed to let you do that, {}.".format(message.author.name))
 
     async def action(self, message, match):
         await asyncio.sleep(10)
@@ -240,3 +243,64 @@ class Stats(Command):
         #             save_state()
         #     else:
         #         print('No stat found for', options)
+
+class CounterIncrement(Command):
+
+    async def action(self, message, match):
+        target, op, amnt = match[2:]
+        amnt = int(amnt)
+        COUNTERS = self.options
+
+        if target not in COUNTERS:
+            await self.client.send_message(message.channel, "I'm not counting those right now.")
+        else:
+            value = COUNTERS[target]
+            if op == "add":
+                COUNTERS[target]+=amnt
+                await self.client.send_message(message.channel, "The {} count is now {}!".format(target, COUNTERS[target]))
+            elif op == "sub":
+                COUNTERS[target]-=amnt
+                await self.client.send_message(message.channel, "The {} count is now {}!".format(target, COUNTERS[target]))
+            else:
+                await self.client.send_message(message.channel, "I don't know how to do that, sorry.")
+
+class CounterCheck(Command):
+    
+    async def action(self, message, match):
+        target, op = match[2:]
+        COUNTERS = self.options
+
+        if target not in COUNTERS:
+            await self.client.send_message(message.channel, "I'm not counting those right now.")
+        else:
+            await self.client.send_message(message.channel, "The {} count {}.".format(target, COUNTERS[target]))
+
+class CounterSet(Command):
+
+    async def action(self, message, match):
+        target, op, amnt = match[2:]
+        amnt = int(amnt)
+        COUNTERS = self.options
+
+        COUNTERS[target] = amnt
+        
+        await self.client.send_message(message.channel, "The {} count is now {}!".format(target, COUNTERS[target]))
+
+class CounterList(Command):
+
+    async def action(self, message, match):
+        
+        COUNTERS = self.options
+
+        lines = ["Here's what I have.\n", '```']
+        for key, value in COUNTERS.items():
+            if key[0] != '_':
+                lines.append("{} count is at {}.\n".format(key, value))
+        lines.append('```')
+
+        await self.client.send_message(message.channel, "".join(lines))
+
+class Refresh(Command):
+
+    async def action(self, message, match):
+        await self.client.send_message(message.channel, "I'll go reread my notes!")
