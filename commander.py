@@ -8,6 +8,10 @@ from datetime import timedelta
 from sys import maxsize
 from os.path import join
 
+# TODO: Help input as a constructor value, which is placed in __str__.
+# TODO: Help interator for the Commander object
+# TODO: User stats (each user gets a document)
+
 class Commander(object):
 
     def __init__(self, client, triggers):
@@ -42,12 +46,13 @@ class Commander(object):
 
 class Command(object):
 
-    def __init__(self, client=None, triggers=None, options=[], pattern='', io=0):
+    def __init__(self, client=None, triggers=None, options=[], pattern='', io=0, info=None):
         self.client = client
         self.triggers = triggers
         self.options = options
         self.pattern = pattern
         self.io = io
+        self.info = info if info else "A command using pattern: "+self.pattern
 
         self.compile()
 
@@ -131,7 +136,7 @@ class Timecheck(Command):
         msg = "It's currently {} in EST and {} in Weebland.".format(
             nowam.strftime("%H:%M"), nowjp.strftime("%H:%M"))
         await self.client.send_message(message.channel, msg)
-        
+
 class Choose(Command):
 
     async def action(self, message, match):

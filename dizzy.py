@@ -14,6 +14,10 @@ from diary import Diary
 from auth import *
 import commander
 
+# TODO: Review loading and saving from Cloudant
+# TODO: IO variable logic
+# TODO: Commands from json?
+
 diary = Diary(CLOUDANT_USER, CLOUDANT_PASS)
 diary.select_db('dizzy')
 
@@ -54,7 +58,7 @@ async def time_trigger():
     while not client.is_closed:
         now = datetime.now()
         if now.weekday() in [0,3]:
-            if now.hour == 12:
+            if now.hour == 11:
                 await client.send_message(get_channel_by_name("general"), "GM posts come out today.")
                 await asyncio.sleep(3600)
         await asyncio.sleep(60)
@@ -93,7 +97,7 @@ def build_commands():
     parser.add(commander.Timecheck(pattern='(timecheck)'))
     parser.add(commander.Choose(pattern='(choose) (.*)'))
     parser.add(commander.Stab(pattern='(stab)'))
-    parser.add(commander.Refresh(pattern='(refresh)', io=3))
+    parser.add(commander.Refresh(pattern='(refresh)', io=1))
 
     log = commander.Log(pattern='(log) ([^ ]*)')
     log.requireauthor('Willowlark')
