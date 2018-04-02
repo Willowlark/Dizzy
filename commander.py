@@ -11,6 +11,7 @@ from os.path import join
 # TODO: Help input as a constructor value, which is placed in __str__.
 # TODO: Help interator for the Commander object
 # TODO: User stats (each user gets a document)
+# TODO: Dice bot
 
 class Commander(object):
 
@@ -153,7 +154,7 @@ class Log(Command):
         async for log in self.client.logs_from(self.get_channel_by_name(channel),limit=maxsize):
             queue.append(self.logged_format(log))
         open(join('logs', channel+'.md'), 'w').writelines(reversed(queue))
-        url = pastebin.paste('\n'.join(reversed(queue)))
+        url = pastebin.paste(channel, '\n'.join(reversed(queue)))
         await self.client.send_message(message.channel, 'Logging done @ ' + repr(url))
 
     @staticmethod

@@ -41,8 +41,6 @@ class Diary(object):
 
 
 if __name__ == '__main__':
-    username = "0b7824b2-ff6a-43c8-b37e-770568551b7e-bluemix"
-    password = "0b7998d6d61162eba46ef2c369c22b4beab3237596454454017196b65389f1a4"
 
     d = Diary(username, password)
     d.select_db('dizzy')

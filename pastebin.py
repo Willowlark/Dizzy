@@ -10,7 +10,7 @@ def paste(title, content):
             'api_dev_key' : PASTE_KEY,
             'api_paste_code' : content,
             'api_paste_private' : '0',
-            'api_paste_name' : '{}.md'.format(title),
+            'api_paste_name' : '{}'.format(title),
             'api_paste_expire_date' : 'N',
             'api_paste_format' : 'text'}
     data = urllib.parse.urlencode(values)
