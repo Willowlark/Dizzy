@@ -20,3 +20,6 @@ _*
 .idea
 __pycache__/diary.cpython-36.pyc __pycache__/scribe.cpython-36.pyc
 logs
+batch-logs
+posts
+issues

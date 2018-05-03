@@ -150,10 +150,21 @@ class Log(Command):
     async def action(self, message, match):
         channel = match[2]
         queue = []
+        attrition = None
+        auth = None
         tmp = await self.client.send_message(message.channel, 'Pulling messages from ' + channel+':')
         async for log in self.client.logs_from(self.get_channel_by_name(channel),limit=maxsize):
-            queue.append(self.logged_format(log))
-        open(join('logs', channel+'.md'), 'w').writelines(reversed(queue))
+            log, name, who = self.logged_format(log)
+            if auth is None:
+                auth = who
+                attrition = name
+            elif auth != who:
+                queue.append(attrition)
+                auth = who
+                attrition = name
+            queue.append(log)
+        queue.append(attrition)
+        open(join('batch-logs', channel+'.md'), 'w').writelines(reversed(queue))
         url = pastebin.paste(channel, '\n'.join(reversed(queue)))
         await self.client.send_message(message.channel, 'Logging done @ ' + repr(url))
 
@@ -163,7 +174,8 @@ class Log(Command):
             name = log.author.nick 
         except:
             name = log.author.name
-        return "**"+name + ':**\n\n' + log.content + '\n\n'
+        time = log.timestamp
+        return "{}\n\n".format(log.content), "**{}** - *{}*\n\n".format(name, time.date()), name
 
     def get_channel_by_name(self, string):
         for channel in self.client.get_all_channels():
