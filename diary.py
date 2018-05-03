@@ -5,6 +5,8 @@ import asyncio
 class Diary(object):
 
     def __init__(self, username, password):
+        self.user = username
+        self.password = password
         self.connection = client.Cloudant(username, password, account=username, connect=True)
         self.curr_db = ""
         self.db = None
@@ -19,12 +21,19 @@ class Diary(object):
         return wrapper
 
     def active_db(self):
-        return True if self.db is not None and self.db.exists() else False
+        try:
+            return True if self.db is not None and self.db.exists() else False
+        except:
+            self.connection = client.Cloudant(self.user, self.password, account=self.user, connect=True)
+            self.db = self.connection[self.curr_db]
+            return True if self.db is not None and self.db.exists() else False
+            
 
     def select_db(self, db):
         try:
             self.db = self.connection[db]
             self.scribe.scribe("selected Database '{}'".format(db))
+            self.curr_db = db
         except KeyError:
             self.scribe.scribe("No Database '{}'; load failed. No database selected.".format(db), 'error')
             self.db = None
