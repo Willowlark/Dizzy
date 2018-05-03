@@ -9,6 +9,7 @@ from sys import maxsize
 from datetime import datetime
 from datetime import timedelta
 from os.path import join
+from os import makedirs
 from collections import Mapping
 from diary import Diary
 from auth import *
@@ -52,6 +53,16 @@ async def on_message(message):
         save_state()
         load_state()
         build_commands()
+    
+    path = join('logs', message.channel.name)
+    makedirs(path, exist_ok=1)
+    with open(join(path,message.timestamp.date().isoformat()+'.txt'), 'a') as f:
+        try:
+            name = message.author.nick 
+        except:
+            name = message.author.name
+        f.write(name + ": " + message.content + '\n')
+
 
 async def time_trigger():
     await client.wait_until_ready()
