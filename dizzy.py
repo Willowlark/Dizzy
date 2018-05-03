@@ -62,6 +62,7 @@ async def on_message(message):
         except:
             name = message.author.name
         f.write(name + ": " + message.content + '\n')
+        print(name + ": " + message.content)
 
 
 async def time_trigger():
