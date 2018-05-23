@@ -54,11 +54,13 @@ async def on_message(message):
         load_state()
         build_commands()
     
+    # Logging
     path = join('logs', message.channel.name)
     makedirs(path, exist_ok=1)
     with open(join(path,message.timestamp.date().isoformat()+'.txt'), 'a') as f:
         try:
-            name = message.author.nick 
+            name = message.author.nick
+            assert name is not None
         except:
             name = message.author.name
         f.write(name + ": " + message.content + '\n')
@@ -135,6 +137,10 @@ def build_commands():
     setcounter = commander.CounterSet(options=COUNTERS, pattern='(counter) ([^ ]+) (set) ([0-9]+)', io=3)
     setcounter.requireauthor('Willowlark')
     parser.add(setcounter)
+
+    ghost = commander.Ghost(pattern='(ghost) (.*)')
+    ghost.requireauthor('Willowlark')
+    parser.add(ghost)
 
 def _stat_search(depth, keys, deep=1):
     for key in keys:

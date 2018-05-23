@@ -322,3 +322,10 @@ class Refresh(Command):
 
     async def action(self, message, match):
         await self.client.send_message(message.channel, "I'll go reread my notes!")
+
+class Ghost(Command):
+
+    async def action(self, message, match):
+        content = match[2]
+        await self.client.delete_message(message)
+        await self.client.send_message(message.channel, content)
