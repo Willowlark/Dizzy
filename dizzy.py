@@ -101,7 +101,7 @@ def save_state():
     global COUNTERS
     # remote = diary.load_document('counters')
     # remote = COUNTERS
-    COUNTERS.save()
+    diary.save_document('counters', COUNTERS)
 
 def build_commands():
     parser.commands.clear()
