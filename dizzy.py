@@ -3,6 +3,7 @@ import asyncio
 import re
 import random
 import json
+import diary
 from copy import deepcopy
 
 from sys import maxsize
@@ -11,7 +12,6 @@ from datetime import timedelta
 from os.path import join
 from os import makedirs
 from collections import Mapping
-from diary import Diary
 from auth import *
 import commander
 
@@ -19,7 +19,7 @@ import commander
 # TODO: IO variable logic
 # TODO: Commands from json?
 
-diary = Diary(CLOUDANT_USER, CLOUDANT_PASS)
+diary = diary.Offline_Diary(CLOUDANT_USER, CLOUDANT_PASS)
 diary.select_db('dizzy')
 
 LEWDS = []
