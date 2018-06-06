@@ -64,7 +64,7 @@ class Command(object):
     def compile(self):
         triggers = [''] if not self.triggers else self.triggers
         self.trigger_match = '^({t}){c}|^({t}) {c}'.format(t='|'.join(triggers), c='{c}')
-        self.expression = re.compile(self.trigger_match.format(c=self.pattern))
+        self.expression = re.compile(self.trigger_match.format(c=self.pattern), flags=re.DOTALL)
     
     def match(self, message):
         match = self.expression.match(message.content)
@@ -329,3 +329,5 @@ class Ghost(Command):
         content = match[2]
         await self.client.delete_message(message)
         await self.client.send_message(message.channel, content)
+        # for m in content.split('\n'):
+            # await self.client.send_message(message.channel, m)
