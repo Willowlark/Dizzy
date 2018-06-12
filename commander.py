@@ -59,6 +59,8 @@ class Command(object):
 
         self.author = []
         self.notauthor = []
+        self.server = []
+        self.notserver = []
         self.func = None
 
     def compile(self):
@@ -97,6 +99,14 @@ class Command(object):
         if self.notauthor:
             if message.author.name in self.notauthor:
                 return False
+                
+        # Server must/not
+        if self.server:
+            if message.server.name not in self.server:
+                return False
+        if self.notserver:
+            if message.server.name in self.notserver:
+                return False
 
         # Lambda 
         if self.func:
@@ -110,6 +120,12 @@ class Command(object):
     
     def requireauthor(self, name):
         self.author.append(name)
+        
+    def banserver(self, name):
+        self.notserver.append(name)
+    
+    def requireserver(self, name):
+        self.server.append(name)
 
     def setfunc(self, func):
         self.func = func

@@ -128,11 +128,21 @@ def build_commands():
     parser.add(commander.Reply(options='https://i.imgur.com/no93Chq.png', pattern='(prick)'))
     parser.add(commander.Reply(options='I ship Knight Light!', triggers=[''], pattern='.*ship.*knight light.*|.*knight light.*ship.*'))
 
-    parser.add(commander.CounterIncrement(options=COUNTERS, pattern='(counter) ([^ ]+) (add|sub) ([0-9]+)', io=3))
-    parser.add(commander.CounterCheck(options=COUNTERS, pattern='(counter) ([^ ]+) (check)', io=3))
-    parser.add(commander.CounterList(options=COUNTERS, pattern='(counter) (list)', io=1))
+    x = commander.CounterIncrement(options=COUNTERS, pattern='(counter) ([^ ]+) (add|sub) ([0-9]+)', io=3)
+    x.requireserver("The Realm of Aurii")
+    parser.add(x)
+    
+    x = commander.CounterCheck(options=COUNTERS, pattern='(counter) ([^ ]+) (check)', io=3)
+    x.requireserver("The Realm of Aurii")
+    parser.add(x)
+    
+    x = commander.CounterList(options=COUNTERS, pattern='(counter) (list)', io=1)
+    x.requireserver("The Realm of Aurii")
+    parser.add(x)
+    
     setcounter = commander.CounterSet(options=COUNTERS, pattern='(counter) ([^ ]+) (set) ([0-9]+)', io=3)
     setcounter.requireauthor('Willowlark')
+    setcounter.requireserver("The Realm of Aurii")
     parser.add(setcounter)
 
     ghost = commander.Ghost(pattern='(ghost) (.*)')
