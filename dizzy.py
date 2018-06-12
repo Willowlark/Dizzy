@@ -22,8 +22,7 @@ import commander
 diary = diary.Offline_Diary(CLOUDANT_USER, CLOUDANT_PASS)
 diary.select_db('dizzy')
 
-LEWDS = []
-BANS = []
+SETS = {}
 COUNTERS = {}
 
 client = discord.Client()
@@ -55,7 +54,7 @@ async def on_message(message):
         build_commands()
     
     # Logging
-    path = join('logs', message.channel.name)
+    path = join('logs', message.server.name, message.channel.name)
     makedirs(path, exist_ok=1)
     with open(join(path,message.timestamp.date().isoformat()+'.txt'), 'a') as f:
         try:
@@ -84,14 +83,11 @@ def get_channel_by_name(string):
             return channel
 
 def load_state():
-    global LEWDS
-    global BANS
+    global SETS
     global COUNTERS
-    optionals = diary.load_document('sets')
-    LEWDS.clear()
-    BANS.clear()
-    LEWDS.extend(optionals['lewds'])
-    BANS.extend(optionals['ban_reasons'])
+    SETS = diary.load_document('sets')
+    # SETS.clear()
+    # SETS.extend(optionals)
 
     COUNTERS = diary.load_document("counters")
 
@@ -106,8 +102,9 @@ def save_state():
 def build_commands():
     parser.commands.clear()
     parser.add(commander.RandomReply(triggers=['\U0001F51E'], options=['https://i.imgur.com/JbVqZOn.jpg'], pattern='(lewd)'))
-    parser.add(commander.RandomReply(options=LEWDS, pattern='(lewd)', io=1))
-    parser.add(commander.RandomReply(options=BANS, pattern='(kick|ban|kickban)', io=1))
+    parser.add(commander.RandomReply(options=SETS['lewds'], pattern='(lewd)', io=1))
+    parser.add(commander.RandomReply(options=SETS['dabs'], pattern='(dab)', io=1))
+    parser.add(commander.RandomReply(options=SETS['ban_reasons'], pattern='(kick|ban|kickban)', io=1))
     parser.add(commander.Timecheck(pattern='(timecheck)'))
     parser.add(commander.Choose(pattern='(choose) (.*)'))
     parser.add(commander.Stab(pattern='(stab)'))
