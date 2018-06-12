@@ -1,25 +1,11 @@
-_site
-.sass-cache
-Gemfile.lock
-*.gem
-_drafts
-.DS_Store
-
 # Bill's workspace additions
 _*
 .vscode
 **/.DS_Store
 .idea
 **/*.pyc
-
-
-# Bill's workspace additions
-_*
-.vscode
-**/.DS_Store
-.idea
-__pycache__/diary.cpython-36.pyc __pycache__/scribe.cpython-36.pyc
 logs
 batch-logs
 posts
 issues
+auth.py
