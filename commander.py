@@ -84,7 +84,8 @@ class Command(object):
             if self.check(message):
                 await self.action(message, match)
             else:
-                await self.client.send_message(message.channel, "I'm not allowed to let you do that, {}.".format(message.author.name))
+                # await self.client.send_message(message.channel, "I'm not allowed to let you do that, {}.".format(message.author.name))
+                pass
 
     async def action(self, message, match):
         await asyncio.sleep(10)
@@ -110,7 +111,7 @@ class Command(object):
 
         # Lambda 
         if self.func:
-            if not self.func(): 
+            if not self.func(message): 
                 return False
         
         return True

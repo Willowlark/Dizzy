@@ -115,11 +115,11 @@ def build_commands():
     parser.add(log)
 
     postday = commander.Reply(options='Yes, it is "Post Day".', triggers=[''], pattern='.*post day.*yet.*')
-    postday.setfunc(lambda: datetime.now().weekday() in [0, 3])
+    postday.setfunc(lambda x: datetime.now().weekday() in [0, 3])
     parser.add(postday)
     
     notpostday = commander.Reply(options="No, it isn't post day.", triggers=[''], pattern='.*post day.*yet.*')
-    notpostday.setfunc(lambda: datetime.now().weekday() not in [0, 3])
+    notpostday.setfunc(lambda x: datetime.now().weekday() not in [0, 3])
     parser.add(notpostday)
     
     parser.add(commander.Reply(options='https://i.imgur.com/55sx3FG.png', pattern='(tsun)'))
@@ -127,17 +127,20 @@ def build_commands():
     parser.add(commander.Reply(options='https://i.imgur.com/gilOf0I.gif', pattern='(teamwork)'))
     parser.add(commander.Reply(options='https://i.imgur.com/no93Chq.png', pattern='(prick)'))
     parser.add(commander.Reply(options='I ship Knight Light!', triggers=[''], pattern='.*ship.*knight light.*|.*knight light.*ship.*'))
+    
+    def f(message):
+        return message.server.name == "The Realm of Aurii" or message.author.name == "Willowlark"
 
     x = commander.CounterIncrement(options=COUNTERS, pattern='(counter) ([^ ]+) (add|sub) ([0-9]+)', io=3)
-    x.requireserver("The Realm of Aurii")
+    x.setfunc(f)
     parser.add(x)
     
     x = commander.CounterCheck(options=COUNTERS, pattern='(counter) ([^ ]+) (check)', io=3)
-    x.requireserver("The Realm of Aurii")
+    x.setfunc(f)
     parser.add(x)
     
     x = commander.CounterList(options=COUNTERS, pattern='(counter) (list)', io=1)
-    x.requireserver("The Realm of Aurii")
+    x.setfunc(f)
     parser.add(x)
     
     setcounter = commander.CounterSet(options=COUNTERS, pattern='(counter) ([^ ]+) (set) ([0-9]+)', io=3)
