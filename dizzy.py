@@ -4,7 +4,7 @@ import re
 import random
 import json
 import diary
-from copy import deepcopy
+# from copy import deepcopy
 
 from sys import maxsize
 from datetime import datetime
@@ -15,9 +15,9 @@ from collections import Mapping
 from auth import *
 import commander
 
-# TODO: Review loading and saving from Cloudant
-# TODO: IO variable logic
-# TODO: Commands from json?
+# TODO Review loading and saving from Cloudant
+# TODO IO variable logic
+# TODO Commands from json?
 
 diary = diary.Offline_Diary(CLOUDANT_USER, CLOUDANT_PASS)
 diary.select_db('dizzy')
@@ -72,7 +72,7 @@ async def time_trigger():
         now = datetime.now()
         if now.weekday() in [0,3]:
             if now.hour == 11:
-                await client.send_message(get_channel_by_name("general"), "GM posts come out today.")
+                await client.send_message(get_channel_by_name("ooc"), "GM posts come out today.")
                 await asyncio.sleep(3600)
         await asyncio.sleep(60)
 
@@ -98,6 +98,8 @@ def save_state():
     # remote = diary.load_document('counters')
     # remote = COUNTERS
     diary.save_document('counters', COUNTERS)
+    
+    print("Wrote into my Diary.")
 
 def build_commands():
     parser.commands.clear()
@@ -145,7 +147,6 @@ def build_commands():
     
     setcounter = commander.CounterSet(options=COUNTERS, pattern='(counter) ([^ ]+) (set) ([0-9]+)', io=3)
     setcounter.requireauthor('Willowlark')
-    setcounter.requireserver("The Realm of Aurii")
     parser.add(setcounter)
 
     ghost = commander.Ghost(pattern='(ghost) (.*)')
