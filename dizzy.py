@@ -141,6 +141,10 @@ def build_commands():
     x.setfunc(f)
     parser.add(x)
     
+    x = commander.CounterRemove(options=COUNTERS, pattern='(counter) ([^ ]+) (remove)', io=3)
+    x.setfunc(f)
+    parser.add(x)
+    
     x = commander.CounterList(options=COUNTERS, pattern='(counter) (list)', io=1)
     x.setfunc(f)
     parser.add(x)

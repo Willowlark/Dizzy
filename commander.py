@@ -309,7 +309,7 @@ class CounterCheck(Command):
         if target not in COUNTERS:
             await self.client.send_message(message.channel, "I'm not counting those right now.")
         else:
-            await self.client.send_message(message.channel, "The {} count {}.".format(target, COUNTERS[target]))
+            await self.client.send_message(message.channel, "The {} count is {}.".format(target, COUNTERS[target]))
 
 class CounterSet(Command):
 
@@ -321,6 +321,18 @@ class CounterSet(Command):
         COUNTERS[target] = amnt
         
         await self.client.send_message(message.channel, "The {} count is now {}!".format(target, COUNTERS[target]))
+        
+class CounterRemove(Command):
+
+    async def action(self, message, match):
+        target = match[2:]
+        COUNTERS = self.options
+
+        if target not in COUNTERS:
+            await self.client.send_message(message.channel, "I'm not counting those right now.")
+        else:
+            del COUNTERS[target]
+            await self.client.send_message(message.channel, "No longer counting {}!".format(target))
 
 class CounterList(Command):
 
