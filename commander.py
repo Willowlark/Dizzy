@@ -325,7 +325,7 @@ class CounterSet(Command):
 class CounterRemove(Command):
 
     async def action(self, message, match):
-        target = match[2:]
+        target = match[2]
         COUNTERS = self.options
 
         if target not in COUNTERS:
