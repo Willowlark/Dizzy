@@ -1,0 +1,3 @@
+Bill: : !counter drankaloos add 1
+Dizzy: The drankaloos count is now 9!
+Bill: !counter drankaloos add 1

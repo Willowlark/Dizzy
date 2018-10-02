@@ -1,0 +1,14 @@
+Bill: ```
+Eliran: 4 Dice Clever
+Aldus: 5 Dice Careful
+Nokri: *2 Dice* 
+Elfriede: *1 Die*
+Desii: 
+```
+
+Italic dice will be assigned to you when you take action against Morras. You've earned them, just can't use them till you do something to justify the attacks against Morras.
+Eliran (Halim): 2 dice atk, 2 dice defend
+Bill: /r 2d6<=3 + 2d6<=3 # Eliran Morras/Defend
+Sidekick: <@184437198865563648>:  `2d6<=3 + 2d6<=3` Eliran Morras/Defend = (1 2, 2 successes)+(~~4~~ 3, 1 success) = 3
+Bill: /r 2d6<=5 + 2d6<=5 +1d6<=5 + 1d6<=5 # Morras Eliran/Desii/Aldus/Enera
+Sidekick: <@184437198865563648>:  `2d6<=5 + 2d6<=5 +1d6<=5 + 1d6<=5` Morras Eliran/Desii/Aldus/Enera = (5 4, 2 successes)+(1 2, 2 successes)+(2, 1 success)+(3, 1 success) = 6

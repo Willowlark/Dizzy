@@ -1,0 +1,408 @@
+Halim (Mobiusmelt Cosplay): OK BUT AQUA GOT NORTED
+Bill 📷 (tlt_wm): Erik would be proud of me.
+Bill 📷 (tlt_wm): I have embraced the Erik.
+Erik (slendergiant): Did you buy the thing?
+Erik (slendergiant): https://www.youtube.com/watch?v=qMsH_3cRKeI
+Evie (Katheryne Knight): <@!184437198865563648> 40 hrs late but you don’t understand that being Norted™ pretty much is like...the end of the line in KH
+Bill 📷 (tlt_wm): ?
+Evie (Katheryne Knight): About Kingdome Hearts XD
+Bill 📷 (tlt_wm): What did I say tho.
+Evie (Katheryne Knight): You posted the video about casual fans vs. hardcore fans, and the “hardcore” fan screams “AQUA GOT NORTED”
+Being Norted in Kingdom Hearts is basically the end of the line
+Evie (Katheryne Knight): You get body snatched by the main villain and he uses you as a vessel to bring about the end of the world basically
+Erik (slendergiant): That was me who posted the video lol
+Bill 📷 (tlt_wm): Ye lol
+Marisa (Weeb): kingdom hearts iii had a really nice booth at tgs ~~and a line that capped like 20 minutes after they opened~~
+Evie (Katheryne Knight): D A M N
+Evie (Katheryne Knight): Shit sorry <@!386874959009415170>
+Evie (Katheryne Knight): XD
+Evie (Katheryne Knight): Tells you how awake I am
+Marisa (Weeb): wake up y'all
+Marisa (Weeb): i don't know what time it is
+oh wait yes i do
+Marisa (Weeb): it's selfie time
+Marisa (Weeb): go
+Marisa (Weeb): ***go***
+Bill 📷 (tlt_wm): ~~you have to start the chain then~~
+Marisa (Weeb): ehhhhhhhhhhhhhhhhhhhh
+Marisa (Weeb): ya u gotta start it then
+Bill 📷 (tlt_wm): ~~you already didn't post one in Aurii~~
+Georgia (Something Sensible): Y’all I was dickin around with the health app on my phone
+Georgia (Something Sensible): I think college... actually makes you healthy
+Georgia (Something Sensible): 
+Georgia (Something Sensible): That’s my average steps for the last year, like what the heck, I walked so much cause of class during the year
+Erik (slendergiant): Makes sense since you're walking everywhere
+Bill 📷 (tlt_wm): Yup.
+Bill 📷 (tlt_wm): Walking to class was probably the most exercise I've done in the last few years.
+Erik (slendergiant): Walking to class while carrying a 20+ lb backpack
+Bill 📷 (tlt_wm): Going to CS out for a hot second: I’m super proud of this utility script I wrote in the last half hour. It can load a sql command either directly from the command line, from a file containing the command (sometimes sql commands are long bois) or from a json file which lets you refer to a query with a short name (ie testme = <long as query>) AND for human readability the json can store a list of single line commands which get merged into the long boi automatically.
+Bill 📷 (tlt_wm): That’s four different ways to provide the query, and it took like... 15 lines.
+Georgia (Something Sensible): ~~Erik what language is he speaking it sounds so foreign~~
+Bill 📷 (tlt_wm): ~~who was supposed to be learning coding yesterday again~~
+Erik (slendergiant): He wrote a code that does something neat I'm guessing
+Jess (whoozica): yea georgia, how could you not learn the entirety of coding in one night, gawd
+Georgia (Something Sensible): I wasn’t learning I was doing researchhhh
+Georgia (Something Sensible): I’m gonna learn C++ for high energy physics first, and cause I was told I should do that before Python
+Georgia (Something Sensible): And then I’m using Python for astrophysics
+Bill 📷 (tlt_wm): *oof*
+Erik (slendergiant): The only "programming" I ever did in college was using Matlab to run calculations. I was really bad at it and my professor basically told me how to do our in-class problems because I had so many questions...
+Bill 📷 (tlt_wm): C++ is way harder than Pyrhon.
+Georgia (Something Sensible): Yeah I was told to learn it first and then Python will seem like cake
+Bill 📷 (tlt_wm): Meanwhile, I refuse to go back to lower level languages because Python is so much better than Java or C.
+Bill 📷 (tlt_wm): Which is why I'm in data science; the trend is to use Python!
+Georgia (Something Sensible): Astrophysics too
+Georgia (Something Sensible): But high energy will need C++
+Georgia (Something Sensible): And though I’m not specializing in high energy, I’ll still have to _do_ it
+Georgia (Something Sensible): Knowledge of coding is apparently one of the only things I’m missing with my NASA application
+Georgia (Something Sensible): <:Dab_Qrow_dab:455818767323365388>
+Bill 📷 (tlt_wm): As for what I did; 12 lines of code make
+```
+ipython run_query.py select * from bpcm.iqense_data 
+ipython run_query.py query.sql
+ipython run_query.py query.json get_everything
+ipython run_query.py query.json load_multiline
+```
+valid inputs.
+Bill 📷 (tlt_wm): The difference between the last lines shown in the query.json file,
+
+```
+{
+    "test": "select distinct EOM_PRIMARY_SALES_REP_IND from bluadmin.ims",
+    "iqense": [
+            "select i.* from bpcm.iqense_data i",
+            "join bpcm.cmc_data c",
+            "on i.claim_id = c.claim_id",
+            "and c.clm_submit_date >= '09-01-2018';"
+    ]
+}
+```
+Bill 📷 (tlt_wm): I would be surprised if NASA isn't using Python for number crunching.
+Bill 📷 (tlt_wm): If you learned the utilities I use, you'd be golden I'm sure.
+Bill 📷 (tlt_wm): Did they say anything specifically for NASA?
+Georgia (Something Sensible): It’s the department
+Georgia (Something Sensible): Astro is Python for sure but different subsections use diff stuff
+Bill 📷 (tlt_wm): Oh, Astro is NASA, not Rutgers?
+Georgia (Something Sensible): both lol
+Georgia (Something Sensible): conveniently
+Georgia (Something Sensible): python is the science big boi of programming ive always got the impression so
+Georgia (Something Sensible): _time to learn the language of the 🐍 _
+Bill 📷 (tlt_wm): It is.
+Erik (slendergiant): https://giphy.com/gifs/harry-potter-and-the-chamber-of-secrets-si9QFUXkItieY
+Bill 📷 (tlt_wm): That and R, but R is the devil as far as I'm concerned.
+Bill 📷 (tlt_wm): Python is universal though! Dizzy is written in Python.
+Jess (whoozica): you guys: coding 
+Me: https://www.buzzfeed.com/joannaborns/who-is-your-potato-boyfriend?bfsource=ovthpvariant
+Bill 📷 (tlt_wm): G A S P. You, my (alleged) wife, looking for a boyfriend. How cruel.
+Marisa (Weeb): Georgia gonna get a pet snake
+Bill 📷 (tlt_wm): https://www.hackathon.com/event/2018-nasa-space-apps-hackathon---kitchener-waterloo-region-49395615616 Canada main office is doing a NASA hackathon apparently too.
+Georgia (Something Sensible): im gonna speak parseltongue to qualify for a job
+Bill 📷 (tlt_wm): ~~maybe if parseltongue sounded like regular language~~
+Georgia (Something Sensible): i think if i could be the master of snakes, NASA would have to hire me
+Georgia (Something Sensible): i would open up the possibility for space snakes
+Erik (slendergiant): *Hesssha hasssssssa*
+Marisa (Weeb): SNASA, or Snake NASA
+Bill 📷 (tlt_wm): If you want parseltongue, you don't want Python.
+
+```
+print "I'm a snake."
+```
+Bill 📷 (tlt_wm): That's Python.
+Bill 📷 (tlt_wm): MEANWHILE, C:
+
+```
+#include <stdio.h>
+int main()
+{
+   // printf() displays the string inside quotation
+   printf("I'm a snake.");
+   return 0;
+}
+```
+Erik (slendergiant): https://www.buzzfeed.com/joannaborns/who-is-your-potato-boyfriend?utm_source=dynamic&utm_campaign=bfsharecopy&utm_term=.onOzyv4lM&quiz_result=121729248_362666546#121729248
+Erik (slendergiant): My boyfriend is french fries
+Bill 📷 (tlt_wm): **MEANWHILE**, in *Brainfuck*:
+Bill 📷 (tlt_wm): `+[-[<<[+[--->]-[<<<]]]>>>-]>-.---.>..>.<<<<-.<+.>>>>>.>.<<.<-.`
+Georgia (Something Sensible): i also got french fry man
+Georgia (Something Sensible): he is A GENTLE LOVER
+Jess (whoozica): I got hashbrown man
+Marisa (Weeb): Biru make your own language
+Bill 📷 (tlt_wm): I took a class on that. It sucked.
+Marisa (Weeb): Out of slashes and >< and snakes
+Georgia (Something Sensible): is french fry man a two timing ho
+Erik (slendergiant): I *guess* we can share him <@!245270932602486784>
+Bill 📷 (tlt_wm): ~~Brainfuck is a real language you can write code in~~
+Georgia (Something Sensible): or are we poly
+Georgia (Something Sensible): you GUESS
+Marisa (Weeb): Many fries
+Georgia (Something Sensible): I would like him tuesdays, wednesdays, and saturdays
+Georgia (Something Sensible): and every other friday
+Marisa (Weeb): Where’s the secret yandere potato route
+Erik (slendergiant): Works for me
+Georgia (Something Sensible): glad we could come to an understanding
+Bill 📷 (tlt_wm): *oh my god this page is full of sin*
+Marisa (Weeb): Sin, or snake in
+Erik (slendergiant): Soil, or snake oil
+Bill 📷 (tlt_wm): https://esolangs.org/wiki/Hello_world_program_in_esoteric_languages The basic program everyone starts with is to print "Hello World".
+Bill 📷 (tlt_wm): That is how to print Hello World is some of the most idiotic languages every designed.
+Bill 📷 (tlt_wm): Like:
+Bill 📷 (tlt_wm): ```
+Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+Ook. Ook. Ook. Ook. Ook! Ook? Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook? Ook! Ook! Ook? Ook! Ook? Ook.
+Ook! Ook. Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+Ook. Ook. Ook! Ook? Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook?
+Ook! Ook! Ook? Ook! Ook? Ook. Ook. Ook. Ook! Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook. Ook! Ook. Ook. Ook. Ook. Ook.
+Ook. Ook. Ook! Ook. Ook. Ook? Ook. Ook? Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook.
+Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook? Ook? Ook. Ook. Ook.
+Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook? Ook! Ook! Ook? Ook! Ook? Ook. Ook! Ook.
+Ook. Ook? Ook. Ook? Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook? Ook? Ook. Ook. Ook.
+Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+Ook. Ook? Ook! Ook! Ook? Ook! Ook? Ook. Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook.
+Ook? Ook. Ook? Ook. Ook? Ook. Ook? Ook. Ook! Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+Ook! Ook. Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook.
+Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook!
+Ook! Ook. Ook. Ook? Ook. Ook? Ook. Ook. Ook! Ook.
+```
+Georgia (Something Sensible): what about this one https://www.buzzfeed.com/daves4/lets-settle-this-once-and-for-all-what-letter-ar
+Marisa (Weeb): I like the one with lots of sparkly asterisks
+Jess (whoozica): despite getting hashbrown man, i perfer french fries
+Georgia (Something Sensible): i got pineapple juice
+Georgia (Something Sensible): well theres not enough days in the week to split him aNOTHER way
+Marisa (Weeb): The rusted chains of prison moons are shattered by the sun. Programming is deep.
+Georgia (Something Sensible): i didnt read those as "okay" i read them in a caveman voice going "OOK"
+Georgia (Something Sensible): like two cavemen talking
+Bill 📷 (tlt_wm): Those are ook.
+Jess (whoozica): I GOT PINEAPPLE TOO
+Bill 📷 (tlt_wm): 
+Marisa (Weeb): himym is my favorite anime
+Bill 📷 (tlt_wm): ~~Lulu?~~
+Erik (slendergiant): I got apple juice
+Georgia (Something Sensible): did you say your fear was the crushing weight of being alive as well
+Jess (whoozica): Nah, dying alone XD
+Erik (slendergiant): Question 3 got kind of real for a second
+Jess (whoozica): yeeeee
+Georgia (Something Sensible): i said ethereal
+Georgia (Something Sensible): lol
+Erik (slendergiant): I said dead...
+Jess (whoozica): me too yo
+Marisa (Weeb): poneapple woo
+Georgia (Something Sensible): pineapple squad
+Georgia (Something Sensible): + 1 apple
+Erik (slendergiant): **You got: Apple juice**
+*You’re a friendly person, but also someone who doesn’t take a lot of crap from anyone. You can be a little neurotic from time to time, but that comes with the territory. Once you trust a person, there’s nothing that can separate the two of you. You’re a good person to know.*
+Erik (slendergiant): Accurate
+Jess (whoozica): You got: Pineapple juice
+You’re a sociable person — someone who takes their friends and family seriously. You’re loyal, and never one to turn your back on a pal. You love a good ol’ fashioned get-together, something fun and not too wild.
+Bill 📷 (tlt_wm): 
+Bill 📷 (tlt_wm): ~~Um~~
+Georgia (Something Sensible): LOL WUT
+Jess (whoozica): LMAO
+Marisa (Weeb): claim juice................................
+Bill 📷 (tlt_wm): I don't know what... that is.
+Erik (slendergiant): https://www.buzzfeed.com/daveb49e00e0fd/plan-out-your-day-and-well-tell-you-what-2000s-an-q9yu
+Jess (whoozica): i think its supposed to be clam juice
+Georgia (Something Sensible): CLAIM juice lol
+Marisa (Weeb): 🇨 🇱 🇦 🇮 🇲 🇯 🇺 🇮 🇨 🇪
+Georgia (Something Sensible): 
+Jess (whoozica): i got FMA
+Bill 📷 (tlt_wm): Lucky you.
+Bill 📷 (tlt_wm): Baccano is one of my favorites.
+Erik (slendergiant): I got Death Note
+Bill 📷 (tlt_wm): It's really, really good.
+Marisa (Weeb): death note <:lenny:456549338026344489>
+Marisa (Weeb): is it because we picked goosebumps because every other show is bluh
+Georgia (Something Sensible): UHM NOOO?
+Bill 📷 (tlt_wm): Yeet.
+Georgia (Something Sensible): ive been binging a lot of friends lately with friends
+Georgia (Something Sensible): that sounds weird out of context
+Marisa (Weeb): tfw the shows they list aren't anime in an anime quiz
+Marisa (Weeb): i have a miria dress that somethings needs to be done with. like ironing. it should be ironed.
+Marisa (Weeb): we need a big quiz with lots of different outcomes
+Bill 📷 (tlt_wm): Issac and Miria are relationship goals.
+Tom (tomukuncosplay): 
+Tom (tomukuncosplay): Whelp,are there only two answers
+Jess (whoozica): nah at least 3, more likely four
+Georgia (Something Sensible): we are too similar gasp
+Jess (whoozica): 'its death note, baccano, fma and someting
+Tom (tomukuncosplay): Yeah most likely lmao
+Halim (Mobiusmelt Cosplay): 
+Tom (tomukuncosplay): Pfft
+Tom (tomukuncosplay): 3 answers it is
+Georgia (Something Sensible): _deliver us the fourth answer dammit_
+Marisa (Weeb): this list isn't fair
+https://www.buzzfeed.com/jeanlucbouchard/how-much-of-an-anime-otaku-are-you
+Halim (Mobiusmelt Cosplay): Ouran Highschool Host Club is another one
+Halim (Mobiusmelt Cosplay): (I started randomly answering it to find other results)
+Marisa (Weeb): nice science
+Jess (whoozica): hal has delivered the fourth answer, bless
+Marisa (Weeb): is everyone at work
+does anyone wanna play this
+https://animemusicquiz.com/
+Jess (whoozica): does tom qualify as "obsessed with anime"?
+Marisa (Weeb): tom are u obsessed with anime
+Georgia (Something Sensible): am i a weeb enough for that game? 🤔
+Tom (tomukuncosplay): I used to be maybe
+Marisa (Weeb): *join and find out*
+Tom (tomukuncosplay): I'm down to casul now most likely
+Jess (whoozica): im going with yes to the questiont hen cuz youw ere when we started dating lol
+Marisa (Weeb): i'm hosting a room called My Nyas? on the anime music game site
+Georgia (Something Sensible): if the quiz is classic 2010s anime ill kill it
+Georgia (Something Sensible): but otherwise...... ehhhh
+Georgia (Something Sensible): or like 2000s-2010s
+Marisa (Weeb): it's totally random, it's been like a year since i last played and i know they've done upgrades because before it was tooooo random but it miiiight have stuff like that in there? good chance
+Jess (whoozica): Sorry, but you’re just barely an otaku. You have a long way to go before senpai will notice you.
+Jess (whoozica): rip senpai will never notice me
+Marisa (Weeb): ~~i got serious otaku step up ur game jess~~
+Georgia (Something Sensible): creating an account is too much effort
+Georgia (Something Sensible): also i have physics due in two hours LOL
+Tom (tomukuncosplay): Yeah same lmao
+Marisa (Weeb): ignore physics, obtain anime song knowledge
+Bill 📷 (tlt_wm): I gotta go drive to the docta.
+Marisa (Weeb): great u can play while driving
+Marisa (Weeb): def not dangerous at all
+Tom (tomukuncosplay): Have you gotten medicine for it yet biru?
+Tom (tomukuncosplay): tummy meds?
+Tom (tomukuncosplay): Wittle tummy mweds owo
+Georgia (Something Sensible): WOW IM DOING A DUNKIN DONUTS SURVEY cause i want a free donut
+Georgia (Something Sensible): they actually ask how the facility is compared to a starbucks or other convenience store
+Tom (tomukuncosplay): D and d isn't bad, just not as cozy of an environment as Starbucks, and Starbucks employees are in general nicer
+Tom (tomukuncosplay): Not taking sides tho, I like both
+Jess (whoozica): oo apparently alot of coffee places are doing free coffees today!
+Tom (tomukuncosplay): Starbucks coffee is also better but oops. NO DONUTS SO
+Georgia (Something Sensible): D&D
+Georgia (Something Sensible): D&D........
+Georgia (Something Sensible): dunkin donuts and dungeons and dragons......
+Jess (whoozica): ah yes, Dunkin and donuts
+Georgia (Something Sensible): if you eat enough donuts you get to fight dunkin
+Marisa (Weeb): THE YONA SONG CAME ON THE ANIME SNOG QUIZ IM SO SHAPPY
+Georgia (Something Sensible): Anime snog 🤔
+Tom (tomukuncosplay): WHERES BOUKEN DESHO DESHO
+Bill 📷 (tlt_wm): Ye. Been on nexium for the last two weeks.
+Bill 📷 (tlt_wm): I need some fall themed music.
+Marisa (Weeb): yona theme song
+Tom (tomukuncosplay): ALL SPICEY WOLF SONGS
+Tom (tomukuncosplay): And oddly enough okami san gives me that feel too
+Marisa (Weeb): SEVEN APPLES ON DA WITCHES TREE
+SEVEN SEEDS TO PLANT INSIDE DA MEAD
+Tom (tomukuncosplay): ☝ ☝ ☝ ☝ ☝ ☝ ☝ ☝ ☝ ☝ ☝
+Tom (tomukuncosplay): DEN SKIPPIN ALONNN
+Tom (tomukuncosplay): I SAN DA SAWN TO EBRYONE
+Bill 📷 (tlt_wm): TRUE
+Bill 📷 (tlt_wm): But it’s an hour drive, I need more than that.
+Marisa (Weeb): natsume yuujinchou songs?
+Tom (tomukuncosplay): Footprints in the sand song?
+Tom (tomukuncosplay): It's been so long I don't even remember it anymore lmao
+Tom (tomukuncosplay): Moonphase song?
+Tom (tomukuncosplay): VAMPIRE.KNIGT?
+Tom (tomukuncosplay): SPOOOOKKYUYY
+Tom (tomukuncosplay): Prob soul eater too
+Tom (tomukuncosplay): More spooky anime
+Tom (tomukuncosplay): HIGURASHI
+Marisa (Weeb): the different variations of Dear You alone can take up like 40 minutes
+Bill 📷 (tlt_wm): ~~what about not weeb flavored~~
+Marisa (Weeb): wh
+huh
+Marisa (Weeb): ??
+Tom (tomukuncosplay): Wutdat
+Tom (tomukuncosplay): SPOOKY SCARY SKELETONS
+Tom (tomukuncosplay): SANS THEME
+Marisa (Weeb): ^^^^
+Tom (tomukuncosplay): SPIDER DANCE
+Tom (tomukuncosplay): All legend of Zelda soundtracks
+Marisa (Weeb): megalovania from homestuck and undertale overlapped
+Marisa (Weeb): the homestuck soundtrack
+Tom (tomukuncosplay): Nah purests only.listen to the earthbound Halloween mod version
+Tom (tomukuncosplay): See?spooky?
+Tom (tomukuncosplay): Angelbeats OP
+Tom (tomukuncosplay): Oops back to weeb
+Tom (tomukuncosplay): Uhhhhh
+Tom (tomukuncosplay): Danny phantom opening
+Marisa (Weeb): golden time has nice themes
+Tom (tomukuncosplay): CODE LYOKO THEME OR RIOT
+Tom (tomukuncosplay): Morrowind soundtrack
+Erik (slendergiant): Boss took some of us out for lunch which means I got to drink during work hours 👌🏻
+Leanna (Lipstickgiraffe): 
+Bill 📷 (tlt_wm): I’m basically in New York for this guy, sheesh.
+Bill 📷 (tlt_wm): I think the mood I want music wise is a country variant.
+Bill 📷 (tlt_wm): Amazingly.
+Leanna (Lipstickgiraffe): <:pyrrhascream:378296738160574465>
+Leanna (Lipstickgiraffe): <:blockyhands:484798627752181761>
+Bill 📷 (tlt_wm): Scary right?
+Bill 📷 (tlt_wm): Can’t think of anything like it tho.
+Tom (tomukuncosplay): 🤢
+Erik (slendergiant): A country *variant* you say?
+Erik (slendergiant): Might I recommend...
+Erik (slendergiant): https://youtu.be/rvrZJ5C_Nwg
+Evie (Katheryne Knight): S T O P THAT MEME KILLS ME
+Bill 📷 (tlt_wm): I think it might be singer songwriter.
+Bill 📷 (tlt_wm): Like, the mood is a night by a bonfire and everything smells like apples.
+Erik (slendergiant): Apparently at the RTAA panel they did a version with Burnie screaming about construction
+Bill 📷 (tlt_wm): So I ended up next town over from fort Lee.
+Bill 📷 (tlt_wm): Do I... just not head back to work after the doctor and go to the legendary mitsuwa marketplace,
+Leanna (Lipstickgiraffe): yes
+Leanna (Lipstickgiraffe): go to the food court, indulge in some good fucking food
+Bill 📷 (tlt_wm): ~~It’s 3 miles away~~
+Leanna (Lipstickgiraffe): DO IT
+Tom (tomukuncosplay): Ooooof I wanna go there
+Bill 📷 (tlt_wm): Course I got here 20 minutes early and it’s now been a half hour since my appointment time and I’m still in the waiting room.
+Tom (tomukuncosplay): Yeah almsot no point for doctors
+Erik (slendergiant): Oh shit my business cards were delivered
+Bill 📷 (tlt_wm): *i feel like such a weeb yet these are real Japanese people*
+Leanna (Lipstickgiraffe): ARE YOU THERE
+Leanna (Lipstickgiraffe): get taiyaki
+Leanna (Lipstickgiraffe): dont leave unles you have taiyaki
+Leanna (Lipstickgiraffe): 👀
+Erik (slendergiant): I'm taking a break from the manual labor I've been doing at work to read the BNHA manga and...
+Evie (Katheryne Knight): N E C K
+Erik (slendergiant): Who is this giraffe man?
+Leanna (Lipstickgiraffe): dad?
+Evie (Katheryne Knight): More like...LONG MIGHT
+Rebecca (madameterralupus): *yaoi neck*
+Erik (slendergiant): All Might, alola form
+Bill 📷 (tlt_wm): YOU MEAN I CAN LIVE OUT THE DREAM IVE HAD SINCE I FIRST WATCHED KANON, MY FIRST ANIME?!
+Leanna (Lipstickgiraffe): YES BILL
+Bill 📷 (tlt_wm): LOOK AT THIS
+Bill 📷 (tlt_wm): @everyone !
+Erik (slendergiant): That's it. That's the BNE mascot
+Rebecca (madameterralupus): We all need it 😂
+snow ( karma chameleon ): Bless
+Bill 📷 (tlt_wm): They don’t carry my size and it’s probably Asian size anyway
+Bill 📷 (tlt_wm): Them: 30 minutes for Taiyaki 
+Me: ...
+Me: Worth it I’ll take 6.
+Leanna (Lipstickgiraffe): fucking exactly
+Bill 📷 (tlt_wm): I might cry.
+Bill 📷 (tlt_wm): I also might hate them.
+Bill 📷 (tlt_wm): I don’t even care.
+Bill 📷 (tlt_wm): Since ***day 1***
+Bill 📷 (tlt_wm): I wanted Taiyaki.
+Bill 📷 (tlt_wm): I started Anime with Kanon, as you know.
+Bill 📷 (tlt_wm): 200 and like, 7.
+Bill 📷 (tlt_wm): This is the end. I have reached the end of anime.
+Leanna (Lipstickgiraffe): thats it, everyone can go home, anime king reached the end of anime
+Bill 📷 (tlt_wm): I can stop watching anime. Leave these chats. Go play football or smoke weed like all the cool kids.
+Jess (whoozica): ~~you already stopped~~
+Erik (slendergiant): https://i.ytimg.com/vi/IgXd38DWj3g/hqdefault.jpg
+Evie (Katheryne Knight): I need that dab kitten shirt
+Erik (slendergiant): So I went to close up shop and couldn't remember if I had already clocked out so I may or may not have just clocked back in as I was leaving... ~~they'll figure it out later~~
+Bill 📷 (tlt_wm): ~~I need to do a thing for work but I’m an hour away in rush hour traffic~~
+Tom (tomukuncosplay): Omg
+Tom (tomukuncosplay): Yeah I wanna try taiyaki too
+Tom (tomukuncosplay): Dave and Ash got it last weekend
+Leanna (Lipstickgiraffe): It's so gooooood
+Heather (batgoddesscosplay): Alll the cute and yum
+Erik (slendergiant): Yeah, 100 was good to start with
+Evie (Katheryne Knight): Nice!!
+Evie (Katheryne Knight): Where did you do yours <@!386874959009415170> v
+Evie (Katheryne Knight): *?
+Erik (slendergiant): Vistaprint
+Evie (Katheryne Knight): Okay but how did you get such good font like what am I missing XD
+Erik (slendergiant): It was just one of the available fonts in their designer lol
+Matt (mattmyers25): So there is a hot air balloon just hanging over Hershey
+Rebecca (madameterralupus): They do that... lol probs a tour thingy
+Matt (mattmyers25): But it looks like it's about to crush a housr
+Rebecca (madameterralupus): Welp, RIP house??
+Matt (mattmyers25): And power lines
+Bill 📷 (tlt_wm): ~~someone call Kiki~~

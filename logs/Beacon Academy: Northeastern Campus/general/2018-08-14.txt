@@ -1,0 +1,38 @@
+Bill 📷 (tlt_wm): https://kinjadeals.theinventory.com/a-bunch-of-first-party-switch-games-are-on-sale-for-45-1828325464 <@!386874959009415170> <@!170686358535274497> <@!382689138450890752>
+Bill 📷 (tlt_wm): ~~I know I just came back from otakon, shush~~
+Bill 📷 (tlt_wm): So 90% "ISO" is supposed to be "In Search Of" but ISO *is* a photography term so I was rather confused.
+Jess (whoozica): oo that gets me too! i get so confused
+Bill 📷 (tlt_wm): She's actually looking for a photographer who specializes in using high ISO.
+Bill 📷 (tlt_wm): Totes.
+Erik (slendergiant): Meanwhile in the manufacturing world, ISO is the International Organization for Standardization
+Bill 📷 (tlt_wm): Aren't acronyms fun?
+Jess (whoozica): wouldnt that be IOS?
+Erik (slendergiant): 
+Bill 📷 (tlt_wm): *Funn Fact*; ISO in photography is *also* International Organization of Standardization.
+Bill 📷 (tlt_wm): Photography just used the name of the standard for light sensitivity to identify it.
+Erik (slendergiant): https://giphy.com/gifs/star-shooting-the-more-you-know-3og0IMJcSI8p6hYQXS
+Bill 📷 (tlt_wm): https://twocents.lifehacker.com/what-to-know-about-money-before-youre-20-1828189748
+Bill 📷 (tlt_wm): Most of us are over 20, but I'm sure it's still interesting.
+Mark (Mad Doctor): All good advice. I'm proud that I've always lived frugally, and while I might have the crappiest car in the lot and the smallest house on the block, there's a lot to be said for living with minimal debt. Life has a way of hammering you with extraordinary expenses that are hard to budget for in advance: medical expenses, car repairs, plumbing emergencies. We've gone from fairly comfortable to week-to-week several times. And I don't think it has gotten easier since I was your age
+Erik (slendergiant): That's how my family was too. We never really spent a lot on big fancy things and thus never racked up a lot of debt.
+Bill 📷 (tlt_wm): Never spend more on credit than you have. I've been told that since I was 14.
+Bill 📷 (tlt_wm): I've had a credit card (cosigned with parents) since like, 16 too. I didn't use it till college, but having it started building my credit early.
+Erik (slendergiant): I got my first when I went to college
+Bill 📷 (tlt_wm): ye. One of the factors of credit score is how long you've had credit accounts for; so it's good to at least open it early.
+Bill 📷 (tlt_wm): put your monthly whatever payment on it and nothing else, if you hate credit, but it builds a record of you paying off bills on time.
+Mark (Mad Doctor): Yeah, because of our habits, our credit score was so high that banks practically threw money at us when we were shopping for a house. The loans they were offering we're more than 50% higher than the homes we we're looking at. Briefly tempted, but we settled on a nice home we can pay off in my lifetime
+Bill 📷 (tlt_wm): YEEEAAaaaH It's stupid how much banks end up willing to offer you.
+Erik (slendergiant): When my parents were shopping for a house, banks were offering them super big loans but settled on the house we're in now. My dad's been paying extra on the mortgage and just paid it off like a year or two ago.
+Bill 📷 (tlt_wm): Erik, STL files are basically PSD files for CAD right?
+Erik (slendergiant): basically, yes
+Erik (slendergiant): well, they're not editable
+Bill 📷 (tlt_wm): Oh, they're exports?
+Erik (slendergiant): yeah, it's the standard export for importing into a slicer software before converting it to G-code for 3D printing
+Bill 📷 (tlt_wm): hmmu hmmu. I saw scribble's story about finding a good way to incrementally release a project of his; I was wondering if github would be a good idea.
+Bill 📷 (tlt_wm): I'm thinking not, even putting aside github is kinda technical.
+Erik (slendergiant): ah ok. I just saw his story
+Bill 📷 (tlt_wm): Github is version control and basically the tool that enables open source development, butttt may not perfectly apply.
+Erik (slendergiant): Thingiverse is typically the go-to for distributing CAD files, but typically they're free to download and I'm not sure if that's something he'd be ok with
+Bill 📷 (tlt_wm): I think that's the intention?
+Bill 📷 (tlt_wm): <@!386874959009415170>
+Erik (slendergiant): So are Ren, Cardin, and Fennec
