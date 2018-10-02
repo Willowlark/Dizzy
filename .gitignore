@@ -4,8 +4,7 @@ _*
 **/.DS_Store
 .idea
 **/*.pyc
-logs
-batch-logs
+
 posts
 issues
 auth.py

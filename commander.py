@@ -182,6 +182,7 @@ class Log(Command):
                 attrition = name
             queue.append(log)
         queue.append(attrition)
+        # TODO use makedirs here
         open(join('batch-logs', channel+'.md'), 'w').writelines(reversed(queue))
         url = pastebin.paste(channel, '\n'.join(reversed(queue)))
         await self.client.send_message(message.channel, 'Logging done @ ' + repr(url))
