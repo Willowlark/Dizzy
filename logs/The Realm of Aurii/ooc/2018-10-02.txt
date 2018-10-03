@@ -89,3 +89,45 @@ Dizzy: Pulling messages from table-1:
 Dizzy: Pulling messages from table-1:
 Dizzy: Logging done @ b'https://pastebin.com/44ccGuYR'
 Bill: !log table-1
+Dizzy: Pulling messages from table-2:
+Bill: !log table-2
+Dizzy: Logging done @ b'https://pastebin.com/JFfbQb6p'
+Dizzy: Pulling messages from table-3:
+Dizzy: Logging done @ b'https://pastebin.com/aGE5sZ4A'
+Bill: !log table-3
+Dizzy: Pulling messages from table-4:
+Dizzy: Logging done @ b'https://pastebin.com/XrLE1rpg'
+Bill: !log table-4
+Dizzy: Pulling messages from table-5:
+Dizzy: Logging done @ b'https://pastebin.com/hegu0byL'
+Bill: !log table-5
+Dizzy: Pulling messages from head-table:
+Dizzy: Logging done @ b'https://pastebin.com/HEkDak2w'
+Bill: !log head-table
+Dizzy: Pulling messages from aside-1:
+Dizzy: Logging done @ b'https://pastebin.com/r8RH4Ap3'
+Bill: !log aside-1
+Dizzy: Pulling messages from aside-2:
+Dizzy: Logging done @ b'https://pastebin.com/wBU7iZKt'
+Bill: !log aside-2
+Dizzy: Pulling messages from aside-3:
+Dizzy: Logging done @ b'https://pastebin.com/eDKb6Wsb'
+Bill: !log aside-3
+Dizzy: Pulling messages from aurii-chibi:
+Dizzy: Logging done @ b'https://pastebin.com/1H1iFhEH'
+Bill: !log aurii-chibi
+Bill: oh the asides-nsfw never got used.
+Bill: shame.
+Nokri (Marisa): That doesn’t even exi
+Oh. *good.*
+Bill: The pastebins don't matter. They're all saved to to Dizzy's git repo.
+Bill: https://github.com/Willowlark/Dizzy/tree/master/batch-logs
+Dizzy: Pulling messages from characters:
+Dizzy: Logging done @ b'https://pastebin.com/n2WFkLQQ'
+Bill: !log characters
+Afina (Georgia): Yeah I’ve just been sad and busy that’s my explanation lol
+Afina (Georgia): I still love the game to death but it’s hard to be inspired when you’re dealing with real world problemos
+Afina (Georgia): I vote we take a break and re-take up audio under a timeskip when everyone’s ready to
+Bill: Yeah, no explanation needed. We’re all in agreement with it and that’s good.
+Bill: 
+Bill: ~~As much as I'm never going to watch it, a BNHA tabletop could be amusing~~
