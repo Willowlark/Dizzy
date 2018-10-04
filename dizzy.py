@@ -72,7 +72,7 @@ async def time_trigger():
         now = datetime.now()
         if now.weekday() in [0,3]:
             if now.hour == 11:
-                await client.send_message(get_channel_by_name("ooc"), "GM posts come out today.")
+                # await client.send_message(get_channel_by_name("ooc"), "GM posts come out today.")
                 await asyncio.sleep(3600)
         await asyncio.sleep(60)
 
