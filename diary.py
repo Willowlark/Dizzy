@@ -4,6 +4,8 @@ import asyncio
 import os
 import json
 
+# TODO Create AWS RDS database logs
+
 class Diary(object):
 
     def __init__(self, username, password):
