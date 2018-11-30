@@ -150,7 +150,7 @@ class Timecheck(Command):
 
     async def action(self, message, match):
         now = datetime.utcnow()
-        nowam = now - timedelta(hours=4)
+        nowam = now - timedelta(hours=5)
         nowjp = now + timedelta(hours=9)
         msg = "It's currently {} in EST and {} in Weebland.".format(
             nowam.strftime("%H:%M"), nowjp.strftime("%H:%M"))
