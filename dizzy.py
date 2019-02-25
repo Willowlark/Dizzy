@@ -157,7 +157,7 @@ def build_commands():
     ghost.requireauthor('Willowlark')
     parser.add(ghost)
     
-    md = commander.Mass_Delete(pattern='(mdl (.*)')
+    md = commander.Mass_Delete(pattern='(mdl) (.*)')
     parser.add(md)
 
 def _stat_search(depth, keys, deep=1):
