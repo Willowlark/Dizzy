@@ -174,7 +174,7 @@ class Mass_Delete(Command):
         queue = []
         async for channel in self.client.get_all_channels():
             if channel.server == "The Realm of Aurii":
-                await client.purge_from(channel, *, limit=1, check=_check)
+                await client.purge_from(channel, limit=1, check=_check)
 
 class Log(Command):
 
