@@ -70,7 +70,7 @@ class Command(object):
         self.expression = re.compile(self.trigger_match.format(c=self.pattern), flags=re.DOTALL)
     
     def match(self, message):
-        match = self.expression.match(message.content)
+        match = self.expression.search(message.content)
         if match:
             return [x for x in match.groups() if x is not None]
         else:
