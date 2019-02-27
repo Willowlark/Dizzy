@@ -130,6 +130,9 @@ def build_commands():
     parser.add(commander.Reply(options='https://i.imgur.com/no93Chq.png', pattern='(prick)'))
     parser.add(commander.Reply(options='I ship Knight Light!', triggers=[''], pattern='.*ship.*knight light.*|.*knight light.*ship.*'))
     
+    ethan_cmd = ".*[Ee]than.*wants.*|.*for.*[Eethan].*|.*[Ee]than.*asked.*"
+    parser.add(commander.Reply(options='Biru says just tell him no already...', triggers=[''], pattern=ethan_cmd))
+    
     def f(message):
         return message.server.name == "The Realm of Aurii" or message.author.name == "Willowlark"
 
@@ -156,9 +159,6 @@ def build_commands():
     ghost = commander.Ghost(pattern='(ghost) (.*)')
     ghost.requireauthor('Willowlark')
     parser.add(ghost)
-    
-    md = commander.Mass_Delete(pattern='(mdl) (.*)')
-    parser.add(md)
 
 def _stat_search(depth, keys, deep=1):
     for key in keys:

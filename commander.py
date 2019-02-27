@@ -163,18 +163,6 @@ class Choose(Command):
         option = random.choice(options) if "knight light" not in options else "knight light"
         await self.client.send_message(message.channel, 'You should choose '+ option)
 
-class Mass_Delete(Command):
-    
-    def _check(message):
-        if 'Leanna' in message.content or 'leanna' in message.content:
-            return True
-
-    async def action(self, message, match):
-        queue = []
-        async for channel in self.client.get_all_channels():
-            if channel.server == "The Realm of Aurii":
-                await self.client.purge_from(channel, limit=1, check=_check)
-
 class Log(Command):
 
     async def action(self, message, match):
