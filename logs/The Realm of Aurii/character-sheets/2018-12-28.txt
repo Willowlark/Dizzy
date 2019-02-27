@@ -1,0 +1,33 @@
+Bill: **Intro**
+Bill: **Template**
+
+```
+**Name**
+
+**Fate Points:** 3
+**Stress:** [ ] [ ] [ ]
+**Consequences:**
+2  Mild:
+4  Moderate:
+6  Severe: 
+
+**Aspects**
+
+
+**Approaches**
+Careful: 
+Clever:
+Flashy: 
+Forceful: 
+Quick: 
+Sneaky: 
+
+**Stunt:**
+```
+Bill: **Template Explained**
+Bill: **Reserved**
+Bill: **Reserved**
+Bill: **Reserved because I'm EXTRA**
+Bill: **MORE Reserved because Character limits are *gay***
+Bill: **One more for the guy in the back**
+Bill: **Yeah lots of Reservations, no tables left**

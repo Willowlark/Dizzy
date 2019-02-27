@@ -1,0 +1,5 @@
+Andrew: Hello all I know I don't post lurking is a pasttime.
+I've been wanting to get back into using GIS software to get used to it again, so I need a project to start.
+The project I want to work on is making a map of cons in the northeast that we all go to. This will be a visual representation of all the cons and/or possibly photo shoots in
+the area. I have a general idea of the look of it in my head, but what I want form you all is input on what kind of data would be good to display in the map. Some ideas I had 
+included things like con size, cost of attendance/hotels, etc. I wanted to hear what you all thought and some ideas for what could be on it.
