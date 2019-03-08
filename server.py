@@ -141,6 +141,57 @@ class BNE(Interface):
         
         return command_set
 
+class ASPN(Interface):
+
+    def generate_commands(self):
+        command_set = Parser(self.client, ['!', 'Dizzy,'])
+        
+        command_set.add(commands.RandomReply(options=self.diaries['Local'].data["Sets"]['lewds'], pattern='(lewd)'))
+        command_set.add(commands.RandomReply(options=self.diaries['Local'].data["Sets"]['dabs'], pattern='(dab)'))
+        command_set.add(commands.RandomReply(options=self.diaries['Local'].data["Sets"]['ban_reasons'], pattern='(kick|ban|kickban)'))
+        command_set.add(commands.Choose(pattern='(choose) (.*)'))
+        command_set.add(commands.Refresh(pattern='(refresh)', options=[self.diaries]))
+
+        log = commands.Log(pattern='(log) ([^ ]*)')
+        log.requireauthor('Willowlark')
+        command_set.add(log)
+        
+        command_set.add(commands.Reply(options='https://i.imgur.com/55sx3FG.png', pattern='(tsun)'))
+        command_set.add(commands.Reply(options='https://i.imgur.com/hXuK1cP.png', pattern='(hush)'))
+        command_set.add(commands.Reply(options='https://i.imgur.com/gilOf0I.gif', pattern='(teamwork)'))
+        command_set.add(commands.Reply(options='https://i.imgur.com/no93Chq.png', pattern='(prick)'))
+
+        ghost = commands.Ghost(pattern='(ghost) (.*)')
+        ghost.requireauthor('Willowlark')
+        command_set.add(ghost)
+        
+        command_set.add(commands.Fudge(pattern='(fudge)'))
+
+        x = commands.CounterIncrement(options=self.diaries['Local'], pattern='(counter) (add|sub) ([^ ]+) ([0-9]+)')
+        command_set.add(x)
+        
+        x = commands.CounterCheck(options=self.diaries['Local'], pattern='(counter) (check) ([^ ]+)')
+        command_set.add(x)
+        
+        x = commands.CounterRemove(options=self.diaries['Local'], pattern='(counter) (remove) ([^ ]+)')
+        command_set.add(x)
+        
+        x = commands.CounterList(options=self.diaries['Local'], pattern='(counter) (list)')
+        command_set.add(x)
+        
+        setcounter = commands.CounterSet(options=self.diaries['Local'], pattern='(counter) (set) ([^ ]+) ([0-9]+)')
+        # setcounter.requireauthor('Willowlark')
+        command_set.add(setcounter)
+
+        # command_set.add(commands.CharactersScan(pattern='(chscan)', options=self.diaries['Local']))
+        command_set.add(commands.CharacterLoad(pattern='(chload) ([^ ]*) (.*)', options=self.diaries['Local']))
+        command_set.add(commands.CharacterCheck(pattern='(chcheck) ([^ ]*) (.*)', options=self.diaries['Local']))
+        command_set.add(commands.CharacterList(pattern='(chlist)', options=self.diaries['Local']))
+        command_set.add(commands.CharacterRoll(pattern='(chroll) ([^ ]*) ([^ ]*)', options=self.diaries['Local']))
+        command_set.add(commands.CharacterMod(pattern='(chmod) ([^ ]*) ([^ ]*|Fate Points) ([0-9])', options=self.diaries['Local'])) # TODO Actual regex that takes split words.
+        
+        return command_set
+
 def create(client, config):
     parsed = json.loads(open(config).read())
     
@@ -148,5 +199,7 @@ def create(client, config):
         return Aurii(client, parsed)
     elif parsed['Server Class'] == 'BNE':
         return BNE(client, parsed)
+    elif parsed['Server Class'] == 'ASPN':
+        return ASPN(client, parsed)
     else:
         raise Exception("Server Class undefined.'")

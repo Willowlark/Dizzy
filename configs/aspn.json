@@ -1,0 +1,18 @@
+{
+    "Server Name": "A S P N",
+    "Server Class": "ASPN",
+    "DBs": [
+        {
+            "DB_Name": "Local",
+            "DB_Type": "FlatJson",
+            "DB": ".",
+            "DB_User": "",
+            "DB_Pass": "",
+            "Tables": {
+                "Counters": "aspn/counters.json",
+                "Sets": "aurii/sets.json",
+                "Characters": "aspn/characters.json"
+            }
+        }
+    ]
+}
