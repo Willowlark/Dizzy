@@ -34,9 +34,9 @@ async def on_message(message):
     
     source_server = message.server.name
     
-    try: 
+    if source_server in servers:
         await servers[source_server].handle(message)
-    except KeyError:
+    else:
         print("server {} not handled right now, only logging.".format(source_server))
     
     # Logging

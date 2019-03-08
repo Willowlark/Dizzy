@@ -10,7 +10,8 @@
             "DB_Pass": "",
             "Tables": {
                 "Counters": "aurii/counters.json",
-                "Sets": "aurii/sets.json"
+                "Sets": "aurii/sets.json",
+                "Characters": "aurii/characters.json"
             }
         }
     ]

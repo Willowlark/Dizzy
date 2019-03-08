@@ -28,7 +28,7 @@ class FlatJson(object):
     def save(self):
         for name, path in self.tables.items():
             with open(path, 'w') as f:
-                f.write(json.dumps(self.data[name]))
+                f.write(json.dumps(self.data[name], indent=4))
         return self.data
         
 def publisher(config):

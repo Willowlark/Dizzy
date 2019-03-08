@@ -1,0 +1,42 @@
+{
+    "Sherwood Cathasaigh": {
+        "Name": "Sherwood Cathasaigh",
+        "Fate Points": 3,
+        "Careful": 2,
+        "Clever": 1,
+        "Flashy": 0,
+        "Forceful": 3,
+        "Quick": 1,
+        "Sneaky": 2
+    },
+    "Afina Theia Tyndall - (22)": {
+        "Name": "Afina Theia Tyndall - (22)",
+        "Fate Points": 3,
+        "Careful": 1,
+        "Clever": 3,
+        "Flashy": 1,
+        "Forceful": 2,
+        "Quick": 2,
+        "Sneaky": 0
+    },
+    "Example": {
+        "Name": "Example",
+        "Fate Points": 3,
+        "Careful": 2,
+        "Clever": 3,
+        "Flashy": 0,
+        "Forceful": 1,
+        "Quick": 2,
+        "Sneaky": 1
+    },
+    "sher": {
+        "Name": "Sherwood Cathasaigh",
+        "Fate Points": 3,
+        "Careful": 2,
+        "Clever": 2,
+        "Flashy": 0,
+        "Forceful": 3,
+        "Quick": 1,
+        "Sneaky": 2
+    }
+}

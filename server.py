@@ -64,33 +64,37 @@ class Aurii(Interface):
             x = commands.Reply(options='Biru says just tell him no already...', triggers=[''], pattern=e)
             x.requireserver('The Realm of Aurii')
             command_set.add(x)
-        
-        def f(message):
-            return message.server.name == "The Realm of Aurii" or message.author.name == "Willowlark"
-
-        x = commands.CounterIncrement(options=self.diaries['Local'].data["Counters"], pattern='(counter) ([^ ]+) (add|sub) ([0-9]+)')
-        x.setfunc(f)
-        command_set.add(x)
-        
-        x = commands.CounterCheck(options=self.diaries['Local'].data["Counters"], pattern='(counter) ([^ ]+) (check)')
-        x.setfunc(f)
-        command_set.add(x)
-        
-        x = commands.CounterRemove(options=self.diaries['Local'].data["Counters"], pattern='(counter) ([^ ]+) (remove)')
-        x.setfunc(f)
-        command_set.add(x)
-        
-        x = commands.CounterList(options=self.diaries['Local'].data["Counters"], pattern='(counter) (list)')
-        x.setfunc(f)
-        command_set.add(x)
-        
-        setcounter = commands.CounterSet(options=self.diaries['Local'].data["Counters"], pattern='(counter) ([^ ]+) (set) ([0-9]+)')
-        setcounter.requireauthor('Willowlark')
-        command_set.add(setcounter)
 
         ghost = commands.Ghost(pattern='(ghost) (.*)')
         ghost.requireauthor('Willowlark')
         command_set.add(ghost)
+        
+        command_set.add(commands.Fudge(pattern='(fudge)'))
+
+        x = commands.CounterIncrement(options=self.diaries['Local'], pattern='(counter) (add|sub) ([^ ]+) ([0-9]+)')
+        command_set.add(x)
+        
+        x = commands.CounterCheck(options=self.diaries['Local'], pattern='(counter) (check) ([^ ]+)')
+        command_set.add(x)
+        
+        x = commands.CounterRemove(options=self.diaries['Local'], pattern='(counter) (remove) ([^ ]+)')
+        command_set.add(x)
+        
+        x = commands.CounterList(options=self.diaries['Local'], pattern='(counter) (list)')
+        command_set.add(x)
+        
+        setcounter = commands.CounterSet(options=self.diaries['Local'], pattern='(counter) (set) ([^ ]+) ([0-9]+)')
+        # setcounter.requireauthor('Willowlark')
+        command_set.add(setcounter)
+
+
+
+        # command_set.add(commands.CharactersScan(pattern='(chscan)', options=self.diaries['Local']))
+        command_set.add(commands.CharacterLoad(pattern='(chload) ([^ ]*) (.*)', options=self.diaries['Local']))
+        command_set.add(commands.CharacterCheck(pattern='(chcheck) ([^ ]*) (.*)', options=self.diaries['Local']))
+        command_set.add(commands.CharacterList(pattern='(chlist)', options=self.diaries['Local']))
+        command_set.add(commands.CharacterRoll(pattern='(chroll) ([^ ]*) ([^ ]*)', options=self.diaries['Local']))
+        command_set.add(commands.CharacterMod(pattern='(chmod) ([^ ]*) ([^ ]*|Fate Points) ([0-9])', options=self.diaries['Local'])) # TODO Actual regex that takes split words.
         
         return command_set
 
@@ -114,33 +118,26 @@ class BNE(Interface):
         command_set.add(commands.Reply(options='https://i.imgur.com/hXuK1cP.png', pattern='(hush)'))
         command_set.add(commands.Reply(options='https://i.imgur.com/gilOf0I.gif', pattern='(teamwork)'))
         command_set.add(commands.Reply(options='https://i.imgur.com/no93Chq.png', pattern='(prick)'))
-
-        def f(message):
-            return message.server.name == "The Realm of Aurii" or message.author.name == "Willowlark"
-
-        x = commands.CounterIncrement(options=self.diaries['Local'].data["Counters"], pattern='(counter) ([^ ]+) (add|sub) ([0-9]+)')
-        x.setfunc(f)
-        command_set.add(x)
         
-        x = commands.CounterCheck(options=self.diaries['Local'].data["Counters"], pattern='(counter) ([^ ]+) (check)')
-        x.setfunc(f)
-        command_set.add(x)
-        
-        x = commands.CounterRemove(options=self.diaries['Local'].data["Counters"], pattern='(counter) ([^ ]+) (remove)')
-        x.setfunc(f)
-        command_set.add(x)
-        
-        x = commands.CounterList(options=self.diaries['Local'].data["Counters"], pattern='(counter) (list)')
-        x.setfunc(f)
-        command_set.add(x)
-        
-        setcounter = commands.CounterSet(options=self.diaries['Local'].data["Counters"], pattern='(counter) ([^ ]+) (set) ([0-9]+)')
-        setcounter.requireauthor('Willowlark')
-        command_set.add(setcounter)
-
         ghost = commands.Ghost(pattern='(ghost) (.*)')
         ghost.requireauthor('Willowlark')
         command_set.add(ghost)
+
+        x = commands.CounterIncrement(options=self.diaries['Local'], pattern='(counter) (add|sub) ([^ ]+) ([0-9]+)')
+        command_set.add(x)
+        
+        x = commands.CounterCheck(options=self.diaries['Local'], pattern='(counter) (check) ([^ ]+)')
+        command_set.add(x)
+        
+        x = commands.CounterRemove(options=self.diaries['Local'], pattern='(counter) (remove) ([^ ]+)')
+        command_set.add(x)
+        
+        x = commands.CounterList(options=self.diaries['Local'], pattern='(counter) (list)')
+        command_set.add(x)
+        
+        setcounter = commands.CounterSet(options=self.diaries['Local'], pattern='(counter) (set) ([^ ]+) ([0-9]+)')
+        setcounter.requireauthor('Willowlark')
+        command_set.add(setcounter)
         
         return command_set
 

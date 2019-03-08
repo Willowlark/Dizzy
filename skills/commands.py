@@ -180,6 +180,45 @@ class Stab(Command):
         else:        
             await self.client.send_message(message.channel, act)
 
+class Refresh(Command):
+
+    async def action(self, message, match):
+        # await self.client.send_message(message.channel, "I'll go reread my notes!")
+        dbs = self.options[0]
+        for db in dbs:
+            dbs[db].update()
+        
+        print(dbs['Local'].data['Counters'])
+        
+        await self.client.send_message(message.channel, "All set!")
+
+class Ghost(Command):
+
+    async def action(self, message, match):
+        content = match[2]
+        await self.client.delete_message(message)
+        await self.client.send_message(message.channel, content)
+        # for m in content.split('\n'):
+            # await self.client.send_message(message.channel, m)
+            
+class Fudge(Command):
+
+    async def action(self, message, match):
+        roll, numbers = self.roll_fudge()
+        
+        await self.client.send_message(message.channel, f"You rolled *{numbers}*  for a total of **{roll}** !")
+            
+    @staticmethod
+    def roll_fudge():
+        sides = [-1, -1, 0, 0, 1, 1]
+        rolls = []
+        tote = 0
+        for x in range(0, 4):
+            roll = sides[random.randint(0, 5)]
+            rolls.append(roll)
+            tote+=roll
+        return tote, rolls
+
 class Stats(Command):
 
     async def action(self, message, match):
@@ -244,12 +283,14 @@ class Stats(Command):
         #     else:
         #         print('No stat found for', options)
 
+
+
 class CounterIncrement(Command):
 
     async def action(self, message, match):
-        target, op, amnt = match[2:]
+        op, target, amnt = match[2:]
         amnt = int(amnt)
-        COUNTERS = self.options
+        COUNTERS = self.options.data['Counters']
 
         if target not in COUNTERS:
             await self.client.send_message(message.channel, "I'm not counting those right now.")
@@ -263,12 +304,14 @@ class CounterIncrement(Command):
                 await self.client.send_message(message.channel, "The {} count is now {}!".format(target, COUNTERS[target]))
             else:
                 await self.client.send_message(message.channel, "I don't know how to do that, sorry.")
+        self.options.save()
+        self.options.update()
 
 class CounterCheck(Command):
     
     async def action(self, message, match):
-        target, op = match[2:]
-        COUNTERS = self.options
+        op, target = match[2:]
+        COUNTERS = self.options.data['Counters']
 
         if target not in COUNTERS:
             await self.client.send_message(message.channel, "I'm not counting those right now.")
@@ -278,31 +321,37 @@ class CounterCheck(Command):
 class CounterSet(Command):
 
     async def action(self, message, match):
-        target, op, amnt = match[2:]
+        op, target, amnt = match[2:]
         amnt = int(amnt)
-        COUNTERS = self.options
+        COUNTERS = self.options.data['Counters']
 
         COUNTERS[target] = amnt
         
         await self.client.send_message(message.channel, "The {} count is now {}!".format(target, COUNTERS[target]))
+        
+        self.options.save()
+        self.options.update()
 
 class CounterRemove(Command):
 
     async def action(self, message, match):
-        target = match[2]
-        COUNTERS = self.options
+        target = match[3]
+        COUNTERS = self.options.data['Counters']
 
         if target not in COUNTERS:
             await self.client.send_message(message.channel, "I'm not counting those right now.")
         else:
             del COUNTERS[target]
             await self.client.send_message(message.channel, "No longer counting {}!".format(target))
+        
+        self.options.save()
+        self.options.update()
 
 class CounterList(Command):
 
     async def action(self, message, match):
         
-        COUNTERS = self.options
+        COUNTERS = self.options.data['Counters']
 
         lines = ["Here's what I have.\n", '```']
         for key, value in COUNTERS.items():
@@ -312,23 +361,142 @@ class CounterList(Command):
 
         await self.client.send_message(message.channel, "".join(lines))
 
-class Refresh(Command):
 
+
+class CharactersScan(Command):
+    
     async def action(self, message, match):
-        # await self.client.send_message(message.channel, "I'll go reread my notes!")
-        dbs = self.options[0]
-        for db in dbs:
-            dbs[db].update()
+        character_db = self.options.data["Characters"]
+        alias = match[2]
+        queue = []
+        async for m in self.client.logs_from(self.get_channel_by_name("character-sheets"),limit=maxsize):
+            queue.append(m)
         
-        print(dbs['Local'].data['Counters'])
+        scanned = []
+        for sheet in queue:
+            character = {}
+            try:
+                character['Name'] = re.search('(.*)\n', sheet.content).group(1).replace('*', '')
+                character['Fate Points'] = int(re.search('Fate Points:.*?([0-9])', sheet.content).group(1))
+                character['Careful'] = int(re.search('Careful:.*?([0-9])', sheet.content).group(1))
+                character['Clever'] = int(re.search('Clever:.*?([0-9])', sheet.content).group(1))
+                character['Flashy'] = int(re.search('Flashy:.*?([0-9])', sheet.content).group(1))
+                character['Forceful'] = int(re.search('Forceful:.*?([0-9])', sheet.content).group(1))
+                character['Quick'] = int(re.search('Quick:.*?([0-9])', sheet.content).group(1))
+                character['Sneaky'] = int(re.search('Sneaky:.*?([0-9])', sheet.content).group(1))
+            except:
+                pass
+            else:
+                print(character)
+                character_db[character['Name']] = character
+                scanned.append(character['Name'])
+        self.options.save()
+        self.options.update()
+        await self.client.send_message(message.channel, f"Following keys updated: {', '.join(scanned)}.")
         
-        await self.client.send_message(message.channel, "All set!")
-
-class Ghost(Command):
-
+    def get_channel_by_name(self, string):
+        for channel in self.client.get_all_channels():
+            if channel.name == string:
+                return channel
+                
+class CharacterLoad(Command):
+    
     async def action(self, message, match):
-        content = match[2]
-        await self.client.delete_message(message)
-        await self.client.send_message(message.channel, content)
-        # for m in content.split('\n'):
-            # await self.client.send_message(message.channel, m)
+        character_db = self.options.data["Characters"]
+
+        character = {}
+        try:
+            character['Name'] = re.search('(.*)\n', match[3]).group(1).replace('*', '')
+            character['Fate Points'] = int(re.search('Fate Points:.*?([0-9])', match[3]).group(1))
+            character['Careful'] = int(re.search('Careful:.*?([0-9])', match[3]).group(1))
+            character['Clever'] = int(re.search('Clever:.*?([0-9])', match[3]).group(1))
+            character['Flashy'] = int(re.search('Flashy:.*?([0-9])', match[3]).group(1))
+            character['Forceful'] = int(re.search('Forceful:.*?([0-9])', match[3]).group(1))
+            character['Quick'] = int(re.search('Quick:.*?([0-9])', match[3]).group(1))
+            character['Sneaky'] = int(re.search('Sneaky:.*?([0-9])', match[3]).group(1))
+        except:
+            pass
+        else:
+            print(character)
+            character_db[match[2]] = character
+        self.options.save()
+        self.options.update()
+        await self.client.send_message(message.channel, f"Following keys updated: `{match[2]}`.")
+
+class CharacterCheck(Command):
+    
+    async def action(self, message, match):
+        character_db = self.options.data["Characters"]
+        alias = match[2]
+        key = match[3]
+        key = re.sub(r'\w+', lambda m:m.group(0).capitalize(), key)
+        print(key)
+        
+        if key in character_db[alias]:
+            value = character_db[alias][key]
+            name = character_db[alias]['Name']
+            await self.client.send_message(message.channel, f"{name} ({alias}) has a {value} in {key}.")
+        else:
+            await self.client.send_message(message.channel, f"{alias} doesn't have that...")
+
+class CharacterList(Command):
+    
+    async def action(self, message, match):
+        character_db = self.options.data["Characters"]
+        entries = ["Alias : Character Name"]
+        for character in character_db:
+            entries.append(f"{character} : {character_db[character]['Name']}")
+        
+        entries = ',\n'.join(entries)
+        await self.client.send_message(message.channel, "I have the character sheets for these characters!\n ```{}```".format(entries))
+
+class CharacterRoll(Command):
+    
+    async def action(self, message, match):
+        character_db = self.options.data["Characters"]
+        alias = match[2]
+        key = match[3]
+        key = re.sub(r'\w+', lambda m:m.group(0).capitalize(), key)
+        
+        if key in character_db[alias]:
+            value = character_db[alias][key]
+            name = character_db[alias]['Name']
+            
+            roll, numbers = self.roll_fudge()
+            total = value+roll
+            m = f"{name} ({alias}) rolled **{roll}** *{numbers}*!\n\n Their `{key}` stat is **{value}**, so total is {roll}+{value}=**{total}**!"
+            await self.client.send_message(message.channel, m)
+            if roll == -4:
+                await self.client.send_message(message.channel, "...oof.")
+        else:
+            await self.client.send_message(message.channel, f"{alias} doesn't have that...")
+
+    @staticmethod
+    def roll_fudge():
+        sides = [-1, -1, 0, 0, 1, 1]
+        rolls = []
+        tote = 0
+        for x in range(0, 4):
+            roll = sides[random.randint(0, 5)]
+            rolls.append(roll)
+            tote+=roll
+        return tote, rolls
+        
+class CharacterMod(Command):
+    
+    async def action(self, message, match):
+        character_db = self.options.data["Characters"]
+        alias = match[2]
+        key = match[3]
+        value = int(match[4])
+        key = re.sub(r'\w+', lambda m:m.group(0).capitalize(), key)
+        
+        if key in character_db[alias]:
+            old_value = character_db[alias][key]
+            name = character_db[alias]['Name']
+            character_db[alias][key] = value
+            self.options.save()
+            self.options.update()
+            await self.client.send_message(message.channel, f"{name} ({alias}) had {old_value} in {key}, I changed it to {value}.")
+        else:
+            await self.client.send_message(message.channel, f"{alias} doesn't have that...")
