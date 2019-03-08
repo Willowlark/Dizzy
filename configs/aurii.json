@@ -1,0 +1,17 @@
+{
+    "Server Name": "The Realm of Aurii",
+    "Server Class": "Aurii",
+    "DBs": [
+        {
+            "DB_Name": "Local",
+            "DB_Type": "FlatJson",
+            "DB": ".",
+            "DB_User": "",
+            "DB_Pass": "",
+            "Tables": {
+                "Counters": "aurii/counters.json",
+                "Sets": "aurii/sets.json"
+            }
+        }
+    ]
+}

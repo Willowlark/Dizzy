@@ -1,9 +1,9 @@
 # Bill's workspace additions
-_*
 .vscode
 **/.DS_Store
 .idea
 **/*.pyc
+__
 
 posts
 issues

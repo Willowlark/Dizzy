@@ -1,0 +1,17 @@
+{
+    "Server Name": "Beacon Academy: Northeastern Campus",
+    "Server Class": "BNE",
+    "DBs": [
+        {
+            "DB_Name": "Local",
+            "DB_Type": "FlatJson",
+            "DB": ".",
+            "DB_User": "",
+            "DB_Pass": "",
+            "Tables": {
+                "Counters": "bne/counters.json",
+                "Sets": "aurii/sets.json"
+            }
+        }
+    ]
+}

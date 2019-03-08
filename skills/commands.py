@@ -13,47 +13,13 @@ from os.path import join
 # TODO User stats (each user gets a document)
 # TODO Dice bot
 
-
-class Commander(object):
-
-    def __init__(self, client, triggers):
-        self.client = client
-        self.triggers = triggers
-        self.commands = []
-
-    async def execute(self, message):
-        for command in self.commands:
-            await command.execute(message)
-        
-    def match(self, message):
-        for command in self.commands:
-            x = command.match(message)
-            if x:
-                return x
-
-    def getio(self, message):
-        for command in self.commands:
-            x = command.match(message)
-            if x:
-                return command.getio()
-        return 0
-
-    def add(self, cmd): 
-        if not cmd.client:
-            cmd.client = self.client
-        if not cmd.triggers:
-            cmd.triggers = self.triggers
-            cmd.compile()
-        self.commands.append(cmd)
-
 class Command(object):
 
-    def __init__(self, client=None, triggers=None, options=[], pattern='', io=0, info=None):
+    def __init__(self, client=None, triggers=None, options=[], pattern='', info=None):
         self.client = client
         self.triggers = triggers
         self.options = options
         self.pattern = pattern
-        self.io = io
         self.info = info if info else "A command using pattern: "+self.pattern
 
         self.compile()
@@ -75,9 +41,6 @@ class Command(object):
             return [x for x in match.groups() if x is not None]
         else:
             return []
-
-    def getio(self):
-        return self.io
 
     async def execute(self, message):
         match = self.match(message)
@@ -322,7 +285,7 @@ class CounterSet(Command):
         COUNTERS[target] = amnt
         
         await self.client.send_message(message.channel, "The {} count is now {}!".format(target, COUNTERS[target]))
-        
+
 class CounterRemove(Command):
 
     async def action(self, message, match):
@@ -352,7 +315,14 @@ class CounterList(Command):
 class Refresh(Command):
 
     async def action(self, message, match):
-        await self.client.send_message(message.channel, "I'll go reread my notes!")
+        # await self.client.send_message(message.channel, "I'll go reread my notes!")
+        dbs = self.options[0]
+        for db in dbs:
+            dbs[db].update()
+        
+        print(dbs['Local'].data['Counters'])
+        
+        await self.client.send_message(message.channel, "All set!")
 
 class Ghost(Command):
 

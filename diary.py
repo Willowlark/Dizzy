@@ -1,104 +1,38 @@
-from cloudant import client
-from scribe import Scribe
-import asyncio
 import os
 import json
 
-# TODO Create AWS RDS database logs
+class FlatJson(object):
 
-class Diary(object):
+    def __init__(self, config):
+        self.db_name = config["DB_Name"]
+        self.db = config["DB"]
+        self.tables = config["Tables"]
 
-    def __init__(self, username, password):
-        self.user = username
-        self.password = password
-        self.connection = client.Cloudant(username, password, account=username, connect=True)
-        self.db_name = ""
-        self.db = None
-        self.scribe = Scribe('error')
+        self.data = {}
+        self.connect()
 
-    def db_required(function):
-        def wrapper(instance, *args, **kwargs):
-            if instance.active_db():
-                return function(instance, *args, **kwargs)
-            else:
-                instance.scribe.scribe("Function {} requires an selected database.".format(function), 'error')
-        return wrapper
-
-    def active_db(self):
-        try:
-            return True if self.db is not None and self.db.exists() else False
-        except:
-            self.connection = client.Cloudant(self.user, self.password, account=self.user, connect=True)
-            self.db = self.connection[self.db_name]
-            return True if self.db is not None and self.db.exists() else False
-            
-
-    def select_db(self, db):
-        try:
-            self.db = self.connection[db]
-            self.scribe.scribe("selected Database '{}'".format(db))
-            self.db_name = db
-        except KeyError:
-            self.scribe.scribe("No Database '{}'; load failed. No database selected.".format(db), 'error')
-            self.db = None
-
-    @db_required
-    def load_document(self, key):
-        from time import sleep
-        document = self.db[key]
-        return document
+    def connect(self):
+        os.chdir(self.db)
+        self.update()
+        return self.data
     
-    def create_document(self, json):
-        document = self.db.create_document(json)
-        return document
-
-    def save_document(self, key, value):
-        value.save()
-
-
-class Offline_Diary(object):
-
-    def __init__(self, username, password):
-        self.user = username
-        self.password = password
-        self.db_name = ""
-        self.db = '.' # a folder
-        self.scribe = Scribe('error')
-
-    def db_required(function):
-        def wrapper(instance, *args, **kwargs):
-            if instance.active_db():
-                return function(instance, *args, **kwargs)
+    def update(self):
+        for name, path in self.tables.items():
+            if name not in self.data:
+                self.data[name] = json.loads(open(path).read())
             else:
-                instance.scribe.scribe("Function {} requires an selected database.".format(function), 'error')
-        return wrapper
-
-    def active_db(self):
-        return True if os.path.isdir(self.db) else False
-
-    def select_db(self, db):
-        if os.path.isdir(db): 
-            os.chdir(db)
-            self.db_name = db
-
-    @db_required
-    def load_document(self, key):
-        document = json.loads(open(key+'.json').read())
-        return document
-    
-    def create_document(self, json):
-        return False
-
-    def save_document(self, key, value):
-        with open(key+'.json', 'w') as f:
-            f.write(json.dumps(value))
-
-if __name__ == '__main__':
-
-    d = Offline_Diary('user', 'password')
-    d.select_db('.')
-    doc = d.load_document('sets')
-    print(doc)
-    # doc['memes'] = 100
-    # doc.save()
-    # d.create_document({"_id" : "Willowlark"})
+                self.data[name].clear()
+                self.data[name].update(json.loads(open(path).read()))
+        return self.data
+        
+    def save(self):
+        for name, path in self.tables.items():
+            with open(path, 'w') as f:
+                f.write(json.dumps(self.data[name]))
+        return self.data
+        
+def publisher(config):
+    if config["DB_Type"] == 'FlatJson':
+        return FlatJson(config)
+    else:
+        raise Exception("DB_Type unhandled.")
