@@ -14,5 +14,11 @@
                 "Characters": "aspn/characters.json"
             }
         }
+    ],
+    "Loggers": [
+        {
+            "Path": "../logs/ASPN",
+            "Type": "Local"
+        }
     ]
 }

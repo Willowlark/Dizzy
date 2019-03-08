@@ -4,6 +4,7 @@ from datetime import datetime
 from skills import commands
 from skills.parser import Parser
 import diary
+import logger
 
 class Interface(object):
     
@@ -18,6 +19,10 @@ class Interface(object):
             x = diary.publisher(db)
             self.diaries[x.db_name] = x
         
+        self.loggers = []
+        for log in config['Loggers']:
+            self.loggers.append(logger.create(log))
+        
         self.command_set = self.generate_commands()
         
     def generate_commands(self):
@@ -26,6 +31,9 @@ class Interface(object):
     async def handle(self, message):
         
         await self.command_set.execute(message)
+        for log in self.loggers:
+            log.log(message)
+        
 
 class Aurii(Interface):
 

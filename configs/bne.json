@@ -13,5 +13,11 @@
                 "Sets": "aurii/sets.json"
             }
         }
+    ],
+    "Loggers": [
+        {
+            "Path": "../logs/Beacon Academy: Northeastern Campus",
+            "Type": "Local"
+        }
     ]
 }

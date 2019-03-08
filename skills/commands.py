@@ -11,7 +11,6 @@ from os.path import join
 # TODO Help input as a constructor value, which is placed in __str__.
 # TODO Help interator for the Commander object
 # TODO User stats (each user gets a document)
-# TODO Dice bot
 
 class Command(object):
 

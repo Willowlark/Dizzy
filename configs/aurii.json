@@ -14,5 +14,11 @@
                 "Characters": "aurii/characters.json"
             }
         }
+    ],
+    "Loggers": [
+        {
+            "Path": "../logs/The Realm of Aurii",
+            "Type": "Local"
+        }
     ]
 }
