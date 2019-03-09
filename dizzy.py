@@ -38,18 +38,6 @@ async def on_message(message):
         await servers[source_server].handle(message)
     else:
         print("server {} not handled right now, only logging.".format(source_server))
-    
-    # Logging
-    # path = join('logs', message.server.name, message.channel.name)
-    # makedirs(path, exist_ok=1)
-    # with open(join(path,message.timestamp.date().isoformat()+'.txt'), 'a') as f:
-    #     try:
-    #         name = message.author.nick
-    #         assert name is not None
-    #     except:
-    #         name = message.author.name
-    #     f.write(name + ": " + message.content + '\n')
-    #     print(message.channel.name.upper() + ": " + name + ": " + message.content)
 
 
 async def time_trigger():
