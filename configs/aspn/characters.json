@@ -1,1 +1,32 @@
-{}
+{
+    "sher": {
+        "Name": "Sherwood Cathasaigh",
+        "Fate Points": 3,
+        "Careful": 2,
+        "Clever": 1,
+        "Flashy": 0,
+        "Forceful": 3,
+        "Quick": 1,
+        "Sneaky": 2
+    },
+    "percy": {
+        "Name": "Persimmon Burhan",
+        "Fate Points": 4,
+        "Careful": 2,
+        "Clever": 2,
+        "Flashy": 1,
+        "Forceful": 0,
+        "Quick": 1,
+        "Sneaky": 3
+    },
+    "sona": {
+        "Name": "Sona Aurelia",
+        "Fate Points": 3,
+        "Careful": 0,
+        "Clever": 1,
+        "Flashy": 1,
+        "Forceful": 2,
+        "Quick": 3,
+        "Sneaky": 2
+    }
+}

@@ -1,0 +1,58 @@
+Sherwood (Will): ```
+**Sona Aurelia**
+
+**Fate Points:** 3
+**Stress:** [ ] [ ] [ ]
+**Consequences:**
+2  Mild:
+4  Moderate:
+6  Severe: 
+
+**Aspects**
+
+* I won't Hesitate to Avoid Getting Hurt
+* My Will is Stronger than Iron or Aura
+* If I Act Okay, I Don't Feel the Scars
+* Escaping Being the Cavacade's "Pit Princess"
+* If I Treat Myself too much, it's Cause I Never got to be Normal
+
+**Approaches**
+Careful: `0`
+Clever: `+1`
+Flashy: `+1`
+Forceful: `+2`
+Quick: `+3`
+Sneaky: `+2`
+
+**Stunt:**
+ 
+Because I *have a damaged aura that turns off and on all the time* Once per arc I can *absorb 4 stress from an attack because of a well timed aura resurgence.*
+```
+Persimmon (Floob): **Patchouli Breschi**
+
+**Fate Points:** 3
+**Stress:** [] [] []
+**Consequences:**
+2 Mild:
+4 Moderate:
+6 Severe: 
+
+**Aspects**
+
+* A Princess on Stage, Yet a Pauper in my Skin
+* I Can be Anything when I'm Not Being Me
+* Don't Look at Me
+* Head in the Clouds
+* It's Safe in my Little Ball
+
+**Approaches**
+Careful: +3
+Clever: +2
+Flashy: +2
+Forceful: +0
+Quick: +1
+Sneaky: +1
+
+**Stunt:**
+
+Because I have sharp quills on my back, I gain +2 when _forcefully_ defending against a character behind me.

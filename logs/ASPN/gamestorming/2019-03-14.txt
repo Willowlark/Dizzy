@@ -1,0 +1,64 @@
+Sherwood (Will): Speaking of.
+Sherwood (Will): As a reminder, this girls going to be a younger teen, 14 or 15. So Persimmon would likely brag about wooing her, get closer, go oh crap, and have to salvage the scenario. 
+
+Compels are entirely optional. You get a Fate Point in return for your characters ~~suffering~~ acceptance though. Fate Points let you *Invoke* which is a +2 to a roll related to an aspect or you can throw a Fate Point and say “because X aspect, this should happen” in a positive light. Ie,
+
+*because Sherwood has `Beauty in Simplicity`, he should be able to impress the art dealer when talking about the modern art painting*
+Sherwood (Will): So if you take the compel, just do like “(accept compel)” in the post.
+Sherwood (Will): And if you don’t do “(refusing compel)”.
+Dizzy: Following keys updated: `sona`.
+Sherwood (Will): !chload sona **Sona Aurelia**
+
+**Fate Points:** 3
+**Stress:** [ ] [ ] [ ]
+**Consequences:**
+2  Mild:
+4  Moderate:
+6  Severe: 
+
+**Aspects**
+
+* I won't Hesitate to Avoid Getting Hurt
+* My Will is Stronger than Iron or Aura
+* If I Act Okay, I Don't Feel the Scars
+* Escaping Being the Cavacade's "Pit Princess"
+* If I Treat Myself too much, it's Cause I Never got to be Normal
+
+**Approaches**
+Careful: `0`
+Clever: `+1`
+Flashy: `+1`
+Forceful: `+2`
+Quick: `+3`
+Sneaky: `+2`
+
+**Stunt:**
+ 
+Because I *have a damaged aura that turns off and on all the time* Once per arc I can *absorb 4 stress from an attack because of a well timed aura resurgence.*
+Dizzy: I have the character sheets for these characters!
+ ```Alias : Character Name,
+sher : Sherwood Cathasaigh,
+percy : Persimmon Burhan,
+sona : Sona Aurelia```
+Sherwood (Will): !chlist
+Sherwood (Will): Niiice.
+Sherwood (Will): Woo Sona!
+Sherwood (Will): Oh, <@!203874275982049280> <@!230000317708763137> don’t have to wait for Floo to post.
+Argent (el Cap): I think av developed lactose intolerance
+Argent (el Cap): so may be a while before a post haha
+Noctis (CORN BITCH): HAAAAA
+Noctis (CORN BITCH): SUFFER
+Noctis (CORN BITCH): 🔪 👌 🔪
+Persimmon (Floob): Uhhh... Sounds like TMI to me-
+Persimmon (Floob): Meanwhile I developed allergies, I guess.
+Persimmon (Floob): ~~Since you specifically mentioned she's young I think it's time to make this as awkward as possible for Percy~~
+Noctis (CORN BITCH): 10/10
+Sherwood (Will): That’s exactly how you own a compel 11/10
+Sherwood (Will): Oop
+Dizzy: Persimmon Burhan (percy) had 3 in Fate Points, I changed it to 4.
+Sherwood (Will): !chmod percy Fate Points 4
+Sherwood (Will): Nice.
+Persimmon (Floob): I gave Patchy a temporary serviceable stunt but it's not necessarily going to stick. I still wanna implement a mechanic where her approaches shift slightly with her semblance but I don't know how exactly.
+Sherwood (Will): I didn’t have Sherwood run up and start talking cause I wanna give other people the chance to cover Percy.
+Sherwood (Will): ~~or roast him~~
+Sherwood (Will): Ye floo, I had a stunt for sona that was just. In character but not stunt worthy at first.

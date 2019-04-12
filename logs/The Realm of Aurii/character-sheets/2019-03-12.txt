@@ -1,0 +1,40 @@
+Chengu Tiaowen (Erik): **Chengu Tiaowen*
+
+**Fate Points:** 3
+**Stress:** [ ] [ ] [ ]
+**Consequences:**
+2  Mild:
+4  Moderate:
+6  Severe: 
+
+**Aspects**
+LAGUZ PRIDE
+**Invoke:** I am a proud tiger laguz and am not fearful going into areas that are not friendly towards laguz.
+**Compel:** Because I am prideful of my laguz heritage, I will lash out at anti-laguz comments said to me or someone around me.
+
+EYE OF THE TIGER; THRILL OF THE FIGHT
+**Invoke:** I get a thrill from fighting which boosts my fighting abilities during combat.
+**Compel:** I often pick unnecessary fights which can get me and my party into trouble.
+
+ATTENTION TO DE-TAIL
+**Invoke:** I am able to wrap my tail around small objects to pick them up.
+**Compel:** Sometimes my tail gets in the way and gets caught on things, causing me to stumble and fall.
+
+[ASPECT 4]
+**Invoke:** 
+**Compel:** 
+
+[ASPECT 5]
+**Invoke:** 
+**Compel:** 
+
+**Approaches**
+Careful: 0
+Clever: +1
+Flashy: +1
+Forceful: +3
+Quick: +2
+Sneaky: +2
+
+**Stunt:**
+Because I have feline features, I get a +2 when I act sneakily or when it is dark.
