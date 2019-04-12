@@ -17,8 +17,11 @@ class FlatJson(object):
         return self.data
     
     def update(self):
-        for name, path in self.tables.items(): #TODO Create files if needed.
-            if name not in self.data:
+        for name, path in self.tables.items():
+            
+            if not os.path.isfile(path):
+                self.data[name] = {}
+            elif name not in self.data:
                 self.data[name] = json.loads(open(path).read())
             else:
                 self.data[name].clear()

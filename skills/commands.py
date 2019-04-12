@@ -308,7 +308,7 @@ class Headpat(Command):
             value = FRENS[save_name]+1
             FRENS[save_name]+=1
             
-        await self.client.send_message(message.channel, f"*headpats {mention}*")
+        await self.client.send_message(message.channel, f"*{message.author.mention} headpats {mention}*")
         if save_name != 'Dizzy':
             await self.client.send_message(message.channel, f"{mention} has been headpatted {value} times.")
         else:
