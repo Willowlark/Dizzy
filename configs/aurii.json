@@ -11,7 +11,8 @@
             "Tables": {
                 "Counters": "aurii/counters.json",
                 "Sets": "aurii/sets.json",
-                "Characters": "aurii/characters.json"
+                "Characters": "aurii/characters.json",
+                "Headpats": "aurii/headpats.json"
             }
         }
     ],

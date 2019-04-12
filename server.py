@@ -79,6 +79,8 @@ class Aurii(Interface):
         
         command_set.add(commands.Fudge(pattern='(fudge)'))
 
+        command_set.add(commands.Headpat(options=self.diaries['Local'], pattern='(headpat)(.*)'))
+
         x = commands.CounterIncrement(options=self.diaries['Local'], pattern='(counter) (add|sub) ([^ ]+) ([0-9]+)')
         command_set.add(x)
         

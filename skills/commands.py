@@ -282,7 +282,39 @@ class Stats(Command):
         #     else:
         #         print('No stat found for', options)
 
+class Headpat(Command):
 
+    async def action(self, message, match):
+        target = match[2].strip()
+        
+        if target != '':
+            for member in message.server.members:
+                if target == member.nick or target == member.name or target == member.mention:
+                    save_name = member.name
+                    mention = member.mention
+                    break
+            else:
+                return None
+        else:
+            save_name = 'Dizzy'
+            mention = 'Dizzy'
+        
+        FRENS = self.options.data['Headpats']
+        
+        if save_name not in FRENS:
+            value = 1
+            FRENS[save_name] = 1
+        else:
+            value = FRENS[save_name]+1
+            FRENS[save_name]+=1
+            
+        await self.client.send_message(message.channel, f"*headpats {mention}*")
+        if save_name != 'Dizzy':
+            await self.client.send_message(message.channel, f"{mention} has been headpatted {value} times.")
+        else:
+            await self.client.send_message(message.channel, f"{message.author.mention} is so nice <3")
+        self.options.save()
+        self.options.update()
 
 class CounterIncrement(Command):
 
