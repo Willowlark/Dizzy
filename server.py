@@ -66,12 +66,6 @@ class Aurii(Interface):
         command_set.add(commands.Reply(options='https://i.imgur.com/gilOf0I.gif', pattern='(teamwork)'))
         command_set.add(commands.Reply(options='https://i.imgur.com/no93Chq.png', pattern='(prick)'))
         command_set.add(commands.Reply(options='I ship Knight Light!', triggers=[''], pattern='.*ship.*knight light.*|.*knight light.*ship.*'))
-        
-        ethan_cmd = [".*[Ee]than.*wants.*", ".*for.*[Ee]than.*", ".*[Ee]than.*asked.*"]
-        for e in ethan_cmd:
-            x = commands.Reply(options='Biru says just tell him no already...', triggers=[''], pattern=e)
-            x.requireserver('The Realm of Aurii')
-            command_set.add(x)
 
         ghost = commands.Ghost(pattern='(ghost) (.*)')
         ghost.requireauthor('Willowlark')
@@ -80,6 +74,7 @@ class Aurii(Interface):
         command_set.add(commands.Fudge(pattern='(fudge)'))
 
         command_set.add(commands.Headpat(options=self.diaries['Local'], pattern='(headpat)(.*)'))
+        command_set.add(commands.IrlRuby(options=self.diaries['Local'], pattern='(irlRuby)(.*)'))
 
         x = commands.CounterIncrement(options=self.diaries['Local'], pattern='(counter) (add|sub) ([^ ]+) ([0-9]+)')
         command_set.add(x)

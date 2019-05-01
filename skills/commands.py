@@ -316,6 +316,29 @@ class Headpat(Command):
         self.options.save()
         self.options.update()
 
+class IrlRuby(Command):
+
+    async def action(self, message, match):
+        target = match[2].strip()
+        
+        if target != '':
+            for member in message.server.members:
+                if target == member.nick or target == member.name or target == member.mention:
+                    save_name = member.name
+                    mention = member.mention
+                    user = member
+                    break
+            else:
+                return None
+        else:
+            return None
+        
+        if 'irl Ruby' in [x.name for x in message.author.roles]:
+            r = [x for x in message.author.roles if x.name == 'irl Ruby'][0]
+            await self.client.remove_roles(message.author,r)
+            await self.client.add_roles(user,r)
+            await self.client.send_message(message.channel, f"*{user.mention} is now irl Ruby*")
+
 class CounterIncrement(Command):
 
     async def action(self, message, match):
