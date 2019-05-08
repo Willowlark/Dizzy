@@ -1,7 +1,6 @@
 class Parser(object):
 
-    def __init__(self, client, triggers):
-        self.client = client
+    def __init__(self, triggers):
         self.triggers = triggers
         self.commands = []
 
@@ -23,8 +22,6 @@ class Parser(object):
         return 0
 
     def add(self, cmd): 
-        if not cmd.client:
-            cmd.client = self.client
         if not cmd.triggers:
             cmd.triggers = self.triggers
             cmd.compile()
