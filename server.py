@@ -28,10 +28,10 @@ class Interface(object):
     def generate_commands(self):
         return None
         
-    async def handle(self, message, nologs=False):
+    async def handle(self, message, logging=True):
         
         await self.command_set.execute(message)
-        if not nologs:
+        if  logging:
             for log in self.loggers:
                 log.log(message)
         

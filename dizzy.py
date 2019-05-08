@@ -12,7 +12,7 @@ import server
 from auth import TOKEN
 
 parser = argparse.ArgumentParser(description='Process some integers.')
-parser.add_argument('--nologs', action='store_true',
+parser.add_argument('--disablelogs', action='store_false',
                     help='disable logging')
 
 
@@ -41,7 +41,7 @@ async def on_message(message):
     source_server = message.guild.name
     
     if source_server in servers:
-        await servers[source_server].handle(message, nologs=args.nologs)
+        await servers[source_server].handle(message, logging=args.disablelogs)
     else:
         print("server {} not handled right now, only logging.".format(source_server))
 
