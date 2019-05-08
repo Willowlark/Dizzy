@@ -2,6 +2,7 @@ import discord
 import asyncio
 import random
 import json
+import argparse
 
 from datetime import datetime
 from os.path import join
@@ -9,6 +10,11 @@ from os import chdir, listdir, makedirs
 
 import server 
 from auth import TOKEN
+
+parser = argparse.ArgumentParser(description='Process some integers.')
+parser.add_argument('--nologs', action='store_true',
+                    help='disable logging')
+
 
 client = discord.Client()
 configs_path = 'configs'
@@ -35,7 +41,7 @@ async def on_message(message):
     source_server = message.server.name
     
     if source_server in servers:
-        await servers[source_server].handle(message)
+        await servers[source_server].handle(message, nologs=args.nologs)
     else:
         print("server {} not handled right now, only logging.".format(source_server))
 
@@ -56,5 +62,7 @@ def get_channel_by_name(string, server=None):
         if channel.name == string and (server == channel.server.name or server is None):
             return channel
 
-client.loop.create_task(time_trigger())
-client.run(TOKEN)
+if __name__ == '__main__':
+    args = parser.parse_args()
+    client.loop.create_task(time_trigger())
+    client.run(TOKEN)

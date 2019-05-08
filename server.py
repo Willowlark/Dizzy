@@ -28,11 +28,12 @@ class Interface(object):
     def generate_commands(self):
         return None
         
-    async def handle(self, message):
+    async def handle(self, message, nologs=False):
         
         await self.command_set.execute(message)
-        for log in self.loggers:
-            log.log(message)
+        if not nologs:
+            for log in self.loggers:
+                log.log(message)
         
 
 class Aurii(Interface):
