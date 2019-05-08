@@ -14,8 +14,7 @@ from os.path import join
 
 class Command(object):
 
-    def __init__(self, client=None, triggers=None, options=[], pattern='', info=None):
-        self.client = client
+    def __init__(self, triggers=None, options=[], pattern='', info=None):
         self.triggers = triggers
         self.options = options
         self.pattern = pattern
@@ -155,11 +154,6 @@ class Log(Command):
             name = log.author.name
         time = log.created_at
         return "{}\n\n".format(log.content), "**{}** - *{}*\n\n".format(name, time.date()), name
-
-    def get_channel_by_name(self, string):
-        for channel in self.client.get_all_channels():
-            if channel.name == string:
-                return channel
 
 class Stab(Command):
 

@@ -39,7 +39,7 @@ class Interface(object):
 class Aurii(Interface):
 
     def generate_commands(self):
-        command_set = Parser(self.client, ['!', 'Dizzy,'])
+        command_set = Parser(['!', 'Dizzy,'])
         
         command_set.add(commands.RandomReply(triggers=['\U0001F51E'], options=['https://i.imgur.com/JbVqZOn.jpg'], pattern='(lewd)'))
         command_set.add(commands.RandomReply(options=self.diaries['Local'].data["Sets"]['lewds'], pattern='(lewd)'))
@@ -107,7 +107,7 @@ class Aurii(Interface):
 class BNE(Interface):
 
     def generate_commands(self):
-        command_set = Parser(self.client, ['!', 'Dizzy,'])
+        command_set = Parser(['!', 'Dizzy,'])
         
         command_set.add(commands.RandomReply(triggers=['\U0001F51E'], options=['https://i.imgur.com/JbVqZOn.jpg'], pattern='(lewd)'))
         command_set.add(commands.RandomReply(options=self.diaries['Local'].data["Sets"]['lewds'], pattern='(lewd)'))
@@ -150,7 +150,7 @@ class BNE(Interface):
 class ASPN(Interface):
 
     def generate_commands(self):
-        command_set = Parser(self.client, ['!', 'Dizzy,'])
+        command_set = Parser(['!', 'Dizzy,'])
         
         command_set.add(commands.RandomReply(options=self.diaries['Local'].data["Sets"]['lewds'], pattern='(lewd)'))
         command_set.add(commands.RandomReply(options=self.diaries['Local'].data["Sets"]['dabs'], pattern='(dab)'))
@@ -171,7 +171,7 @@ class ASPN(Interface):
         ghost.requireauthor('Willowlark')
         command_set.add(ghost)
         
-        command_set.add(commands.Fudge(pattern='(fudge)'))
+        command_set.add(commands.Fudge(pattern='(fudge) ([+-]?[0-9]+)|(fudge)'))
 
         x = commands.CounterIncrement(options=self.diaries['Local'], pattern='(counter) (add|sub) ([^ ]+) ([0-9]+)')
         command_set.add(x)
