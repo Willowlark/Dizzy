@@ -26,7 +26,7 @@ class Command(object):
         self.author = []
         self.notauthor = []
         self.guild = []
-        self.notserver = []
+        self.notguild = []
         self.func = None
 
     def compile(self):
@@ -68,8 +68,8 @@ class Command(object):
         if self.guild:
             if message.guild.name not in self.guild:
                 return False
-        if self.notserver:
-            if message.guild.name in self.notserver:
+        if self.notguild:
+            if message.guild.name in self.notguild:
                 return False
 
         # Lambda 
@@ -86,16 +86,13 @@ class Command(object):
         self.author.append(name)
         
     def banserver(self, name):
-        self.notserver.append(name)
+        self.notguild.append(name)
     
     def requireserver(self, name):
         self.guild.append(name)
 
     def setfunc(self, func):
         self.func = func
-
-class ForkCommand(Command):
-    pass
 
 class RandomReply(Command):
 
@@ -122,6 +119,7 @@ class Choose(Command):
 
     async def action(self, message, match):
         options = match[2].split(',')
+        options = [op.strip() for op in options]
         option = random.choice(options) if "knight light" not in options else "knight light"
         await message.channel.send('You should choose '+ option)
 
@@ -133,7 +131,7 @@ class Log(Command):
         attrition = None
         auth = None
         tmp = await message.channel.send('Pulling messages from ' + channel+':')
-        async for log in self.client.logs_from(self.get_channel_by_name(channel),limit=maxsize):
+        async for log in message.channel.history(limit=maxsize):
             log, name, who = self.logged_format(log)
             if auth is None:
                 auth = who
@@ -145,7 +143,7 @@ class Log(Command):
             queue.append(log)
         queue.append(attrition)
         # TODO use makedirs here
-        open(join('batch-logs', channel+'.md'), 'w').writelines(reversed(queue))
+        open(join('../batch-logs', channel+'.md'), 'w').writelines(reversed(queue))
         url = pastebin.paste(channel, '\n'.join(reversed(queue)))
         await message.channel.send('Logging done @ ' + repr(url))
 
@@ -155,7 +153,7 @@ class Log(Command):
             name = log.author.nick 
         except:
             name = log.author.name
-        time = log.timestamp
+        time = log.created_at
         return "{}\n\n".format(log.content), "**{}** - *{}*\n\n".format(name, time.date()), name
 
     def get_channel_by_name(self, string):
@@ -195,7 +193,7 @@ class Ghost(Command):
 
     async def action(self, message, match):
         content = match[2]
-        await self.client.delete_message(message)
+        await message.delete()
         await message.channel.send(content)
         # for m in content.split('\n'):
             # await message.channel.send(m)
@@ -204,8 +202,11 @@ class Fudge(Command):
 
     async def action(self, message, match):
         roll, numbers = self.roll_fudge()
-        
-        await message.channel.send(f"You rolled *{numbers}*  for a total of **{roll}** !")
+        if len(match)>2:
+            modifier = int(match[2])
+            await message.channel.send(f"You rolled *{numbers}*  with a modifier of *{modifier}*  for a total of **{roll+modifier}** !")
+        else:
+            await message.channel.send(f"You rolled *{numbers}*  for a total of **{roll}** !")
             
     @staticmethod
     def roll_fudge():
@@ -217,70 +218,6 @@ class Fudge(Command):
             rolls.append(roll)
             tote+=roll
         return tote, rolls
-
-class Stats(Command):
-
-    async def action(self, message, match):
-        pass
-        # options = re.search('stats (.*)', message.content).group(1).split(',')
-        # try: 
-        #     options.append(message.author.nick)
-        # except:
-        #     pass
-        # options.append(message.author.name)
-        # options = [x.strip() for x in options]
-        # keyring, leaf = _stat_search(STATE['stats'], options, deep=0)
-        
-        # if leaf is not None:
-        #     user = keyring[0] if len(keyring)>1 else "The server"
-        #     await message.channel.send('{} has {} in the {} stat.'.format(user, leaf['value'], keyring[-1]))
-        # else:
-        #     print('No stat found for', options)
-            
-        # elif cmd == 'lock':
-        #     options = re.search('lock (.*)', message.content).group(1).split(',')
-        #     try: 
-        #         options.append(message.author.nick)
-        #     except:
-        #         pass
-        #     options.append(message.author.name)
-        #     options = [x.strip() for x in options]
-        #     keyring, leaf = _stat_search(STATE['stats'], options, deep=0)
-            
-        #     if leaf is not None:
-        #         if leaf['locked'] and len(keyring)>1:
-        #             if message.author.name not in keyring and message.author.name != "Willowlark":
-        #                 await message.channel.send("Sorry, you can't access that stat.")
-        #         else:
-        #             leaf['locked'] = 0 if leaf['locked'] else 1
-        #             save_state()
-        #             await message.channel.send('The {} stat is in state {}.'.format(keyring[-1], leaf['value']))
-        #     else:
-        #         print('No stat found for', options)
-                
-        # elif cmd == 'level':
-        #     match = re.search('level ([^ ]+) (.*)', message.content)
-        #     amnt = int(match.group(1))
-        #     options = match.group(2).split(',')
-        #     try: 
-        #         options.append(message.author.nick)
-        #     except:
-        #         pass
-        #     options.append(message.author.name)
-        #     options = [x.strip() for x in options]
-        #     keyring, leaf = _stat_search(STATE['stats'], options, deep=0)
-            
-        #     if leaf is not None:
-        #         if leaf['locked'] and len(keyring)>1:
-        #             if message.author.name not in keyring and message.author.name != "Willowlark":
-        #                 await message.channel.send("Sorry, you can't modify that stat.")
-        #         else:
-        #             leaf['value']+= amnt
-        #             user = keyring[0] if len(keyring)>1 else "The server"
-        #             await message.channel.send('{} has {} in the {} stat.'.format(user, leaf['value'], keyring[-1]))
-        #             save_state()
-        #     else:
-        #         print('No stat found for', options)
 
 class Headpat(Command):
 
@@ -335,9 +272,11 @@ class IrlRuby(Command):
         
         if 'irl Ruby' in [x.name for x in message.author.roles]:
             r = [x for x in message.author.roles if x.name == 'irl Ruby'][0]
-            await self.client.remove_roles(message.author,r)
-            await self.client.add_roles(user,r)
+            await message.author.remove_roles(r)
+            await user.add_roles(r)
             await message.channel.send(f"*{user.mention} is now irl Ruby*")
+
+
 
 class CounterIncrement(Command):
 
@@ -417,42 +356,6 @@ class CounterList(Command):
 
 
 
-class CharactersScan(Command):
-    
-    async def action(self, message, match):
-        character_db = self.options.data["Characters"]
-        alias = match[2]
-        queue = []
-        async for m in self.client.logs_from(self.get_channel_by_name("character-sheets"),limit=maxsize):
-            queue.append(m)
-        
-        scanned = []
-        for sheet in queue:
-            character = {}
-            try:
-                character['Name'] = re.search('(.*)\n', sheet.content).group(1).replace('*', '')
-                character['Fate Points'] = int(re.search('Fate Points:.*?([0-9])', sheet.content).group(1))
-                character['Careful'] = int(re.search('Careful:.*?([0-9])', sheet.content).group(1))
-                character['Clever'] = int(re.search('Clever:.*?([0-9])', sheet.content).group(1))
-                character['Flashy'] = int(re.search('Flashy:.*?([0-9])', sheet.content).group(1))
-                character['Forceful'] = int(re.search('Forceful:.*?([0-9])', sheet.content).group(1))
-                character['Quick'] = int(re.search('Quick:.*?([0-9])', sheet.content).group(1))
-                character['Sneaky'] = int(re.search('Sneaky:.*?([0-9])', sheet.content).group(1))
-            except:
-                pass
-            else:
-                print(character)
-                character_db[character['Name']] = character
-                scanned.append(character['Name'])
-        self.options.save()
-        self.options.update()
-        await message.channel.send(f"Following keys updated: {', '.join(scanned)}.")
-        
-    def get_channel_by_name(self, string):
-        for channel in self.client.get_all_channels():
-            if channel.name == string:
-                return channel
-                
 class CharacterLoad(Command):
     
     async def action(self, message, match):
@@ -535,7 +438,7 @@ class CharacterRoll(Command):
             rolls.append(roll)
             tote+=roll
         return tote, rolls
-        
+
 class CharacterMod(Command):
     
     async def action(self, message, match):

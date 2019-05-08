@@ -45,7 +45,8 @@ async def on_message(message):
     else:
         print("server {} not handled right now, only logging.".format(source_server))
 
-
+#TODO Test this; and also probably rewrite it as a json loaded function. 
+# Keeping for reference of a custom event function. 
 async def time_trigger():
     await client.wait_until_ready()
     while not client.is_closed:

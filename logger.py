@@ -9,7 +9,7 @@ class Local_Log(object):
     def log(self, message):
         path = join(self.root_path, message.channel.name)
         makedirs(path, exist_ok=1)
-        with open(join(path,message.timestamp.date().isoformat()+'.txt'), 'a') as f:
+        with open(join(path,message.created_at.date().isoformat()+'.txt'), 'a') as f:
             try:
                 name = message.author.nick
                 assert name is not None
