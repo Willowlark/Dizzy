@@ -5,6 +5,7 @@ from skills import commands
 from skills.parser import Parser
 import diary
 import logger
+from discord import Status
 
 class Interface(object):
     
@@ -34,9 +35,37 @@ class Interface(object):
         if  logging:
             for log in self.loggers:
                 log.log(message)
-        
+    
+    async def on_member_update(self, before, after, guild):
+        pass
 
 class Aurii(Interface):
+    
+    async def on_member_update(self, before, after, guild):
+        CHANNELS = self.diaries['Local'].data['RFA']['Channels']
+        newstatus = str(after.status)
+        oldstatus = str(before.status)
+        
+        for channel, rfa in CHANNELS.items():
+            
+            if after.name in rfa['Members']:
+                for channel in guild.text_channels:
+                    if rfa['Name'] == channel.name and rfa['Enabled'] == 'true': # channel is the targeted channel
+                        
+                        user = after.nick if after.nick is not None else after.name
+                        if newstatus == 'online' and oldstatus == 'offline':
+                            await channel.send(f'*{user} has entered the chatroom*')
+                        elif newstatus == 'offline':
+                            await channel.send(f'*{user} has left the chatroom*')
+                        else:
+                            pass
+                        
+                        online = []
+                        for user in rfa['Members']:
+                            for member in guild.members:
+                                if member.name == user and str(member.status) == 'online':
+                                    online.append(member.nick if member.nick is not None else member.name)
+                        await channel.edit(topic=', '.join(online))
 
     def generate_commands(self):
         command_set = Parser(['!', 'Dizzy,'])
@@ -76,6 +105,12 @@ class Aurii(Interface):
 
         command_set.add(commands.Headpat(options=self.diaries['Local'], pattern='(headpat)(.*)'))
         command_set.add(commands.IrlRuby(options=self.diaries['Local'], pattern='(irlRuby)(.*)'))
+        
+        x = commands.RFAMode(options=self.diaries['Local'], pattern='(rfamode) ([^ ]*) ([Tt]rue|[Ff]alse)')
+        command_set.add(x)
+        command_set.add(commands.RFAMembership(options=self.diaries['Local'], pattern='(rfamembership) ([^ ]+) ([^ ]+)'))
+
+
 
         x = commands.CounterIncrement(options=self.diaries['Local'], pattern='(counter) (add|sub) ([^ ]+) ([0-9]+)')
         command_set.add(x)

@@ -22,4 +22,4 @@ def create(config):
     if config["Type"] == 'Local':
         return Local_Log(config)
     else:
-        raise Exception("Type unhandled.") # TODO Return Dummy logger for not logging?
+        raise Exception("Type unhandled.") 

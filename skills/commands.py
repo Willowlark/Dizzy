@@ -270,7 +270,60 @@ class IrlRuby(Command):
             await user.add_roles(r)
             await message.channel.send(f"*{user.mention} is now irl Ruby*")
 
+class RFAMode(Command):
+    
+    async def action(self, message, match):
+        target, op = match[2:]
+        if target in [x.name for x in message.guild.text_channels]:
+            CHANNELS = self.options.data['RFA']['Channels']
+            
+            
+            if op.lower() == 'true':
+                if target not in CHANNELS:
+                    CHANNELS[target] = {"Enabled": 'true', "Members": [], "Name":target}
+                else:
+                    CHANNELS[target]['Enabled'] = 'true'
+                
+                await message.channel.send(f"RFA mode is now set to `{op.lower()}` for `{target}`.")
+            elif op.lower() == 'false' and target in CHANNELS:
+                CHANNELS[target]['Enabled'] = 'false'
+                await message.channel.send(f"RFA mode is now disabled for `{target}`.")
+            else:
+                print("Don't know what to do with that operation.")
+        
+        self.options.save()
+        self.options.update()
 
+class RFAMembership(Command):
+    
+    async def action(self, message, match):
+        rfa, target = match[2:]
+            
+        for member in message.guild.members:
+            if target == member.nick or target == member.name or target == member.mention:
+                save_name = member.name
+                mention = member.mention
+                break
+            
+        RFA = self.options.data['RFA']["Channels"][rfa]['Members']
+        
+        channel = [x for x in message.guild.text_channels if x.name == rfa][0]
+        if save_name not in RFA:
+            RFA.append(save_name)
+            await channel.send(f"*Welcome to the RFA {mention}.*")
+        else:
+            RFA.remove(save_name)
+            await channel.send(f"*{mention} has left the RFA.*")
+            
+        online = []
+        for user in RFA:
+            for member in message.guild.members:
+                if member.name == user and str(member.status) == 'online':
+                    online.append(member.nick if member.nick is not None else member.name)
+        await channel.edit(topic=', '.join(online))
+        
+        self.options.save()
+        self.options.update()
 
 class CounterIncrement(Command):
 

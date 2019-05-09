@@ -1,0 +1,24 @@
+{
+    "Channels": {
+        "test": {
+            "Enabled": "false",
+            "Members": [
+                "Willowlark",
+                "Whoozica",
+                "slendergiant",
+                "Pawlitics"
+            ],
+            "Name": "test"
+        },
+        "mint-eye": {
+            "Enabled": "true",
+            "Members": [
+                "Willowlark",
+                "slendergiant",
+                "Pawlitics",
+                "Whoozica"
+            ],
+            "Name": "mint-eye"
+        }
+    }
+}

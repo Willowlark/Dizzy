@@ -43,19 +43,16 @@ async def on_message(message):
     if source_server in servers:
         await servers[source_server].handle(message, logging=args.disablelogs)
     else:
-        print("server {} not handled right now, only logging.".format(source_server))
+        print("server {} not handled right now.".format(source_server))
 
-#TODO Test this; and also probably rewrite it as a json loaded function. 
-# Keeping for reference of a custom event function. 
-async def time_trigger():
-    await client.wait_until_ready()
-    while not client.is_closed:
-        now = datetime.now()
-        if now.weekday() in [0,3]:
-            if now.hour == 11:
-                # await get_channel_by_name("ooc").send("GM posts come out today.")
-                await asyncio.sleep(3600)
-        await asyncio.sleep(60)
+@client.event
+async def on_member_update(before, after):
+    
+    source_server = after.guild
+    if source_server.name in servers:
+        await servers[source_server.name].on_member_update(before, after, source_server)
+    else:
+        print("server {} not handled right now.".format(source_server.name))
 
 # Find a channel object via the name of the channel.
 def get_channel_by_name(string, server=None):
@@ -65,5 +62,5 @@ def get_channel_by_name(string, server=None):
 
 if __name__ == '__main__':
     args = parser.parse_args()
-    client.loop.create_task(time_trigger())
+    # client.loop.create_task(time_trigger()) #CRIT How to add a custom task.
     client.run(TOKEN)
