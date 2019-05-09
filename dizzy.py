@@ -33,7 +33,7 @@ async def on_ready():
     print(client.user.id)
     print('------')
     entrance = "Hello! I made it a'okay!" if random.randint(1,10) != 1 else "*Trips on the doorframe* Auu~" 
-    # await get_channel_by_name('general', "The Realm of Aurii").send(entrance)
+    await get_channel_by_name('general', "The Realm of Aurii").send(entrance)
 
 @client.event
 async def on_message(message):
