@@ -6,7 +6,8 @@ class Parser(object):
 
     async def execute(self, message):
         for command in self.commands:
-            await command.execute(message)
+            if await command.execute(message):
+                break
         
     def match(self, message):
         for command in self.commands:

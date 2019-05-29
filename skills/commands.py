@@ -30,11 +30,12 @@ class Command(object):
 
     def compile(self):
         triggers = [''] if not self.triggers else self.triggers
-        self.trigger_match = '^({t}){c}|^({t}) {c}'.format(t='|'.join(triggers), c='{c}')
+        #TODO Accomodate | in this pattern.
+        self.trigger_match = '^({t}){c}|^({t}) {c}'.format(t='|'.join(triggers), c='{c}') 
         self.expression = re.compile(self.trigger_match.format(c=self.pattern), flags=re.DOTALL)
     
     def match(self, message):
-        match = self.expression.search(message.content)
+        match = self.expression.match(message.content)
         if match:
             return [x for x in match.groups() if x is not None]
         else:
@@ -45,9 +46,10 @@ class Command(object):
         if match: 
             if self.check(message):
                 await self.action(message, match)
+                return True
             else:
                 # await message.channel.send("I'm not allowed to let you do that, {}.".format(message.author.name))
-                pass
+                return False
 
     async def action(self, message, match):
         await asyncio.sleep(10)
