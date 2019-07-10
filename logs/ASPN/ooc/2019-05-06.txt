@@ -1,0 +1,90 @@
+Sherwood (Will): Moving conversation about the running game here, so gamestorming can be the brainstorming channel.
+Sherwood (Will): I agree with you Floo, +2 is enough of a difficulty for the task so Argent succeeds. So Cappy let's say the aspect is `rubble in the walkway`.
+Sherwood (Will): Which leaves us with... quite a bit of information for me to display.
+Persimmon (Floob): I was gonna make a page for keeping track of the information at hand.
+Persimmon (Floob): A channel, rather.
+Sherwood (Will): Yeah. Last game I was running I'd post the status blurbs at the end of each round, but we can run with combat areas.
+Persimmon (Floob): Wait, how is there a "dead end" zone between the alley and the fire escape?
+Sherwood (Will): I have the front of the alley as one zone, the end of the alley as another, and the fire escape as a third.
+Persimmon (Floob): I still feel like we should have them numbered, just so I don't have to type out the name of every zone that every character is in.
+Sherwood (Will): That's a good idea.
+Persimmon (Floob): The way I see it:
+Alley = 1, dead end = 2, fire escape = 3
+Sherwood (Will): Yeah.
+Persimmon (Floob): We'll figure out better ways to represent all this later, but for now this will work.
+Argent (el Cap): btw I think it does count as the clever skill as it is especially hindering the opponents in an environmental pre-planning way
+Sherwood (Will): Yup. The way you wrote his thoughts made it clear. 👍
+Sherwood (Will): That's pretty good Floo. Yeah, there's a lot to track with combat, I didn't realize.
+Persimmon (Floob): One last thing: How will we represent obstructed pathways?
+The ladder between 2 and 3 would hinder use in active combat.
+Noctis (CORN BITCH): SONA DAT ASS jk jk
+Persimmon (Floob): Catgirls in yoga pants, we're one of _those_ servers now.
+Argent (el Cap): lol
+Sherwood (Will): lol
+Sherwood (Will): I'll join in on chibi once I finish ASPN post.
+Persimmon (Floob): One of these days we should actually have a session where we sit down, maybe VC, and just get post after post written. If not for the main chat (since posts might be kinda long there) maybe for a character-development chibi instead.
+Sherwood (Will): sounds fun.
+Sherwood (Will): I'm going to step on your toes with the combat area reference Floo, just so that I can edit the posts as the stats change.
+Sherwood (Will): Sorry, after you typed everything out.
+Sherwood (Will): Oh to answer the question, I put "Blocked Ladder" as an aspect on the zone.
+Sherwood (Will): So if someone tries to climb up it, you can spend a fate point to increase the difficulty by `+2`.
+Sherwood (Will): Oh.
+Sherwood (Will): Okay <@!203874275982049280> . Do you want to spend a fate point and compel that the guy rooted to the floor by Percy's ice attack got flattened by the rubble?
+Argent (el Cap): Sure!
+Persimmon (Floob): Welp
+Persimmon (Floob): To my knowledge that's the first time Argent has ever taken a human life.
+Pretty casual murder tbh.
+Persimmon (Floob): Percy approves.
+Sherwood (Will): Oh wait. Even better. I'd say you can use the free invocation from Percy's attack, rather than a fate point.
+Sherwood (Will): And it doesn't have to kill him.
+Sherwood (Will): just break few bones.
+Argent (el Cap): uhhhh AURA!! 😄
+Persimmon (Floob): Huntsmen be like
+"Stunt: Because I _have an aura,_ I don't take stress from the first fifty attacks that hit me per day."
+Argent (el Cap): Aspects
+- Compromising means weakness
+- The quickest action usually happens to be the best
+- Worrying only means hurting twice
+Sherwood (Will): The way I was thinking about it, Stress actually represents Aura. Damage without consequence.
+Argent (el Cap): sums up argent destroying a guy p well
+Persimmon (Floob): Percy's not a huge fan of violence but like
+once you start trying to attack us, he stops giving a shit what happens to you.
+So y'know
+Sherwood (Will): Yeaaaah so this part confuses me. What approach to I apply to dodging.
+Sherwood (Will): Quick, because I was being quick before?
+Persimmon (Floob): I would say getting out of the way completely might be quick, blocking the attack would be forceful, and say, deflecting the attack might even be considered _sneaky_ depending on how you word it.
+Persimmon (Floob): You could even defend cleverly by maybe grabbing a lid of a trash can to use as a shield or something. xD
+Sherwood (Will): I think this'll work... So I think we'll do this as when you do your turn, you take the damage from anyone who attacked you since your last turn.
+Sherwood (Will): Which means you get to write how you (attempted) to dodge the attack, therefore giving you an approach.
+Sherwood (Will): Like these guys just took the damage from our attacks on their turn, and if they survive they can take their actions.
+Persimmon (Floob): I mean, since we can't really organize acting during another character's turn in the format we have, it should be your responsibility to respond to any action directed at you at the beginning of your turn.
+Sherwood (Will): Yes, that'll work.
+Persimmon (Floob): The only time we'd need to break that flow is if there's some kind of contest of micro actions that demands a faster pace than one per turn.
+Sherwood (Will): Figuring out the best way to move tabletop interactions into a PbP format has been a nightmare for everrrr.
+Sherwood (Will): That's a really good way of handling it.
+Sherwood (Will): Okay, so I'll roll the Mook's attack rolls now, and when Argent/Sher reply back they'll defend from the attacks.
+Persimmon (Floob): I remember reading something about spending a fate point during your ally's turn to assist them in a dice roll. Are we offering that option, and how would we handle it if so?
+Persimmon (Floob): (The assistance being in the form of a one-time +2 boost to their roll)
+Sherwood (Will): Personally I'd like to skip it, but if there's want to try it we could have them offer to spend it before you do your roll for the round.
+Persimmon (Floob): Well I do like to try and make it more organic where I can. Maybe only do it if we have a compelling reason to?
+~~Like if Argent sees his little gay boi in trouble and needs to spring into action~~
+Persimmon (Floob): So like Percy probably _wouldn't_ feel the need to save Sherwood from getting punched, so I wouldn't spend a fate point to help him dodge.
+Sherwood (Will): I'm just trying to keep the rules fairly simple, at least to start.
+Persimmon (Floob): Understood
+Sherwood (Will): Translating all these moving parts to a PbP format is quirky.
+Persimmon (Floob): I don't know what PbP stands for-
+Persimmon (Floob): Lead Play?
+Sherwood (Will): Play by Post.
+Sherwood (Will): So should sherwood's dodge count for both attacks?
+Sherwood (Will): Cause they're simultaneous attacks?
+Persimmon (Floob): Weeeeeell...
+Sherwood (Will): No, that wouldn't make sense would it.
+Persimmon (Floob): That's a tough call. Cuz I wanna say that only works if you're dodging them both in one motion, but then that would make Quick dodging OP.
+Sherwood (Will): Two bullets flying at you, just cause they were shot at the same time doesn't mean you can dodge both.
+Persimmon (Floob): Well then again no it wouldn't cuz if you commit to that and fail you're taking two hits. Idk.
+Sherwood (Will): Individual rolls is best.
+Persimmon (Floob): I think for simplicity you should just roll separately, yeah.
+Persimmon (Floob): Especially since that allows you to take a different approach to each. Like if a sword and shield character blocks one attack while parrying another.
+Sherwood (Will): Oh good point.
+Sherwood (Will): MMMKay That was all the GM shit.
+Sherwood (Will): whew.

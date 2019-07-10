@@ -1,0 +1,97 @@
+Dizzy: I have the character sheets for these characters!
+ ```Alias : Character Name,
+sher : Sherwood Cathasaigh,
+percy : Persimmon Burhan,
+sona : Sona Aurelia```
+Sherwood (Will): !chlist
+Dizzy: You rolled *[1, 0, 0, 0]*  for a total of **1** !
+Argent (el Cap): !fudge
+Argent (el Cap): +1
+Argent (el Cap): =2
+Dizzy: Following keys updated: `argent`.
+Sherwood (Will): !chload argent Argent Grae
+
+Fate Points: 3
+Stress: [ ] [ ] [ ]
+Consequences:
+2  Mild:
+4  Moderate:
+6  Severe: 
+
+Aspects
+- Compromising means weakness
+- The quickest action usually happens to be the best
+- Worrying only means hurting twice
+
+Approaches
+Careful: +1
+Clever: +1
+Flashy: +2
+Forceful: +3
+Quick: +2
+Sneaky: 0
+
+Stunt:
+Due to training alone in the forests of Vale, I get +2 when forcefully attacking a non-moving object.
+Dizzy: I have the character sheets for these characters!
+ ```Alias : Character Name,
+sher : Sherwood Cathasaigh,
+percy : Persimmon Burhan,
+sona : Sona Aurelia,
+argent : Argent Grae```
+Sherwood (Will): !chlist
+Dizzy: Argent Grae (argent) rolled **-1** *[-1, 0, -1, 1]*!
+
+ Their `Clever` stat is **1**, so total is -1+1=**0**!
+Sherwood (Will): !chroll argent clever
+Sherwood (Will): Okay, you have that syntax as well Cappy.
+Dizzy: Following keys updated: `noctis`.
+Sherwood (Will): !chload noctis Noctis Del Rey
+
+Fate Points: 3
+Stress: [ ] [ ] [ ]
+Consequences:
+2  Mild:
+4  Moderate:
+6  Severe: 
+
+Aspects
+*Skilled in medical practices
+*Learned swordsmanship in Haven
+*Bedside manners
+
+Approaches
+Careful: +2
+Clever: +3
+Flashy: +1
+Forceful: +1
+Quick: +2
+Sneaky :0
+Dizzy: You rolled *[-1, 0, 0, -1]*  for a total of **-2** !
+Sherwood (Will): !fudge
+Sherwood (Will): +2
+Sherwood (Will): **Thug on Argent: 0**
+Dizzy: You rolled *[0, 0, -1, 1]*  for a total of **0** !
+Sherwood (Will): !fudge
+Dizzy: You rolled *[-1, 0, -1, 1]*  for a total of **-1** !
+Sherwood (Will): !fudge
+Sherwood (Will): **Thug attacks:**
+Argent: 0
+Sher: 2
+Sher: 1
+Dizzy: Sherwood Cathasaigh (sher) rolled **0** *[1, 0, -1, 0]*!
+
+ Their `Sneaky` stat is **2**, so total is 0+2=**2**!
+Sherwood (Will): !chroll sher sneaky
+Dizzy: Sherwood Cathasaigh (sher) rolled **-1** *[0, 0, -1, 0]*!
+
+ Their `Sneaky` stat is **2**, so total is -1+2=**1**!
+Sherwood (Will): !chroll sher sneaky
+Dizzy: Sherwood Cathasaigh (sher) rolled **-1** *[0, 0, -1, 0]*!
+
+ Their `Sneaky` stat is **2**, so total is -1+2=**1**!
+Sherwood (Will): !chroll sher sneaky
+Dizzy: Persimmon Burhan (percy) rolled **-1** *[-1, -1, 0, 1]*!
+
+ Their `Sneaky` stat is **3**, so total is -1+3=**2**!
+Persimmon (Floob): !chroll percy sneaky

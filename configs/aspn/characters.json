@@ -28,5 +28,25 @@
         "Forceful": 2,
         "Quick": 3,
         "Sneaky": 2
+    },
+    "argent": {
+        "Name": "Argent Grae",
+        "Fate Points": 3,
+        "Careful": 1,
+        "Clever": 1,
+        "Flashy": 2,
+        "Forceful": 3,
+        "Quick": 2,
+        "Sneaky": 0
+    },
+    "patchy": {
+        "Name": "Patchouli Breschi",
+        "Fate Points": 3,
+        "Careful": 3,
+        "Clever": 2,
+        "Flashy": 2,
+        "Forceful": 0,
+        "Quick": 1,
+        "Sneaky": 1
     }
 }

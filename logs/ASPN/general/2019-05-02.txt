@@ -1,0 +1,53 @@
+Noctis (CORN BITCH): <@!184437198865563648> OH MY GOD THE AMOUNT OF NOTIFICATIONS I GOT THIS MORNING
+Sherwood (Will): :suffer:
+Persimmon (Floob): ~~What if we have an encounter where it's actually possible for Gwyn to take stress and get incapacitated, and the story changes slightly if that happens?~~
+Sherwood (Will): It’s possible now.
+Sherwood (Will): Though the point of this arc was bow theft and she was a red herring.
+Persimmon (Floob): I just kinda figured these particular bandits wouldn't have any reason to attack her, that's all.
+Persimmon (Floob): So can we just kinda make and resolve our own dice rolls now?
+Sherwood (Will): They don’t, cause they were following Sherwood for the bow... but she’s supposed to get grabbed anyway, to exchange for the bow.
+Sherwood (Will): Yeah, go ahead and do your action, you roll the dice for whatever approach is closest, and you can do a generic roll `!fudge` to represent the mook defense roll.
+Persimmon (Floob): ~~I don't know if it's cheating to describe Percy's rifle attacks as "careful" or if that wouldn't count because the careful action would actually be "taking aim" not "firing the gun."~~
+Persimmon (Floob): Nor do I really know what syntax we're using for creating new aspects or keeping track of the battlefield.
+Persimmon (Floob): The way I see it the battlefield rn is you three and the four thugs on ground level, then me and Gwyn on the fire escape which would be a different area.
+Sherwood (Will): My thought is to run with everything fast and loose. Mostly focus on character aspects, zones are estimated as you said.
+Sherwood (Will): Slong as you describe the action carefully?
+Noctis (CORN BITCH): *Needs to read his whole thread*
+Persimmon (Floob): ~~Percy's gun was always intended to be really weak as an actual weapon so it's probably gonna be pretty rare for me to make an actual direct attack on somebody with it.~~
+Sherwood (Will): That sounds clever to me.
+Sherwood (Will): It’s all in how you write it, which is good for play by post.
+Persimmon (Floob): So I guess for what I'm trying to do here it's... Percy's clever roll against... what, exactly? I mean, even if the thug dodges he'd still freeze the ground, I guess it just wouldn't necessarily benefit _us._ So just a fudge roll for the thug?
+Persimmon (Floob): ~~I promise once we know what we're doing more I won't need to ask so many questions for every move~~
+Sherwood (Will): Nah it fine.
+Sherwood (Will): This is how it breaks down. I believe I was dropping succeed with style, but basically the mook’s defense roll subtracts damage from your attack toll.
+Persimmon (Floob): I mean I know how it works but I just don't know what I'm rolling against.
+Sherwood (Will): You don’t have to roll to hit. Your roll is closer to a damage roll in other games.
+Sherwood (Will): So in general, higher is better.
+Sherwood (Will): Technically it’s a contested roll, so rather than a target number to beat what matters is whose high. Specifically, how much higher.
+Persimmon (Floob): ~~Right but there's still a chance of failure and that has to be quantified by something. That's all I'm asking here.~~
+Sherwood (Will): Ah. And you aren’t attacking I see.
+Persimmon (Floob): Nope. Percy's being an asshole and trying to make the show more interesting rather than fighting. :3
+Sherwood (Will): Failure to create an aspect just means you wasted the turn.
+Sherwood (Will): Or, technically, I can say it gets created but the enemy gets to use it against us for free.
+Persimmon (Floob): In this case I think that would be more correct.
+Persimmon (Floob): Since if he dodges all I did was make the path to the enemy slippery.
+Persimmon (Floob): But it doesn't matter, cuz I hella succeeded.
+Sherwood (Will): Oh wait shit.
+Sherwood (Will): Sorry, I would set a difficulty for this. I had thought you were attacking before.
+Sherwood (Will): NEEEEEver mind.
+Persimmon (Floob): Isn't it still an action that the opponent would directly try and avoid tho?
+Sherwood (Will): Since you aimed at him directly it’s totally a defense action.
+Sherwood (Will): So yeah you hella succeeded.
+Sherwood (Will): Hmm.
+Sherwood (Will): I guess this wouldn’t give the guy stress tho.
+Sherwood (Will): Cause it’s not an attack.
+Sherwood (Will): So he’ll get the aspect `cold feet` but still be in the fight. Just. Not moving.
+Sherwood (Will): And you get a free use of that aspect.
+Persimmon (Floob): So if I have this right, `cold feet` is now an aspect that we can invoke once against him? The instructions say any member of the team can use that one free use.
+Persimmon (Floob): ~~This is a lot of work and nuance for something that I only decided to do because Percy is an asshole.~~
+Sherwood (Will): Little bit lol. My plan was to keep the aspect generation to a minimum and mostly use approaches and personal aspects. But we can do this as we see fit. 
+
+It’s a new aspect on him. The first invocation is free (iirc a +2 against him) and any of us can use it. After that we can continue to say “he has cold feet so I shouldn’t have trouble hitting him” and get +2, but it costs a fate point.
+Persimmon (Floob): Yeah, I was just clarifying that anyone can invoke it.
+Because it's not much good if only the sniper can make use of it, lol.
+Persimmon (Floob): Especially since I would argue that trying to climb the ladder in combat constitutes an obstruction between zones.

@@ -1,0 +1,5 @@
+Dizzy: Argent Grae (argent) rolled **-2** *[1, -1, -1, -1]*!
+
+ Their `Flashy` stat is **2**, so total is -2+2=**0**!
+Argent (el Cap): !chroll argent flashy
+Argent (el Cap): fuck lol

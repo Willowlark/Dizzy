@@ -11,7 +11,7 @@
             "Name": "test"
         },
         "mint-eye": {
-            "Enabled": "true",
+            "Enabled": "false",
             "Members": [
                 "Willowlark",
                 "slendergiant",

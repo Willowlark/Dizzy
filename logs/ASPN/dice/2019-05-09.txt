@@ -1,0 +1,37 @@
+Dizzy: You rolled *[1, 1, 0, -1]*  for a total of **1** !
+Sherwood (Will): !fudge
+Dizzy: You rolled *[1, -1, -1, 1]*  for a total of **0** !
+Sherwood (Will): !fudge
+Dizzy: You rolled *[0, 1, 1, 1]*  with a modifier of *2*  for a total of **5** !
+Sherwood (Will): !fudge +2
+Dizzy: You rolled *[-1, -1, 0, 1]*  with a modifier of *2*  for a total of **1** !
+Sherwood (Will): !fudge +2
+Sherwood (Will): **Mooks**
+```
+Sherwood punched: 5
+Ladder climb: 1
+```
+Dizzy: Sherwood Cathasaigh (sher) rolled **1** *[-1, 0, 1, 1]*!
+
+ Their `Forceful` stat is **3**, so total is 1+3=**4**!
+Sherwood (Will): !chroll sher forceful
+Dizzy: I have the character sheets for these characters!
+ ```Alias : Character Name,
+sher : Sherwood Cathasaigh,
+percy : Persimmon Burhan,
+sona : Sona Aurelia,
+argent : Argent Grae,
+patchy : Patchouli Breschi```
+Sherwood (Will): !chlist
+Dizzy: Sherwood Cathasaigh (sher) rolled **-3** *[0, -1, -1, -1]*!
+
+ Their `Quick` stat is **1**, so total is -3+1=**-2**!
+Sherwood (Will): !chroll sher quick
+Dizzy: Persimmon Burhan (percy) rolled **-3** *[-1, -1, 0, -1]*!
+
+ Their `Quick` stat is **1**, so total is -3+1=**-2**!
+Persimmon (Floob): !chroll percy quick
+Dizzy: You rolled *[1, 0, 0, 1]*  for a total of **2** !
+Persimmon (Floob): !fudge
+Dizzy: You rolled *[1, 0, -1, 0]*  for a total of **0** !
+Persimmon (Floob): !fudge

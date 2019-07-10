@@ -1,0 +1,12 @@
+Dizzy: Sherwood Cathasaigh (sher) rolled **0** *[1, -1, -1, 1]*!
+
+ Their `Quick` stat is **1**, so total is 0+1=**1**!
+Sherwood (Will): !chroll sher Quick
+Dizzy: You rolled *[0, 1, -1, 0]*  for a total of **0** !
+Sherwood (Will): !fudge
+Dizzy: Persimmon Burhan (percy) rolled **3** *[1, 0, 1, 1]*!
+
+ Their `Clever` stat is **2**, so total is 3+2=**5**!
+Persimmon (Floob): !chroll percy Clever
+Dizzy: You rolled *[0, 1, 0, 1]*  for a total of **2** !
+Persimmon (Floob): !fudge
