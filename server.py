@@ -95,6 +95,7 @@ class Aurii(Interface):
         command_set.add(commands.Reply(options='https://i.imgur.com/hXuK1cP.png', pattern='(hush)'))
         command_set.add(commands.Reply(options='https://i.imgur.com/gilOf0I.gif', pattern='(teamwork)'))
         command_set.add(commands.Reply(options='https://i.imgur.com/no93Chq.png', pattern='(prick)'))
+        command_set.add(commands.Reply(options='https://i.imgur.com/JxOe5TA.jpg', pattern='(angryjess)'))
         command_set.add(commands.Reply(options='I ship Knight Light!', triggers=[''], pattern='.*ship.*knight light.*|.*knight light.*ship.*'))
 
         ghost = commands.Ghost(pattern='(ghost) (.*)')
