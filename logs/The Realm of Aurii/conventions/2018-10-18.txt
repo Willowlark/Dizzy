@@ -1,5 +1,0 @@
-Bill: 
-Afina (Georgia): Lmao
-Dizzy: Pulling messages from conventions:
-Dizzy: Logging done @ b'Bad API request, maximum paste file size exceeded'
-Bill: !log conventions

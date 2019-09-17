@@ -1,8 +1,0 @@
-Afina (Georgia): I got this Instagram analytics tool that my sister showed me
-Afina (Georgia): It turns out that a majority of the time, when people “unfollow” me, they actually just delete their account entirely
-Afina (Georgia): And to think, all this time I thought people unfollowed cause they didn’t like my content 🤔 when in reality 60-70% just delete their IG
-Bill: Follower count still means nothing~~
-Bill: I’m... also not sure that data can be extracted.
-Afina (Georgia): It just says who unfollowed me recently
-Afina (Georgia): And clicking on their username, if it no longer exists, it means they deleted
-Bill: Hmm. Maybe then. I’ve looked at instagrams api, they’re really hard to get data out of.

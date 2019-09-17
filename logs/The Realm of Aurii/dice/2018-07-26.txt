@@ -1,2 +1,0 @@
-Bill: /r 1d6 + 1d6 + 1d6 + 1d6 # Desii, Eliran, Aldus, Nokri
-Sidekick: <@184437198865563648>:  `1d6 + 1d6 + 1d6 + 1d6` Desii, Eliran, Aldus, Nokri = (2)+(5)+(1)+(3) = 11
