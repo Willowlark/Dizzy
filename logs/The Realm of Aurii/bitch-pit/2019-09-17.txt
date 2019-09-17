@@ -1,0 +1,40 @@
+Chengu Tiaowen (Erik): Boss called me, pulling me away from work I was *just* about to start, to talk to me about this idea he had *to suggest a major design change to one of our customers* and got to rambling, then kept telling me about things that I already need to do that are not on my high priority list, then had the audacity to tell me not to stress. Like, fuck you? This call is stressing me out because you're keeping me from doing my work
+Chengu Tiaowen (Erik): And a customer is waiting on a quote for 33 assemblies that I haven't even looked at because I've got a half dozen other quotes to do, plus getting assembly procedures and quality documentation prepped for 4 orders from another customer
+Chengu Tiaowen (Erik): And he tells me *not to stress*
+Chengu Tiaowen (Erik): Still waiting for them to hire a second engineer that they've been taking about doing for 3 years...
+Bill: oof
+Bill: He's really out of touch with the workload
+Chengu Tiaowen (Erik): Yeah. That'll happen when you do come into work
+Bill: Right? He needs to come in so you can push that cart of cables onto him
+Bill: Fuck error codes that show issues in the library code rather than my code. I KNOW 97 is what's causing the issue, not 494 of the pandas library.
+Bill: took me like 20 minutes to figure out why 🐼 and not 🐍
+Aldus Larian (Jess): panda library
+Chengu Tiaowen (Erik): customer with the 33 assemblies just asked for a rough idea of when he might see a quote
+Chengu Tiaowen (Erik): I flat out told him my to-do list is about a mile long and I *just* got around to looking at any of the drawings
+Chengu Tiaowen (Erik): *Dude, I'm doing the work of about 4 people here. Please bear with me*
+Bill: Was he understanding?
+Chengu Tiaowen (Erik): idk, I just sent the email 2 minutes ago
+Bill: Ah, I dunno why I thought you'd know now
+Chengu Tiaowen (Erik): you could have been thinking it was a phone communication
+Bill: That or Slack lol
+Bill: I slack my clients 90% of the time.
+Chengu Tiaowen (Erik): we're not that technologically advanced
+Chengu Tiaowen (Erik): we still have computers running XP
+Bill: ~~totally read that as the emoji XP first rather than Windows XP and was about to be very confused~~
+Chengu Tiaowen (Erik): At least Microsoft never came out with "Windows XD"
+Bill: Windows, Xtra Dickish
+Chengu Tiaowen (Erik): Lol he asked if we could get it done by the end of the week
+Bill: boo. If Sheema didn't ask me something directly an hour ago, I've have been able to try and port Dizzy to my private cloud as a training thing for when I'll need to use the same kind of hosting for this project
+Chengu Tiaowen (Erik): my boss is so fucking paranoid. I finished up a quote that we had to do a little design work for (customer didn't specify what cable to use and left it to our discretion) so he's having me add a note saying that we would confirm the configuration after a PO was received so we don't give out the cable we used and then they take it to someone else to get a quote 🙄
+Chengu Tiaowen (Erik): customer with 33 assemblies just threw all of the drawings into a folder mixing up assembly drawings, subassembly drawings, and component drawings
+Chengu Tiaowen (Erik): some are in PDF form, but a lot are in DWG form (which not everyone here has the software to read those files)
+Chengu Tiaowen (Erik): so I have to convert every single one to PDF
+Chengu Tiaowen (Erik): and then going to have to sort all of them by actual product
+Bill: that a recurring problem, with the DWGs?
+Chengu Tiaowen (Erik): yeah, we'll totally get this bullshit done by the end of the week
+Chengu Tiaowen (Erik): most customers send them in PDF form. might have to start asking them if they can send them in PDF form instead
+Chengu Tiaowen (Erik): this is taking up so much time
+Bill: I'm poking around to see if anyone has an executable you can run to convert them in a script, might be possible.
+Bill: So you could just run the script and it'll convert.
+Bill: If it's enough of a time waster that the time it will take to build the automation is work it 👌
+Chengu Tiaowen (Erik): the fact that they put 3 assemblies in their own folders and threw the rest of the files in a folder named "rest of the cables" is the real kicker

@@ -1,0 +1,170 @@
+Bill: Head could you give me a break? I don’t need your aching today, o got a big day at work.
+Nokri (Marisa): Someone gave us food I was planning on having for brunch but. It’s open? It’s one of those brownie packs but it’s been torn open and none of the brownies are missing and it was stapled shut. That’s reeeallly weird.
+Aldus Larian (Jess): Hmmmm 🤔
+Aldus Larian (Jess): Are they all unsealed?
+Nokri (Marisa): It’s just the one bag
+Nokri (Marisa): Like we only got one and it’s open
+Nokri (Marisa): Freaky
+Chengu Tiaowen (Erik): goddamn this fucking customer
+Nokri (Marisa): 
+Nokri (Marisa): Yay customers
+Chengu Tiaowen (Erik): they're the most difficult fucking people I have ever had to deal with
+Chengu Tiaowen (Erik): constantly changing their drawings and BOMs with no actual revision change so you can't really keep track of which is the correct fucking drawing
+Chengu Tiaowen (Erik): changing things *after* we've already started working on them
+Chengu Tiaowen (Erik): sending in quote request after quote request for dozens of different parts that they're only ever going to purchase *once*
+Chengu Tiaowen (Erik): demanding that we complete each quote "ASAP" because it is "very urgent" because they "need to place the order immediately"
+Chengu Tiaowen (Erik): demanding that we complete them ALL in like 2 weeks when there's so much fucking paperwork to do for each assembly
+Chengu Tiaowen (Erik): I. HATE. THIS. CUSTOMER.
+Chengu Tiaowen (Erik): SO. GOD. DAMN. MUCH.
+Chengu Tiaowen (Erik): And they're all Indian so there's a language barrier which makes it even more frustrating to deal with
+Aldus Larian (Jess): i have to pack up at work for a conference my coworkers are going to. one of things they need it a lint roller which they didnt put the cover on and somehow had a rubber band stuck to it so i pulled off the sheet and smacked myself in the finger with a rubber band and im pretty suure it gon bruise
+Bill: oof
+Bill: Also kill them Erik.
+Bill: Is your boss brown nosing them cause clients?
+Chengu Tiaowen (Erik): I think I hurt my wrist banging my fist on my thigh in frustration because now it hurts
+Chengu Tiaowen (Erik): like it feels like it needs to pop
+Bill: Cause that sounds like an excellent point for a manager to step in and say 'in order to improve productivity on your requests, we need to set some ground rules'.
+Bill: You could do that as well, theoretically, but depends on your working relationship with the clients.
+Chengu Tiaowen (Erik): boss doesn't really interact with them. he just approves the RFQs when I give them to him
+Chengu Tiaowen (Erik): we've been dealing with their bullshit for 2 years now. It was even worse at the beginning because they requested a lot of things with new terminals we didn't have the tooling for so we had to try to figure out how to charge them extra for tooling
+Bill: Mmm... We had/have similar problems with IBM on some projects. If you can figure out an appropriate way to push back, it might be worth considering.
+Chengu Tiaowen (Erik): Mostly it's just trying to keep the customer happy. Like they don't get angry when we're late with a quote or anything, they just keep asking for updates and it gets annoying
+Bill: Right. Same scenario. IBMers were pushing Indellient staff for updates too much, just because they were eager/a mess/trying to do work based on that update, and the trick was to push back the update timing.
+Bill: I had to do that with Sheema, I kinda ghosted her for a few hours each day to 'train' her into not asking me for updates at 6am every morning.
+Bill: That's on a smaller scale though.
+Bill: What you need is to define a process with them for future orders that benefits you, but also appeals to them.
+Bill: ~~sorry I dabble in project management a lot around the office so I'm just spewing advice~~
+Chengu Tiaowen (Erik): One thing I've started doing to speed up the process is making abridged assembly procedures. Since we're only ever making like 2-5 pieces of each assembly for a one-shot order, there's not much point making individual APs for each one. The important useful info is the tooling for each terminal so I started compiling all the terminals we use for them with the tooling info and then create one AP for each PO we receive so that's been helping in that respect
+Bill: Automation!
+Bill: Smart.
+Tikur (Kurtis): Some pork chops just flew out of the freezer and honestly I just feel so attacked rn
+Chengu Tiaowen (Erik): chop them back
+Nokri (Marisa): ooooo that reminds me of a story
+Chengu Tiaowen (Erik): 🍿 🙂
+Tikur (Kurtis): https://media.tenor.com/images/b64ada34f488b4418db6dc98b9610606/tenor.gif
+Nokri (Marisa): When I was a kid
+I used to think that pork chops and karate chops
+Were the same thing
+I thought they were both pork chops
+And because my grandmother thought it was cute
+And because they were my favourite
+She let me keep doing it
+Not really a big deal
+One day
+Before I realized fat kids are not designed to climb trees
+I fell out of a tree
+And bruised the right side of my body
+I didn’t want to tell my grandmother about it
+Because I was afraid I’d get in trouble
+For playing somewhere that I shouldn’t have been
+A few days later the gym teacher noticed the bruise
+And I got sent to the principal’s office
+From there I was sent to another small room
+With a really nice lady
+Who asked me all kinds of questions
+About my life at home
+I saw no reason to lie
+As far as I was concerned
+Life was pretty good
+I told her, “Whenever I’m sad
+My grandmother gives me karate chops”
+This led to a full scale investigation
+And I was removed from the house for three days
+Until they finally decided to ask how I got the bruises
+News of this silly little story quickly spread through the school
+And I earned my first nickname
+Pork Chop
+To this day
+I hate pork chops
+Nokri (Marisa): i copied and pasted that it's not about me
+Nokri (Marisa): https://medium.com/poem-of-the-day/shane-koyczan-to-this-day-baae83cf75ee
+Aldus Larian (Jess): I THOUGHT IT WAS ABOUT U
+El🆓de Faun (Tom): I THOUGHT IT WAS YOU TOO
+El🆓de Faun (Tom): OMG
+Nokri (Marisa): oops :3c
+Nokri (Marisa): pork chops are ok
+El🆓de Faun (Tom): It fits so we'll lmao
+El🆓de Faun (Tom): You had a nickname too
+Nokri (Marisa): *el gato diablo*
+Nokri (Marisa): after some mental health questions once they sent me in to see a counselor and she was like "lol you're fine bye"
+Aldus Larian (Jess): AHHH none of the shit i need to do to the stuff i need to do before vacation is coming in
+Afina Tyndall (Georgia): The only reason I knew it wasn’t about you is because I’ve seen it before lol
+Aldus Larian (Jess): boss last week: I need this as an 18 x 24 in 30 mins
+me: the only way i can do that is by tapaing sheets together 
+boss: Ok
+
+boss this week: why are there lines in this?
+El🆓de Faun (Tom): Lmao did he eventually accept it
+Aldus Larian (Jess): yea but i gotta reprint it smaller anyway cuz he doesnt understand pixels
+Aldus Larian (Jess): hes like "why does it look bad?" and im like "because this is about 12 times it original size"
+Nokri (Marisa): waifu x2
+Aldus Larian (Jess): and hes like "can you clean it up?"
+and ime like "NO THATS NOT HOW THIS WORKS"
+Nokri (Marisa): https://waifu2x.booru.pics/
+Aldus Larian (Jess): but thas only for 2 times bigger not like 12
+Aldus Larian (Jess): plus i want him to suffer
+Nokri (Marisa): run it though like 3 times
+oo also valid
+Aldus Larian (Jess): My self confidence took a drop earlier this week but it commin back in take for con thank God <:pwease:555585508819075112>
+Chengu Tiaowen (Erik): goddammmit I sweat to god...
+Chengu Tiaowen (Erik): *they changed **another** part*
+Chengu Tiaowen (Erik): *we already built the damn thing*
+Bill: Woo Jess!
+Bill: Now if I can stop anxiety I got building it’ll be an absolute win!
+Aldus Larian (Jess): <:shocked_pikachu:511736860859432971>
+Aldus Larian (Jess): for con>?
+Bill: Life. 😅
+Bill: The kind where you can’t quite tell the source.
+Chengu Tiaowen (Erik): ```
+Good afternoon,
+
+We have received the finals drawings. Upon inspection, there is a discrepancy between the preliminary drawing and final drawing for assembly _______ Item #30.
+
+Preliminary drawing calls for American Electrical Inc. P/N 1161050
+Final drawing calls for Panduit P/N FTD75-8-D
+
+As material has already been purchased for this order, the former part was used for this assembly. If this is an issue, please let us know so that we can re-quote the assembly and issue rework charges to fix it.
+
+For future reference, please make sure BOMs on final drawings match preliminary drawings, or inform us of any changes so that we can quote properly.
+
+Thank you,
+
+Erik Bjorken
+Engineer
+```
+Chengu Tiaowen (Erik): this is me passive aggressively telling them to get their fucking shit together
+Bill: I think that reads well.
+Bill: Still professional, provide solutions, but also establishes a problem.
+Chengu Tiaowen (Erik): > clicks *reply all* and forwards to my boss as well
+Bill: You could add something to the end about only wanting to save them money as well, depending on your familiarity with the client.
+Chengu Tiaowen (Erik): I don't give a shit lol
+Aldus Larian (Jess): nah its good as is
+Bill: Ye, not saying you do.
+Bill: It’s just “playing the game”.
+Aldus Larian (Jess): if u were a sales person then ya, but you get nothing from kissing their ass personally so i say fuck it
+Chengu Tiaowen (Erik): and their order entry and invoicing system is a pain in the ass because they can't just edit a PO if they need to change something. they need to enter it as an additional item so making price changes mid-order is a fucking nightmare
+Bill: It builds repore. You want to be nice and helpful expert in your field. Your nice, so they don’t consider you on their side and your an expert so they trust what you have to say.
+Bill: 😒
+Bill: I was supposed to have a discussion with Gord today and he failed to book time for it, and we're pushing it. An important discussion. It was also my *primary* reason for coming in today.
+Bill: *You better*
+Bill: 😒
+Bill: I also have one of those like, rubbed off skin blistered on the back of my heel from new shoes so I gotta go get band aids or suffer the walk to the train.
+Aldus Larian (Jess): new guy we hired 3 days ago is already making fun of my boss XD
+Tikur (Kurtis): Just had an old man mutter "I just wanna get shot" as he had to get up from a chair,and I almost said mood out loud.
+Chengu Tiaowen (Erik): did today drag on for fucking ever for anyone else?
+Tikur (Kurtis): Oh it still is
+Bill: No, but only cause I was *supposed* to be having that meeting.
+Tikur (Kurtis): This is me in the inside rn
+El🆓de Faun (Tom): 😱
+Bill: Fuck my train is listed as TBA.
+Bill: I swear if it’s cancelled.
+Bill: All good.
+Bill: This renora fic is diabetes though.
+Tikur (Kurtis): Share the sweetness punk
+Bill: Five summers on fanfic.
+Bill: Fluff is dangerous.
+Afina Tyndall (Georgia): oof my stomach is so upset
+Afina Tyndall (Georgia): and im stuck running study hall for tonight
+Afina Tyndall (Georgia): 2 hours
+Afina Tyndall (Georgia): study hall is the worst part about this job
+El🆓de Faun (Tom): ://

@@ -1,0 +1,28 @@
+Chengu Tiaowen (Erik): >So we got a new customer recently and started making some cables for them (remember those big ass 50 foot cables in the conduit?)
+>So anyway they approached us about quoting a big cabinet looking thing that's part of their machinery which is something we don't typically do
+>We got this request several weeks ago so we've kind of been putting it off and now the customer is itching for it
+>I planned to have a meeting about it today to go over it and make a game plan of how to approach this
+>Boss man says he's not coming in so he won't be able to make the meeting and then we get into a discussion about how maybe we should try to buy some more time and maybe just tell them that we're not in a position to quote it right now
+>So now I'm feeling this emotion where I'm both annoyed and relieved at the same time?
+Aldus Larian (Jess): That's a mood
+Chengu Tiaowen (Erik): I mostly just don't want to have to tell the customer "hey sorry for putting this off, and I know you wanted this quote, but we're not going to be able to do it now"
+Chengu Tiaowen (Erik): aaaaand the other customer that always gives us issues just changed more drawings on us after they placed the order. luckily it was before we actually started it
+Chengu Tiaowen (Erik): it's 10:45 and I've already mentally clocked out for the day 😞
+Chengu Tiaowen (Erik): Got to write a quote declination email
+Chengu Tiaowen (Erik): ```
+Hi [customer],
+
+I apologize for the delay on the quotes for the [assemblies you asked us to quote]. I know it has been several weeks, but we have been very busy lately with orders and quotes for other customers. These assemblies are very different from the types of things we typically build here and they are far more complex that we have not been able to dedicate the proper time needed to give a good price.
+
+I know you are looking for these fairly soon, but I do not think that we will be able to quote these for the time being. Perhaps we can revisit these quotes next year after we have had more time to devote to these assemblies if you are still looking for another supplier.
+
+In the meantime, if there are any other wire harnesses or cables you need quoted, we will be happy to quote those for you.
+
+Thank you,
+
+Erik Bjorken
+Engineer
+```
+Aldus Larian (Jess): 👌
+Chengu Tiaowen (Erik): ugh the guy wants me to call him about this
+Chengu Tiaowen (Erik): Welp, my tablet died. Won't charge or turn on
