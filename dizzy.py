@@ -18,8 +18,8 @@ parser.add_argument('--disablelogs', action='store_false',
 
 client = discord.Client()
 configs_path = 'configs'
-chdir(configs_path)
-configs = [f for f in listdir('.') if 'json' in f]
+# chdir(configs_path)
+configs = [join(configs_path,f) for f in listdir('configs') if 'json' in f]
 
 servers = {}
 for config in configs:

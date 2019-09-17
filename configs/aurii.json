@@ -9,17 +9,17 @@
             "DB_User": "",
             "DB_Pass": "",
             "Tables": {
-                "Counters": "aurii/counters.json",
-                "Sets": "aurii/sets.json",
-                "Characters": "aurii/characters.json",
-                "Headpats": "aurii/headpats.json",
-                "RFA": "aurii/RFA.json"
+                "Counters": "DizzyHoG/aurii/counters.json",
+                "Sets": "DizzyHoG/aurii/sets.json",
+                "Characters": "DizzyHoG/aurii/characters.json",
+                "Headpats": "DizzyHoG/aurii/headpats.json",
+                "RFA": "DizzyHoG/aurii/RFA.json"
             }
         }
     ],
     "Loggers": [
         {
-            "Path": "../logs/The Realm of Aurii",
+            "Path": "DizzyHoG/logs/The Realm of Aurii",
             "Type": "Local"
         }
     ]

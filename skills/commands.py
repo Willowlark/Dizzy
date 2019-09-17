@@ -144,7 +144,7 @@ class Log(Command):
             queue.append(log)
         queue.append(attrition)
         # TODO use makedirs here
-        open(join('../batch-logs', channel+'.md'), 'w').writelines(reversed(queue))
+        open(join('DizzyHoG/batch-logs', channel+'.md'), 'w').writelines(reversed(queue))
         url = pastebin.paste(channel, '\n'.join(reversed(queue)))
         await message.channel.send('Logging done @ ' + repr(url))
 

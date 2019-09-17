@@ -9,15 +9,15 @@
             "DB_User": "",
             "DB_Pass": "",
             "Tables": {
-                "Counters": "aspn/counters.json",
-                "Sets": "aurii/sets.json",
-                "Characters": "aspn/characters.json"
+                "Counters": "DizzyHoG/aspn/counters.json",
+                "Sets": "DizzyHoG/aurii/sets.json",
+                "Characters": "DizzyHoG/aspn/characters.json"
             }
         }
     ],
     "Loggers": [
         {
-            "Path": "../logs/ASPN",
+            "Path": "DizzyHoG/logs/ASPN",
             "Type": "Local"
         }
     ]

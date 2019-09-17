@@ -2,12 +2,13 @@
 FROM python:3.7-alpine
 RUN apk add --no-cache git
 
-RUN git clone https://github.com/Willowlark/Dizzy.git
+# RUN git clone https://github.com/Willowlark/Dizzy.git
+# COPY auth.py /Dizzy/auth.py
+COPY . /Dizzy
 
 # Set the working directory to /app
 WORKDIR /Dizzy
 
-COPY auth.py /Dizzy/auth.py
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --trusted-host pypi.python.org -r requirements.txt

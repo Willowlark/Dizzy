@@ -9,14 +9,14 @@
             "DB_User": "",
             "DB_Pass": "",
             "Tables": {
-                "Counters": "bne/counters.json",
-                "Sets": "aurii/sets.json"
+                "Counters": "DizzyHoG/bne/counters.json",
+                "Sets": "DizzyHoG/aurii/sets.json"
             }
         }
     ],
     "Loggers": [
         {
-            "Path": "../logs/Beacon Academy: Northeastern Campus",
+            "Path": "DizzyHoG/logs/Beacon Academy Northeastern Campus",
             "Type": "Local"
         }
     ]
