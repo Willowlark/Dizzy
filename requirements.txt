@@ -8,8 +8,6 @@ certifi==2019.3.9
 chardet==3.0.4
 cloudant==2.7.0
 decorator==4.1.2
-discord==1.0.1
-discord.py==1.0.1
 freeze==1.0.10
 idna==2.6
 idna-ssl==1.1.0

@@ -193,7 +193,7 @@ class Ghost(Command):
         await message.channel.send(content)
         # for m in content.split('\n'):
             # await message.channel.send(m)
-            
+
 class Fudge(Command):
 
     async def action(self, message, match):

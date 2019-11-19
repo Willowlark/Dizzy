@@ -12,6 +12,7 @@ WORKDIR /Dizzy
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
+RUN cd discord.py;python setup.py install;cd /..
 
 # Run app.py when the container launches
 CMD ["python", "dizzy.py"]
