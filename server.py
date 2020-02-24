@@ -38,6 +38,9 @@ class Interface(object):
     
     async def on_member_update(self, before, after, guild):
         pass
+    
+    async def on_message_delete(self, message):
+        pass
 
 class Aurii(Interface):
     
@@ -66,6 +69,12 @@ class Aurii(Interface):
                                 if member.name == user and str(member.status) == 'online':
                                     online.append(member.nick if member.nick is not None else member.name)
                         await channel.edit(topic=', '.join(online))
+
+    async def on_message_delete(self,message):
+        my_id = 184437198865563648
+        
+        me = self.client.get_user(my_id)
+        await me.send(f"{message.author.name} deleted\n\n>>> {message.content}")
 
     def generate_commands(self):
         command_set = Parser(['!', 'Dizzy,'])

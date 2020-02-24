@@ -2,6 +2,7 @@ import re
 import random
 import asyncio
 import pastebin
+import arrow
 
 from datetime import datetime
 from datetime import timedelta
@@ -109,11 +110,11 @@ class Reply(Command):
 class Timecheck(Command):
 
     async def action(self, message, match):
-        now = datetime.utcnow()
-        nowam = now - timedelta(hours=5)
-        nowjp = now + timedelta(hours=9)
-        msg = "It's currently {} in EST and {} in Weebland.".format(
-            nowam.strftime("%H:%M"), nowjp.strftime("%H:%M"))
+        now = arrow.now()
+        nowam = now.to('America/New_York')
+        nowjp = now.to('Asia/Tokyo')
+        msg = "It's currently {} in EST\n and {} in Weebland.".format(
+            nowam.format("dddd, MMM D h:mm A YYYY"), nowjp.format('dddd, MMM D h:mm A YYYY'))
         await message.channel.send(msg)
 
 class Choose(Command):
@@ -219,14 +220,19 @@ class Headpat(Command):
 
     async def action(self, message, match):
         target = match[2].strip()
+        m_check = re.match('<@!?([0-9]+)>', target)
+        if m_check is not None:
+            target = m_check.group(1)
         
         if target != '':
             for member in message.guild.members:
-                if target == member.nick or target == member.name or target == member.mention:
+                opts = [member.nick, member.name,re.match('<@!?([0-9]+)>', member.mention).group(1)]
+                if target in opts:
                     save_name = member.name
                     mention = member.mention
                     break
             else:
+                # await message.channel.send(f"I don't know who {member.nick}, {member.name} or {member.mention} is :(")
                 return None
         else:
             save_name = 'Dizzy'
