@@ -13,7 +13,8 @@
                 "Sets": "DizzyHoG/aurii/sets.json",
                 "Characters": "DizzyHoG/aurii/characters.json",
                 "Headpats": "DizzyHoG/aurii/headpats.json",
-                "RFA": "DizzyHoG/aurii/RFA.json"
+                "RFA": "DizzyHoG/aurii/RFA.json",
+                "Questions": "DizzyHoG/aurii/questions.json"
             }
         }
     ],

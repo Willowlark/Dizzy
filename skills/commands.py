@@ -3,11 +3,14 @@ import random
 import asyncio
 import pastebin
 import arrow
+import rollparser
 
 from datetime import datetime
 from datetime import timedelta
 from sys import maxsize
 from os.path import join
+
+# CRIT: MATCH[0] IS THE STRING, MATCH[1] IS THE TRIGGER, MATCH[2] STARTS THE USER INPUT!!!!!!!
 
 # TODO Help input as a constructor value, which is placed in __str__.
 # TODO Help interator for the Commander object
@@ -216,6 +219,14 @@ class Fudge(Command):
             tote+=roll
         return tote, rolls
 
+class Roll(Command):
+
+    async def action(self, message, match):
+        og, rolls, total = rollparser.parse(match[2])
+        await message.channel.send(f"Rolled `{og}` and got {total}!\nThe rolls were :*{rolls}*")
+            
+
+
 class Headpat(Command):
 
     async def action(self, message, match):
@@ -408,6 +419,23 @@ class CounterList(Command):
         lines.append('```')
 
         await message.channel.send("".join(lines))
+
+class QuestionPlease(Command):
+    
+    async def action(self, message, match):
+        QUESTIONS = self.options.data['Questions']["Questions"]
+        cnt = len(QUESTIONS)
+        while 1:
+            roll = random.randint(0, cnt-1)
+            QUESTION = QUESTIONS[roll]
+            if not QUESTION['done']: break
+        
+        await message.channel.send(f"Here's the Question!\n**{QUESTION['question']}**\n\n:one: {QUESTION['option1']}\n:two: {QUESTION['option2']}")
+        
+        QUESTION['done'] = True
+        
+        self.options.save()
+        self.options.update()
 
 
 

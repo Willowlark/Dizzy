@@ -42,6 +42,9 @@ class Interface(object):
     async def on_message_delete(self, message):
         pass
 
+    async def ticker(self, dt):
+        pass
+
 class Aurii(Interface):
     
     async def on_member_update(self, before, after, guild):
@@ -74,7 +77,7 @@ class Aurii(Interface):
         my_id = 184437198865563648
         
         me = self.client.get_user(my_id)
-        await me.send(f"{message.author.name} deleted\n\n>>> {message.content}")
+        await me.send(f"{message.author.name} deleted from `{message.channel.name}`\n\n>>> {message.content}")
 
     def generate_commands(self):
         command_set = Parser(['!', 'Dizzy,'])
@@ -93,19 +96,22 @@ class Aurii(Interface):
         command_set.add(log)
 
         postday = commands.Reply(options='Yes, it is "Post Day".', triggers=[''], pattern='.*post day.*yet.*')
-        postday.setfunc(lambda x: datetime.now().weekday() in [0, 3])
+        postday.setfunc(lambda x: datetime.now().weekday() in [2])
         command_set.add(postday)
         
         notpostday = commands.Reply(options="No, it isn't post day.", triggers=[''], pattern='.*post day.*yet.*')
-        notpostday.setfunc(lambda x: datetime.now().weekday() not in [0, 3])
+        notpostday.setfunc(lambda x: datetime.now().weekday() not in [2])
         command_set.add(notpostday)
+        
+        health_checkin = "How is @everyone today? How are you feeling? \n💛: I'm Amazing!\n:heart:: Pretty good.\n💗: Good!\n💜: I'm Okay\n:orange_heart:: I'm coming back\n💚: It's tough\n💙: It's Awful\n💔: I'm completely lost and broken inside\n🖤: I'm having suicidal thoughts"
+        command_set.add(commands.Reply(options=health_checkin, pattern='(checkin)'))
         
         command_set.add(commands.Reply(options='https://i.imgur.com/55sx3FG.png', pattern='(tsun)'))
         command_set.add(commands.Reply(options='https://i.imgur.com/hXuK1cP.png', pattern='(hush)'))
         command_set.add(commands.Reply(options='https://i.imgur.com/gilOf0I.gif', pattern='(teamwork)'))
         command_set.add(commands.Reply(options='https://i.imgur.com/no93Chq.png', pattern='(prick)'))
         command_set.add(commands.Reply(options='https://i.imgur.com/JxOe5TA.jpg', pattern='(angryjess)'))
-        command_set.add(commands.Reply(options='I ship Knight Light!', triggers=[''], pattern='.*ship.*knight light.*|.*knight light.*ship.*'))
+        # command_set.add(commands.Reply(options='I ship Knight Light!', triggers=[''], pattern='.*ship.*knight light.*|.*knight light.*ship.*'))
 
         ghost = commands.Ghost(pattern='(ghost) (.*)')
         ghost.requireauthor('Willowlark')
@@ -113,6 +119,8 @@ class Aurii(Interface):
         
         command_set.add(commands.Fudge(pattern='(fudge) ([+-]?[0-9]+)'))
         command_set.add(commands.Fudge(pattern='(fudge)'))
+        
+        command_set.add(commands.Roll(pattern='(roll|r) (.*)'))
 
         command_set.add(commands.Headpat(options=self.diaries['Local'], pattern='(headpat)(.*)'))
         command_set.add(commands.IrlRuby(options=self.diaries['Local'], pattern='(irlRuby)(.*)'))
@@ -120,6 +128,8 @@ class Aurii(Interface):
         x = commands.RFAMode(options=self.diaries['Local'], pattern='(rfamode) ([^ ]*) ([Tt]rue|[Ff]alse)')
         command_set.add(x)
         command_set.add(commands.RFAMembership(options=self.diaries['Local'], pattern='(rfamembership) ([^ ]+) ([^ ]+)'))
+        
+        command_set.add(commands.QuestionPlease(options=self.diaries['Local'], pattern='(questionplz)'))
 
 
 
@@ -150,6 +160,14 @@ class Aurii(Interface):
         
         return command_set
 
+    async def ticker(self, dt):
+
+        if dt.hour == 12 and dt.minute == 0:
+                for channel in self.client.get_all_channels():
+                    if channel.name == 'quiz-n-crews' and ("The Realm of Aurii" == channel.guild.name):
+                        await channel.send('!questionplz')
+                        break
+
 class BNE(Interface):
 
     def generate_commands(self):
@@ -165,6 +183,9 @@ class BNE(Interface):
         log = commands.Log(pattern='(log) ([^ ]*)')
         log.requireauthor('Willowlark')
         command_set.add(log)
+        
+        health_checkin = "How is @everyone today? How are you feeling? \n💛: I'm Amazing!\n:heart:: Pretty good.\n💗: Good!\n💜: I'm Okay\n:orange_heart:: I'm coming back\n💚: It's tough\n💙: It's Awful\n💔: I'm completely lost and broken inside\n🖤: I'm having suicidal thoughts"
+        command_set.add(commands.Reply(options=health_checkin, pattern='(checkin)'))
         
         command_set.add(commands.Reply(options='https://i.imgur.com/55sx3FG.png', pattern='(tsun)'))
         command_set.add(commands.Reply(options='https://i.imgur.com/hXuK1cP.png', pattern='(hush)'))
