@@ -174,7 +174,7 @@ class Stab(Command):
         
         if message.author.name == "Halim": # Create the fork command for this.
             await message.channel.send("Stop making me do this...")
-        else:        
+        else:
             await message.channel.send(act)
 
 class Refresh(Command):
