@@ -5,6 +5,7 @@ import json
 import argparse
 
 from datetime import datetime
+import arrow
 from os.path import join
 from os import chdir, listdir, makedirs
 
@@ -34,8 +35,6 @@ async def on_ready():
     print('------')
     entrance = "Hello! I made it a'okay!" if random.randint(1,10) != 1 else "*Trips on the doorframe* Auu~" 
     # await get_channel_by_name('general', "The Realm of Aurii").send(entrance)
-    
-    client.loop.create_task(minute_ticker())
 
 @client.event
 async def on_message(message):
@@ -72,13 +71,19 @@ def get_channel_by_name(string, server=None):
             return channel
 
 async def minute_ticker():
+    ldt = arrow.now()
+    ldt = ldt.to('America/New_York')
     while 1:
-        dt = datetime.now()
-        for server in servers:
-            await servers[server].ticker(dt)
-        await asyncio.sleep(60)
+        now = arrow.now()
+        nowam = now.to('America/New_York')
+        if now.minute != ldt.minute:
+            ldt = now
+            for server in servers:
+                await servers[server].ticker(nowam)
+        # print(f"{now.hour}:{now.minute}:{now.second} - {ldt.hour}:{ldt.minute}:{ldt.second}")
+        await asyncio.sleep(1)
 
 if __name__ == '__main__':
     args = parser.parse_args()
-    # client.loop.create_task(time_trigger()) #CRIT How to add a custom task.
+    client.loop.create_task(minute_ticker())
     client.run(TOKEN)
