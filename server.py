@@ -105,6 +105,7 @@ class Aurii(Interface):
         
         health_checkin = "How is @everyone today? How are you feeling? \n💛: I'm Amazing!\n:heart:: Pretty good.\n💗: Good!\n💜: I'm Okay\n:orange_heart:: I'm coming back\n💚: It's tough\n💙: It's Awful\n💔: I'm completely lost and broken inside\n🖤: I'm having suicidal thoughts"
         command_set.add(commands.Reply(options=health_checkin, pattern='(checkin)'))
+        command_set.add(commands.Reply(options='Nice!', triggers=[''], pattern='[Nn]ice\.? *$'))
         
         command_set.add(commands.Reply(options='https://i.imgur.com/55sx3FG.png', pattern='(tsun)'))
         command_set.add(commands.Reply(options='https://i.imgur.com/hXuK1cP.png', pattern='(hush)'))
@@ -162,11 +163,13 @@ class Aurii(Interface):
 
     async def ticker(self, dt):
 
+        # if dt.hour == 13 and dt.minute == 5:
         if dt.hour == 12 and dt.minute == 0:
                 for channel in self.client.get_all_channels():
-                    if channel.name == 'quiz-n-crews' and ("The Realm of Aurii" == channel.guild.name):
-                        await channel.send('!questionplz')
-                        break
+                    # if channel.name == 'quiz-n-crews' and "The Realm of Aurii" == channel.guild.name:
+                    #     await channel.send('!questionplz')
+                    #     break
+                    pass
 
 class BNE(Interface):
 
@@ -184,7 +187,7 @@ class BNE(Interface):
         log.requireauthor('Willowlark')
         command_set.add(log)
         
-        health_checkin = "How is @everyone today? How are you feeling? \n💛: I'm Amazing!\n:heart:: Pretty good.\n💗: Good!\n💜: I'm Okay\n:orange_heart:: I'm coming back\n💚: It's tough\n💙: It's Awful\n💔: I'm completely lost and broken inside\n🖤: I'm having suicidal thoughts"
+        health_checkin = "How is everyone today? How are you feeling? \n💛: I'm Amazing!\n:heart:: Pretty good.\n💗: Good!\n💜: I'm Okay\n:orange_heart:: I'm coming back\n💚: It's tough\n💙: It's Awful\n💔: I'm completely lost and broken inside\n🖤: I'm having suicidal thoughts"
         command_set.add(commands.Reply(options=health_checkin, pattern='(checkin)'))
         
         command_set.add(commands.Reply(options='https://i.imgur.com/55sx3FG.png', pattern='(tsun)'))
