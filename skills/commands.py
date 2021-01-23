@@ -16,6 +16,8 @@ from os.path import join
 # TODO Help interator for the Commander object
 # TODO User stats (each user gets a document)
 
+# FIXME: The way the compile works for commands, the trigger is only appended to the front. This prevents use of OR statements that join two completely distinct commands
+
 class Command(object):
 
     def __init__(self, triggers=None, options=[], pattern='', info=None):

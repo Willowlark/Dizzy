@@ -86,6 +86,8 @@ class Aurii(Interface):
         command_set.add(commands.RandomReply(options=self.diaries['Local'].data["Sets"]['lewds'], pattern='(lewd)'))
         command_set.add(commands.RandomReply(options=self.diaries['Local'].data["Sets"]['dabs'], pattern='(dab)'))
         command_set.add(commands.RandomReply(options=self.diaries['Local'].data["Sets"]['ban_reasons'], pattern='(kick|ban|kickban)'))
+        command_set.add(commands.RandomReply(options=self.diaries['Local'].data["Sets"]['fortunes'], pattern='(fortune)'))
+        command_set.add(commands.RandomReply(options=self.diaries['Local'].data["Sets"]['8ball'], pattern='(8ball)(?:$| )'))
         command_set.add(commands.Timecheck(pattern='(timecheck)'))
         command_set.add(commands.Choose(pattern='(choose) (.*)'))
         command_set.add(commands.Stab(pattern='(stab)'))

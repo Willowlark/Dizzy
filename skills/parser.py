@@ -27,3 +27,11 @@ class Parser(object):
             cmd.triggers = self.triggers
             cmd.compile()
         self.commands.append(cmd)
+        
+    def generate_help_string(self):
+        ret = ''
+        for command in self.commands:
+            helpstr = command.info
+            ret += helpstr
+        return ret
+        
