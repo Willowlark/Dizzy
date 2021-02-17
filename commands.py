@@ -33,6 +33,7 @@ class Command(object):
 
     def compile(self):
         triggers = [''] if not self.triggers else self.triggers
+        triggers = [triggers] if type(triggers) == str else self.triggers
         #TODO Accomodate | in this pattern.
         self.trigger_match = '^({t}){c}|^({t}) {c}'.format(t='|'.join(triggers), c='{c}') 
         self.expression = re.compile(self.trigger_match.format(c=self.pattern), flags=re.DOTALL)
@@ -62,7 +63,7 @@ class Command(object):
         
         # Author must/not
         if self.author:
-            if message.author.name not self.author:
+            if message.author.name is not self.author:
                 return False
 
         # Lambda 
@@ -527,8 +528,8 @@ REFERENCE = {
     'Roll' : Roll,
     'Headpat' : Headpat,
     'IrlRuby' : IrlRuby,
-    'RFAMode' : RFAMode,
-    'RFAMembership' : RFAMembership,
+    # 'RFAMode' : RFAMode,
+    # 'RFAMembership' : RFAMembership,
     'CounterIncrement' : CounterIncrement,
     'CounterCheck' : CounterCheck,
     'CounterSet' : CounterSet,

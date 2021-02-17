@@ -1,5 +1,6 @@
 import mariadb
 import pandas as pd
+from numpy import nan
 
 import commands
 from datetime import datetime
@@ -51,9 +52,9 @@ class Engine(object):
         logs = self.diary.pd_execute("SELECT * FROM SERVER_LOGS").drop('ID',axis=1)
         self.logs = servers.merge(logs, on='SERVER_ID')
 
-    def on_message(self, message):
+    async def on_message(self, message):
     
-        await self.command_set.execute(message)
+        await self.collection.execute(message)
         self.log(message)
         
     def log(self, message):
@@ -116,6 +117,7 @@ class CommandCollection(object):
     
     def generate(self, raw_cmds, diary):
         
+        raw_cmds = raw_cmds.replace({nan: None})
         dicts = raw_cmds.to_dict(orient='index')
         
         for key in dicts:
@@ -133,7 +135,7 @@ class CommandCollection(object):
             
             self.commands.append(cmd_class(triggers=cmd_trigger, options=cmd_options, pattern=cmd_pattern, info=cmd_info, author=cmd_author))
     
-    def execute(self, message):
+    async def execute(self, message):
         for command in self.commands:
             if await command.execute(message):
                 break
