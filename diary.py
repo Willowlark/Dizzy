@@ -1,20 +1,33 @@
 import os
 import json
 
-class FlatJson(object):
+# Module Imports
+import mariadb
+import sys
 
-    def __init__(self, config):
-        self.db_name = config["DB_Name"]
-        self.db = config["DB"]
-        self.tables = config["Tables"]
+# Get Cursor
+cur = conn.cursor()
 
-        self.data = {}
+class Diary(object):
+
+    def __init__(self):
         self.connect()
 
     def connect(self):
-        os.chdir(self.db)
-        self.update()
-        return self.data
+        # Connect to MariaDB Platform
+        try:
+            self.conn = mariadb.connect(
+                user="dizzy",
+                password="aPutzUNh2mSAwk84",
+                host="192.168.1.42",
+                port=3306,
+                database="dizzy"
+
+            )
+            self.cur = conn.cursor()
+        except mariadb.Error as e:
+            print(f"Error connecting to MariaDB Platform: {e}")
+            sys.exit(1)
     
     def update(self):
         for name, path in self.tables.items():

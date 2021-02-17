@@ -20,7 +20,7 @@ from os.path import join
 
 class Command(object):
 
-    def __init__(self, triggers=None, options=[], pattern='', info=None):
+    def __init__(self, triggers=None, options=[], pattern='', info=None, author=None):
         self.triggers = triggers
         self.options = options
         self.pattern = pattern
@@ -28,10 +28,7 @@ class Command(object):
 
         self.compile()
 
-        self.author = []
-        self.notauthor = []
-        self.guild = []
-        self.notguild = []
+        self.author = author
         self.func = None
 
     def compile(self):
@@ -65,18 +62,7 @@ class Command(object):
         
         # Author must/not
         if self.author:
-            if message.author.name not in self.author:
-                return False
-        if self.notauthor:
-            if message.author.name in self.notauthor:
-                return False
-                
-        # Server must/not
-        if self.guild:
-            if message.guild.name not in self.guild:
-                return False
-        if self.notguild:
-            if message.guild.name in self.notguild:
+            if message.author.name not self.author:
                 return False
 
         # Lambda 
@@ -86,25 +72,13 @@ class Command(object):
         
         return True
 
-    def banauthor(self, name):
-        self.notauthor.append(name)
-    
-    def requireauthor(self, name):
-        self.author.append(name)
-        
-    def banserver(self, name):
-        self.notguild.append(name)
-    
-    def requireserver(self, name):
-        self.guild.append(name)
-
     def setfunc(self, func):
         self.func = func
 
 class RandomReply(Command):
 
     async def action(self, message, match):
-        link = random.choice(self.options)
+        link = random.choice(self.options.REPLY)
         await message.channel.send(link)
 
 class Reply(Command):
@@ -127,7 +101,6 @@ class Choose(Command):
     async def action(self, message, match):
         options = match[2].split(',')
         options = [op.strip() for op in options]
-        option = random.choice(options) if "knight light" not in options else "knight light"
         await message.channel.send('You should choose '+ option)
 
 class Log(Command):
@@ -174,10 +147,7 @@ class Stab(Command):
         
         act = '*{} {}!*'.format(what, who) if random.randint(1,10) != 1 else '*attempts to {} {}; but trips and stabs herself instead*!'.format(what, who)
         
-        if message.author.name == "Halim": # Create the fork command for this.
-            await message.channel.send("Stop making me do this...")
-        else:
-            await message.channel.send(act)
+        await message.channel.send(act)
 
 class Refresh(Command):
 
@@ -291,7 +261,7 @@ class IrlRuby(Command):
             await user.add_roles(r)
             await message.channel.send(f"*{user.mention} is now irl Ruby*")
 
-class RFAMode(Command):
+class _RFAMode(Command):
     
     async def action(self, message, match):
         target, op = match[2:]
@@ -315,7 +285,7 @@ class RFAMode(Command):
         self.options.save()
         self.options.update()
 
-class RFAMembership(Command):
+class _RFAMembership(Command):
     
     async def action(self, message, match):
         rfa, target = match[2:]
@@ -542,3 +512,32 @@ class CharacterMod(Command):
             await message.channel.send(f"{name} ({alias}) had {old_value} in {key}, I changed it to {value}.")
         else:
             await message.channel.send(f"{alias} doesn't have that...")
+
+REFERENCE = {
+    'Command' : Command,
+    'RandomReply' : RandomReply,
+    'Reply' : Reply,
+    'Timecheck' : Timecheck,
+    'Choose' : Choose,
+    'Log' : Log,
+    'Stab' : Stab,
+    'Refresh' : Refresh,
+    'Ghost' : Ghost,
+    'Fudge' : Fudge,
+    'Roll' : Roll,
+    'Headpat' : Headpat,
+    'IrlRuby' : IrlRuby,
+    'RFAMode' : RFAMode,
+    'RFAMembership' : RFAMembership,
+    'CounterIncrement' : CounterIncrement,
+    'CounterCheck' : CounterCheck,
+    'CounterSet' : CounterSet,
+    'CounterRemove' : CounterRemove,
+    'CounterList' : CounterList,
+    'QuestionPlease' : QuestionPlease,
+    'CharacterLoad' : CharacterLoad,
+    'CharacterCheck' : CharacterCheck,
+    'CharacterList' : CharacterList,
+    'CharacterRoll' : CharacterRoll,
+    'CharacterMod' : CharacterMod
+}

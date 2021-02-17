@@ -1,0 +1,15 @@
+DROP TABLE SERVERS;
+
+CREATE TABLE SERVERS (
+        SERVER_ID int NOT NULL UNIQUE
+        , SERVER_NAME VARCHAR(100)
+        , UID BIGINT UNIQUE
+        , PRIMARY KEY (SERVER_ID)
+);
+
+INSERT INTO SERVERS (SERVER_ID, SERVER_NAME, UID) VALUES
+        (1, 'All Servers', 0),
+        (2, 'The Realm Of Aurii', 350836270538162186),
+        (3, 'Beacon Academy: Northeastern Campus', 378247311089729536),
+        (4, 'ASPN', 529825396544241665)
+;
