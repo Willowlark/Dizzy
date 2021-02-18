@@ -1,20 +1,11 @@
 import discord
 import asyncio
 import random
-import json
-import argparse
-
 from datetime import datetime
 import arrow
-from os.path import join
-from os import chdir, listdir, makedirs
 
 from auth import TOKEN
-from bot import Engine
-
-parser = argparse.ArgumentParser(description='Process some integers.')
-parser.add_argument('--disablelogs', action='store_false',
-                    help='disable logging')
+from engine import Engine
 
 client = discord.Client()
 engine = Engine()
@@ -51,6 +42,7 @@ async def on_message(message):
 #     #     print("server {} not handled right now.".format(source_server.name))
 
 # Find a channel object via the name of the channel.
+
 def get_channel_by_name(string, server=None):
     for channel in client.get_all_channels():
         if channel.name == string and (server == channel.guild.name or server is None):
@@ -70,5 +62,4 @@ async def minute_ticker():
         await asyncio.sleep(1)
 
 if __name__ == '__main__':
-    args = parser.parse_args()
     client.run(TOKEN)

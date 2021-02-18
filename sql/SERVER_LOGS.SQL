@@ -10,7 +10,7 @@ CREATE TABLE SERVER_LOGS (
 );
 
 INSERT INTO SERVER_LOGS (ID, SERVER_ID, LOG_TYPE, LOG_TARGET) VALUES
-        (1, 2, 'local', 'DizzyHoG/logs/The Realm of Aurii'),
-        (2, 3, 'local', 'DizzyHoG/logs/Beacon Academy Northeastern Campus'),
-        (3, 4, 'local', 'DizzyHoG/logs/ASPN')
+        (1, 2, 'Classic_Log', 'DizzyHoG/logs/The Realm of Aurii'),
+        (2, 3, 'Classic_Log', 'DizzyHoG/logs/Beacon Academy Northeastern Campus'),
+        (3, 4, 'Classic_Log', 'DizzyHoG/logs/ASPN')
 ;

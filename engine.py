@@ -1,10 +1,10 @@
 import mariadb
 import pandas as pd
 from numpy import nan
-
-import commands
 from datetime import datetime
 
+import commands
+import logger
 
 class Engine(object):
 
@@ -12,6 +12,7 @@ class Engine(object):
         self.diary = Diary()
         self.build_snowflake()
         self.collection = CommandCollection(self.raw_cmds, self.diary)
+        self.logmanager = LogManager(self.raw_logs, self.diary)
         
     def build_snowflake(self):
         # Tables to build snowflak
@@ -50,95 +51,139 @@ class Engine(object):
         
         # Servers + Logs, specific for logging. 
         logs = self.diary.pd_execute("SELECT * FROM SERVER_LOGS").drop('ID',axis=1)
-        self.logs = servers.merge(logs, on='SERVER_ID')
+        self.raw_logs = servers.merge(logs, on='SERVER_ID')
 
     async def on_message(self, message):
     
         await self.collection.execute(message)
-        self.log(message)
+        self.logmanager.log(message)
         
-    def log(self, message):
-        pass
-    
 class Diary(object):
 
+    # TODO: Add a call to connect wrapper that closes post use
+    
     def __init__(self):
-        self.data_tables = []
         self.connect()
 
     def connect(self):
         # Connect to MariaDB Platform
         try:
-            self.conn = mariadb.connect(
+            conn = mariadb.connect(
                 user="dizzy",
                 password="aPutzUNh2mSAwk84",
                 host="192.168.1.42",
                 port=3306,
                 database="dizzy"
-
             )
             # self.cur = self.conn.cursor()
         except mariadb.Error as e:
             print(f"Error connecting to MariaDB Platform: {e}")
             sys.exit(1)
+        
+        return conn
     
     def pd_execute(self, query):
-        return pd.read_sql(query, self.conn)
+        conn = self.connect()
+        return pd.read_sql(query, conn)
+        conn.close()
     
     def get_data_table(self, table_name):
         query = f"select * from {table_name}"
         data = self.pd_execute(query)
-        self.data_tables.append([query, data])
         return data
-    
-    def update(self):
-        for name, path in self.data_tables.items():
-            
-            if not os.path.isfile(path):
-                self.data[name] = {}
-            elif name not in self.data:
-                self.data[name] = json.loads(open(path).read())
-            else:
-                self.data[name].clear()
-                self.data[name].update(json.loads(open(path).read()))
-        return self.data
         
-    def save(self):
-        for name, path in self.tables.items():
-            with open(path, 'w') as f:
-                f.write(json.dumps(self.data[name], indent=4))
-        return self.data
+    def save(self, table_name, newdata):
+        conn = self.connect()
+        pks = list(self.pd_execute(f"SHOW KEYS FROM {table_name} WHERE Key_name = 'PRIMARY'").Column_name)
+        update_columns = set(newdata.columns) - set(pks)
+        for index, row in newdata.iterrows():
+            where_str = []
+            for pk in pks:
+                pk_v = f"'{conn.escape_string(row[pk])}'" if type(row[pk]) is str else row[pk]
+                where_str.append(f"{pk} = {pk_v}")
+            where_str = ' AND '.join(where_str)
+            column_str = []
+            for col in update_columns:
+                col_v = f"'{conn.escape_string(row[col])}'" if type(row[col]) is str else row[col]
+                column_str.append(f"{col} = {col_v}")
+            column_str = ', '.join(column_str)
+            update_query = f"UPDATE {table_name} SET {column_str} WHERE {where_str};"
+            print(update_query)
+            conn.cursor().execute(update_query)
+        conn.close()
         
 class CommandCollection(object):
     
     def __init__(self, raw_cmds, diary):
         self.commands = []
-        self.generate(raw_cmds, diary)
+        self.diary = diary
+        self.raw_cmds = raw_cmds
+        self.generate(raw_cmds)
     
-    def generate(self, raw_cmds, diary):
+    def generate(self, raw_cmds):
         
         raw_cmds = raw_cmds.replace({nan: None})
         dicts = raw_cmds.to_dict(orient='index')
         
         for key in dicts:
             cmd_spec = dicts[key]
+            # TODO: Move this parse into the Command Init, IE pass in cmd_spec & options
             
             cmd_class = commands.REFERENCE[cmd_spec['PYTHON_CLASS']]
             cmd_trigger = cmd_spec['CMD_TRIGGER'] if cmd_spec['CMD_TRIGGER'] else cmd_spec['PREFIX']
             if cmd_spec['OPTIONS_FROM_DB']:
-                cmd_options = diary.get_data_table(cmd_spec['OPTIONS'])
+                cmd_options = self.diary.get_data_table(cmd_spec['OPTIONS'])
+                cmd_options_source = cmd_spec['OPTIONS']
             else:
                 cmd_options = cmd_spec['OPTIONS']
+                cmd_options_source = None
             cmd_pattern = cmd_spec['PATTERN']
             cmd_info = cmd_spec['HELP']
             cmd_author = cmd_spec['AUTHOR']
+            cmd_updates = cmd_spec['UPDATE_ON_CALL']
             
-            self.commands.append(cmd_class(triggers=cmd_trigger, options=cmd_options, pattern=cmd_pattern, info=cmd_info, author=cmd_author))
+            self.commands.append(cmd_class(triggers=cmd_trigger, options=cmd_options, options_source=cmd_options_source, pattern=cmd_pattern, info=cmd_info, author=cmd_author, update_me=cmd_updates))
+    
+    def rebuild(self):
+        self.commands = []
+        self.generate(self.raw_cmds)
     
     async def execute(self, message):
         for command in self.commands:
-            if await command.execute(message):
+            res = await command.execute(message)
+            if res:
+                if command.update_me: 
+                    self.diary.save(command.options_source, command.options)
                 break
+
+class LogManager(object):
     
+    def __init__(self, raw_logs, diary):
+        self.logs = {}
+        self.diary = diary
+        self.raw_logs = raw_logs
+        self.generate(raw_logs)
+        
+    def generate(self, raw_logs):
+        dicts = raw_logs.to_dict(orient='index')
+        
+        for key in dicts:
+            log_spec = dicts[key]
+            log_class = logger.REFERENCE[log_spec['LOG_TYPE']]
+            log_uid = log_spec['UID']
+            log_target = log_spec['LOG_TARGET']
+            
+            x = log_class(log_target)
+            if log_uid in self.logs:
+                self.logs[log_uid].append(x)
+            else:
+                self.logs[log_uid] = [x]
+        
+    def log(self, message):
+        
+        if message.guild.id in self.logs:
+            for log in self.logs[message.guild.id]:
+                log.log(message)
+        
 if __name__ == '__main__':
     self = Engine()

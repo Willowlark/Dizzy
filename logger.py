@@ -1,10 +1,12 @@
 from os.path import join
 from os import makedirs
 
-class Local_Log(object):
+
+
+class Classic_Log(object):
     
-    def __init__(self, config):
-        self.root_path = config["Path"]
+    def __init__(self, root_path):
+        self.root_path = root_path
         
     def log(self, message):
         path = join(self.root_path, message.channel.name)
@@ -18,8 +20,6 @@ class Local_Log(object):
             f.write(name + ": " + message.content + '\n')
             print(message.channel.name.upper() + ": " + name + ": " + message.content)
             
-def create(config):
-    if config["Type"] == 'Local':
-        return Local_Log(config)
-    else:
-        raise Exception("Type unhandled.") 
+REFERENCE = {
+    'Classic_Log': Classic_Log
+}

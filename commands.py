@@ -20,15 +20,17 @@ from os.path import join
 
 class Command(object):
 
-    def __init__(self, triggers=None, options=[], pattern='', info=None, author=None):
+    def __init__(self, triggers=None, options=[], options_source=None, pattern='', info=None, author=None, update_me=False):
         self.triggers = triggers
         self.options = options
+        self.options_source = options_source
         self.pattern = pattern
         self.info = info if info else "A command using pattern: "+self.pattern
 
         self.compile()
 
         self.author = author
+        self.update_me=update_me
         self.func = None
 
     def compile(self):
