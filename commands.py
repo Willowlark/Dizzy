@@ -1,14 +1,15 @@
 import re
 import random
 import asyncio
-import pastebin
 import arrow
-import rollparser
-
+import pandas as pd
+import numpy as np
 from datetime import datetime
 from datetime import timedelta
 from sys import maxsize
 from os.path import join
+
+import rollparser
 
 # CRIT: MATCH[0] IS THE STRING, MATCH[1] IS THE TRIGGER, MATCH[2] STARTS THE USER INPUT!!!!!!!
 
@@ -65,7 +66,7 @@ class Command(object):
         
         # Author must/not
         if self.author:
-            if message.author.name is not self.author:
+            if message.author.name != self.author:
                 return False
 
         # Lambda 
@@ -104,6 +105,7 @@ class Choose(Command):
     async def action(self, message, match):
         options = match[2].split(',')
         options = [op.strip() for op in options]
+        option = random.choice(options)
         await message.channel.send('You should choose '+ option)
 
 class Log(Command):
@@ -127,8 +129,7 @@ class Log(Command):
         queue.append(attrition)
         # TODO use makedirs here
         open(join('DizzyHoG/batch-logs', channel+'.md'), 'w').writelines(reversed(queue))
-        url = pastebin.paste(channel, '\n'.join(reversed(queue)))
-        await message.channel.send('Logging done @ ' + repr(url))
+        await message.channel.send('Logging done')
 
     @staticmethod
     def logged_format(log):
@@ -201,7 +202,6 @@ class Roll(Command):
         await message.channel.send(f"Rolled `{og}` and got {total}!\nThe rolls were :*{rolls}*")
             
 
-
 class Headpat(Command):
 
     async def action(self, message, match):
@@ -223,23 +223,15 @@ class Headpat(Command):
         else:
             save_name = 'Dizzy'
             mention = 'Dizzy'
-        
-        FRENS = self.options.data['Headpats']
-        
-        if save_name not in FRENS:
-            value = 1
-            FRENS[save_name] = 1
-        else:
-            value = FRENS[save_name]+1
-            FRENS[save_name]+=1
+                
+        self.options = self.options.append(pd.Series({'ID':self.options['ID'].max()+1, 'PATTER':message.author.name, 'USER_TARGET':save_name}), ignore_index=True)
+        pat_count = self.options[self.options['USER_TARGET'] == save_name]['USER_TARGET'].count()
             
         await message.channel.send(f"*{message.author.mention} headpats {mention}*")
         if save_name != 'Dizzy':
-            await message.channel.send(f"{mention} has been headpatted {value} times.")
+            await message.channel.send(f"{mention} has been headpatted {pat_count} times.")
         else:
             await message.channel.send(f"{message.author.mention} is so nice <3")
-        self.options.save()
-        self.options.update()
 
 class IrlRuby(Command):
 
@@ -345,7 +337,19 @@ class CounterCheck(Command):
     
     async def action(self, message, match):
         op, target = match[2:]
-        COUNTERS = self.options.data['Counters']
+        
+        counter_matches = self.options[self.options['COUNTER_NAME'] == target]
+        
+        target_index = None
+        for index, row in counter_matches.iterrows():
+            if row['TIER'] == 'Server':
+                if row['SERVER_NAME'] == message.guild.name:
+                    target_index = index
+            elif row['TIER'] == 'User':
+                if row['CREATOR'] == message.author.name:
+                    target_index = index
+            elif row['TIER'] == 'Global':
+                pass
 
         if target not in COUNTERS:
             await message.channel.send("I'm not counting those right now.")
@@ -357,14 +361,38 @@ class CounterSet(Command):
     async def action(self, message, match):
         op, target, amnt = match[2:]
         amnt = int(amnt)
-        COUNTERS = self.options.data['Counters']
+        
+        counter_matches = self.options[self.options['COUNTER_NAME'] == target]
+        
+        target_index = None
+        for index, row in counter_matches.iterrows():
+            if row['TIER'] == 'Server':
+                if row['SERVER_NAME'] == message.guild.name:
+                    target_index = index
+            elif row['TIER'] == 'User':
+                if row['CREATOR'] == message.author.name:
+                    target_index = index
+            elif row['TIER'] == 'Global':
+                pass
 
-        COUNTERS[target] = amnt
+        if target_index is None:
+            idd = self.options['ID'].max()+1 if self.options['ID'].max() is not np.nan else 1
+            x = {
+                'ID': idd,
+                'TIER':'Server',
+                'SERVER_NAME': message.guild.name,
+                'CREATOR': message.author.name,
+                'COUNTER_NAME': target,
+                'CNT': amnt
+            }
+            x = pd.Series(x)
+            self.options = self.options.append(x, ignore_index=True)
+            target_index = self.options.index[-1]
+        else:
+            self.options.loc[self.options.index==target_index, 'CNT'] = amnt
         
-        await message.channel.send("The {} count is now {}!".format(target, COUNTERS[target]))
-        
-        self.options.save()
-        self.options.update()
+        result = int(self.options.loc[self.options.index==target_index, 'CNT'])
+        await message.channel.send(f"The {target} count is now {result}!")
 
 class CounterRemove(Command):
 

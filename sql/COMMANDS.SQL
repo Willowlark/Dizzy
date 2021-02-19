@@ -35,7 +35,7 @@ INSERT INTO COMMANDS (COMMAND_ID, PYTHON_CLASS, CMD_TRIGGER, OPTIONS, OPTIONS_FR
         , (18, 'Fudge', NULL, NULL, False, False, '(fudge) ([+-]?[0-9]+)', NULL)
         , (19, 'Fudge', NULL, NULL, False, False, '(fudge)', NULL)
         , (20, 'Roll', NULL, NULL, False, False, '(roll|r) (.*)', NULL)
-        , (21, 'Headpat', NULL, 'DATA_DIZZY_HEADPATS', True, True, '(headpat)(.*)', NULL)
+        , (21, 'Headpat', NULL, 'DATA_HEADPATS', True, True, '(headpat)(.*)', NULL)
         , (22, 'IrlRuby', NULL, NULL, False, False, '(irlRuby)(.*)', NULL)
         , (23, 'QuestionPlease', NULL, 'DATA_QUESTIONS', True, True, '(questionplz)', NULL)
         , (24, 'CounterIncrement', NULL, 'DATA_COUNTERS', True, True, '(counter) (add|sub) ([^ ]+) ([0-9]+)', NULL)

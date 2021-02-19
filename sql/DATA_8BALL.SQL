@@ -6,11 +6,11 @@ CREATE TABLE DATA_8BALL (
         , PRIMARY KEY (ID)
 );
 
-INSERT INTO DATA_8BALL (URL) VALUES
+INSERT INTO DATA_8BALL (REPLY) VALUES
         ('It is certain.'),
         ('It is decidedly so.'),
         ('Without a doubt.'),
-        ('Yes \u2013 definitely.'),
+        ('Yes, definitely.'),
         ('You may rely on it.'),
         ('As I see it, yes.'),
         ('Most likely.'),

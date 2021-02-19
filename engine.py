@@ -5,6 +5,7 @@ from datetime import datetime
 
 import commands
 import logger
+from auth import MARIADB_PASS
 
 class Engine(object):
 
@@ -70,11 +71,13 @@ class Diary(object):
         try:
             conn = mariadb.connect(
                 user="dizzy",
-                password="aPutzUNh2mSAwk84",
+                password=MARIADB_PASS,
                 host="192.168.1.42",
                 port=3306,
-                database="dizzy"
+                database="dizzy",
+                autocommit=True
             )
+            
             # self.cur = self.conn.cursor()
         except mariadb.Error as e:
             print(f"Error connecting to MariaDB Platform: {e}")
@@ -97,19 +100,23 @@ class Diary(object):
         pks = list(self.pd_execute(f"SHOW KEYS FROM {table_name} WHERE Key_name = 'PRIMARY'").Column_name)
         update_columns = set(newdata.columns) - set(pks)
         for index, row in newdata.iterrows():
-            where_str = []
-            for pk in pks:
-                pk_v = f"'{conn.escape_string(row[pk])}'" if type(row[pk]) is str else row[pk]
-                where_str.append(f"{pk} = {pk_v}")
-            where_str = ' AND '.join(where_str)
-            column_str = []
-            for col in update_columns:
-                col_v = f"'{conn.escape_string(row[col])}'" if type(row[col]) is str else row[col]
-                column_str.append(f"{col} = {col_v}")
-            column_str = ', '.join(column_str)
-            update_query = f"UPDATE {table_name} SET {column_str} WHERE {where_str};"
+            
+            update_str = []
+            for up in update_columns:
+                up_v = f"'{conn.escape_string(row[up])}'" if type(row[up]) is str else row[up]
+                update_str.append(f"{up} = {up_v}")
+            update_str = ', '.join(update_str)
+            
+            insert_str = []
+            for insert in list(newdata.columns):
+                insert_v = f"'{conn.escape_string(row[insert])}'" if type(row[insert]) is str else row[insert]
+                insert_str.append(f"{insert_v}")
+            insert_str = ', '.join(insert_str)
+            update_query = f"INSERT INTO {table_name} VALUES ({insert_str}) ON DUPLICATE KEY UPDATE {update_str};"
             print(update_query)
-            conn.cursor().execute(update_query)
+            cur = conn.cursor()
+            cur.execute(update_query)
+            
         conn.close()
         
 class CommandCollection(object):

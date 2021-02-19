@@ -1,8 +1,6 @@
 from os.path import join
 from os import makedirs
 
-
-
 class Classic_Log(object):
     
     def __init__(self, root_path):

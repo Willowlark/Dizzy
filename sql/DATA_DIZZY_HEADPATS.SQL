@@ -1,12 +1,74 @@
-DROP TABLE DATA_DIZZY_HEADPATS;
+DROP TABLE DATA_HEADPATS;
 
-CREATE TABLE DATA_DIZZY_HEADPATS (
+CREATE TABLE DATA_HEADPATS (
         ID int NOT NULL AUTO_INCREMENT
-        , USER VARCHAR(200) 
-        , CNT INT
+        , PATTER VARCHAR(200) 
+        , USER_TARGET VARCHAR(200) 
         , PRIMARY KEY (ID)
 );
 
-INSERT INTO DATA_DIZZY_HEADPATS (CNT) VALUES
-        
+INSERT INTO DATA_HEADPATS (PATTER, USER_TARGET) VALUES
+('Dizzy', 'Pawlitics'),
+('Dizzy', 'Pawlitics'),
+('Dizzy', 'Pawlitics'),
+('Dizzy', 'Pawlitics'),
+('Dizzy', 'Pawlitics'),
+('Dizzy', 'Pawlitics'),
+('Dizzy', 'Pawlitics'),
+('Dizzy', 'Pawlitics'),
+('Dizzy', 'Pawlitics'),
+('Dizzy', 'Pawlitics'),
+('Dizzy', 'Pawlitics'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Dizzy'),
+('Dizzy', 'Willowlark'),
+('Dizzy', 'Willowlark'),
+('Dizzy', 'Willowlark'),
+('Dizzy', 'Willowlark'),
+('Dizzy', 'Willowlark'),
+('Dizzy', 'Willowlark'),
+('Dizzy', 'Willowlark'),
+('Dizzy', 'Willowlark'),
+('Dizzy', 'Willowlark'),
+('Dizzy', 'slendergiant'),
+('Dizzy', 'slendergiant'),
+('Dizzy', 'Whoozica'),
+('Dizzy', 'Whoozica'),
+('Dizzy', 'Whoozica'),
+('Dizzy', 'Whoozica'),
+('Dizzy', 'FenrirofAstora'),
+('Dizzy', 'LipstickGiraffe'),
+('Dizzy', 'LipstickGiraffe'),
+('Dizzy', 'Distant Thunders'),
+('Dizzy', 'Distant Thunders'),
+('Dizzy', 'Distant Thunders'),
+('Dizzy', 'Distant Thunders'),
+('Dizzy', 'Slivos1922)')
 ;
