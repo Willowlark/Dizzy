@@ -64,12 +64,13 @@ class Diary(object):
     # TODO: Add a call to connect wrapper that closes post use
     
     def __init__(self):
+        self.conn = None
         self.connect()
 
     def connect(self):
         # Connect to MariaDB Platform
         try:
-            conn = mariadb.connect(
+            self.conn = mariadb.connect(
                 user="dizzy",
                 password=MARIADB_PASS,
                 host="192.168.1.42",
@@ -81,43 +82,53 @@ class Diary(object):
             # self.cur = self.conn.cursor()
         except mariadb.Error as e:
             print(f"Error connecting to MariaDB Platform: {e}")
-            sys.exit(1)
-        
-        return conn
+    
+        return self.conn
     
     def pd_execute(self, query):
-        conn = self.connect()
-        return pd.read_sql(query, conn)
-        conn.close()
-    
+        return pd.read_sql(query, self.conn)
+
     def get_data_table(self, table_name):
         query = f"select * from {table_name}"
         data = self.pd_execute(query)
         return data
         
     def save(self, table_name, newdata):
-        conn = self.connect()
+        cur = self.conn.cursor()
         pks = list(self.pd_execute(f"SHOW KEYS FROM {table_name} WHERE Key_name = 'PRIMARY'").Column_name)
+        
+        if 'RM' in newdata.columns:
+            indexes = []
+            for index, row in newdata[newdata.RM == True].iterrows():
+                where_str = []
+                for pk in pks:
+                    where_str.append(f"{pk} = {row[pk]}")
+                where_str = ', '.join(where_str)
+                delete_query = f"DELETE FROM {table_name} WHERE {where_str};"
+                print(delete_query)
+                cur.execute(delete_query)
+                indexes.append(index)
+            newdata = newdata.drop(indexes)
+            newdata = newdata.drop('RM',axis=1)
+                
+        
         update_columns = set(newdata.columns) - set(pks)
         for index, row in newdata.iterrows():
             
             update_str = []
             for up in update_columns:
-                up_v = f"'{conn.escape_string(row[up])}'" if type(row[up]) is str else row[up]
+                up_v = f"'{self.conn.escape_string(row[up])}'" if type(row[up]) is str else row[up]
                 update_str.append(f"{up} = {up_v}")
             update_str = ', '.join(update_str)
             
             insert_str = []
             for insert in list(newdata.columns):
-                insert_v = f"'{conn.escape_string(row[insert])}'" if type(row[insert]) is str else row[insert]
+                insert_v = f"'{self.conn.escape_string(row[insert])}'" if type(row[insert]) is str else row[insert]
                 insert_str.append(f"{insert_v}")
             insert_str = ', '.join(insert_str)
             update_query = f"INSERT INTO {table_name} VALUES ({insert_str}) ON DUPLICATE KEY UPDATE {update_str};"
             print(update_query)
-            cur = conn.cursor()
             cur.execute(update_query)
-            
-        conn.close()
         
 class CommandCollection(object):
     
@@ -159,8 +170,9 @@ class CommandCollection(object):
         for command in self.commands:
             res = await command.execute(message)
             if res:
-                if command.update_me: 
+                if command.update_me:
                     self.diary.save(command.options_source, command.options)
+                    self.rebuild()
                 break
 
 class LogManager(object):
