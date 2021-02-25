@@ -32,7 +32,7 @@ INSERT INTO JOIN_SERVERS_COMMANDS (SERVER_ID, COMMAND_ID) VALUES
 , (1,20)
 , (2,21)
 , (2,22)
--- , (2,23)
+, (2,23)
 , (1,24)
 , (1,25)
 , (1,26)

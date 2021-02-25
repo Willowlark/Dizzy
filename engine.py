@@ -91,9 +91,15 @@ class Diary(object):
     def get_data_table(self, table_name):
         query = f"select * from {table_name}"
         data = self.pd_execute(query)
+        data['MODIFIED_BIT'] = False
         return data
         
     def save(self, table_name, newdata):
+        
+        if not table_name:
+            # This command triggers a rebuiuld but has nothing to save
+            return None
+            
         cur = self.conn.cursor()
         pks = list(self.pd_execute(f"SHOW KEYS FROM {table_name} WHERE Key_name = 'PRIMARY'").Column_name)
         
@@ -110,10 +116,11 @@ class Diary(object):
                 indexes.append(index)
             newdata = newdata.drop(indexes)
             newdata = newdata.drop('RM',axis=1)
-                
         
-        update_columns = set(newdata.columns) - set(pks)
-        for index, row in newdata.iterrows():
+        update_set = newdata[newdata.MODIFIED_BIT == True].drop('MODIFIED_BIT', axis=1)
+        
+        update_columns = set(update_set.columns) - set(pks)
+        for index, row in update_set.iterrows():
             
             update_str = []
             for up in update_columns:
@@ -122,7 +129,7 @@ class Diary(object):
             update_str = ', '.join(update_str)
             
             insert_str = []
-            for insert in list(newdata.columns):
+            for insert in list(update_set.columns):
                 insert_v = f"'{self.conn.escape_string(row[insert])}'" if type(row[insert]) is str else row[insert]
                 insert_str.append(f"{insert_v}")
             insert_str = ', '.join(insert_str)
@@ -165,6 +172,7 @@ class CommandCollection(object):
     def rebuild(self):
         self.commands = []
         self.generate(self.raw_cmds)
+        print("Local Cache Rebuilt")
     
     async def execute(self, message):
         for command in self.commands:

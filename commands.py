@@ -59,8 +59,7 @@ class Command(object):
                 return False
 
     async def action(self, message, match):
-        await asyncio.sleep(10)
-        await message.channel.send('Waited!')
+        pass
 
     def check(self, message):
         
@@ -224,7 +223,7 @@ class Headpat(Command):
             save_name = 'Dizzy'
             mention = 'Dizzy'
                 
-        self.options = self.options.append(pd.Series({'ID':self.options['ID'].max()+1, 'PATTER':message.author.name, 'USER_TARGET':save_name}), ignore_index=True)
+        self.options = self.options.append(pd.Series({'ID':self.options['ID'].max()+1, 'PATTER':message.author.name, 'USER_TARGET':save_name, 'MODIFIED_BIT':True}), ignore_index=True)
         pat_count = self.options[self.options['USER_TARGET'] == save_name]['USER_TARGET'].count()
             
         await message.channel.send(f"*{message.author.mention} headpats {mention}*")
@@ -356,10 +355,12 @@ class CounterIncrement(CounterBase):
             await message.channel.send("I'm not counting those right now.")
         elif op == 'add':
             self.options.loc[self.options.index==target_index, 'CNT']+=amnt
+            self.options.loc[self.options.index==target_index, 'MODIFIED_BIT'] = True
             result = int(self.options.loc[self.options.index==target_index, 'CNT'])
             await message.channel.send(f"The **{target}** count is {result}.")
         elif op == 'sub':
             self.options.loc[self.options.index==target_index, 'CNT']-=amnt
+            self.options.loc[self.options.index==target_index, 'MODIFIED_BIT'] = True
             result = int(self.options.loc[self.options.index==target_index, 'CNT'])
             await message.channel.send(f"The **{target}** count is {result}.")
     
@@ -400,13 +401,15 @@ class CounterSet(CounterBase):
                 'SERVER_NAME': message.guild.name,
                 'CREATOR': message.author.name,
                 'COUNTER_NAME': target,
-                'CNT': amnt
+                'CNT': amnt,
+                'MODIFIED_BIT': True
             }
             x = pd.Series(x)
             self.options = self.options.append(x, ignore_index=True)
             target_index = self.options.index[-1]
         else:
             self.options.loc[self.options.index==target_index, 'CNT'] = amnt
+            self.options.loc[self.options.index==target_index, 'MODIFIED_BIT'] = True
         
         result = int(self.options.loc[self.options.index==target_index, 'CNT'])
         await message.channel.send(f"The **{target}** count is now {result}!")
@@ -460,94 +463,107 @@ class CounterList(CounterBase):
 class QuestionPlease(Command):
     
     async def action(self, message, match):
-        QUESTIONS = self.options.data['Questions']["Questions"]
-        cnt = len(QUESTIONS)
-        while 1:
-            roll = random.randint(0, cnt-1)
-            QUESTION = QUESTIONS[roll]
-            if not QUESTION['done']: break
-        
-        await message.channel.send(f"Here's the Question!\n**{QUESTION['question']}**\n\n:one: {QUESTION['option1']}\n:two: {QUESTION['option2']}")
-        
-        QUESTION['done'] = True
-        
-        self.options.save()
-        self.options.update()
+        # import IPython; IPython.embed()
+        row = self.options[self.options.DONE == 0].sample().iloc[0]
 
+        await message.channel.send(f"Here's the Question!\n**{row['QUESTION']}**\n\n:one: {row['OPTION_1']}\n:two: {row['OPTION_2']}")
+        
+        self.options.loc[self.options.ID==row.ID, 'DONE'] = 1
+        self.options.loc[self.options.ID==row.ID, 'MODIFIED_BIT'] = True
 
 
 class CharacterLoad(Command):
     
     async def action(self, message, match):
-        character_db = self.options.data["Characters"]
-
+        # import IPython; IPython.embed()
         character = {}
         try:
-            character['Name'] = re.search('(.*)\n', match[3]).group(1).replace('*', '')
-            character['Fate Points'] = int(re.search('Fate Points:.*?([0-9])', match[3]).group(1))
-            character['Careful'] = int(re.search('Careful:.*?([0-9])', match[3]).group(1))
-            character['Clever'] = int(re.search('Clever:.*?([0-9])', match[3]).group(1))
-            character['Flashy'] = int(re.search('Flashy:.*?([0-9])', match[3]).group(1))
-            character['Forceful'] = int(re.search('Forceful:.*?([0-9])', match[3]).group(1))
-            character['Quick'] = int(re.search('Quick:.*?([0-9])', match[3]).group(1))
-            character['Sneaky'] = int(re.search('Sneaky:.*?([0-9])', match[3]).group(1))
+            character['CHARACTER_NAME'] = re.search('^\*\*(.*?)\*\*', match[3]).group(1)#.replace('*', '')
+            character['CHARACTER_SHORT_NAME'] = match[2]
+            character['FATE_POINTS'] = int(re.search('\*\*Fate Points:\*\* *([0-9]+)', match[3]).group(1))
+            
+            s = re.search('\*\*Stress:\*\*((?: *\[.\])+)', match[3]).group(1).strip()
+            character['STRESS'] = len([x for x in s[1:-1].split('] [') if x != ' '])
+            character['CONSEQUENCE_2'] = re.search('2  Mild:(.*)\n', match[3]).group(1).strip()
+            character['CONSEQUENCE_4'] = re.search('4  Moderate:(.*)\n', match[3]).group(1).strip()
+            character['CONSEQUENCE_6'] = re.search('6  Severe:(.*)\n', match[3]).group(1).strip()
+            
+            s = re.search('\*\*Aspects\*\*((?:\n+\* .*)+)', match[3]).group(1).strip()
+            character['ASPECT_1'], character['ASPECT_2'], character['ASPECT_3'], character['ASPECT_4'], character['ASPECT_5'] = [x.strip() for x in ''.join(s.split('*')).split('\n')]
+            character['CAREFUL'] = int(re.search('Careful: *`([+-]?[0-9])`', match[3]).group(1))
+            character['CLEVER'] = int(re.search('Clever: *`([+-]?[0-9])`', match[3]).group(1))
+            character['FLASHY'] = int(re.search('Flashy: *`([+-]?[0-9])`', match[3]).group(1))
+            character['FORCEFUL'] = int(re.search('Forceful: *`([+-]?[0-9])`', match[3]).group(1))
+            character['QUICK'] = int(re.search('Quick: *`([+-]?[0-9])`', match[3]).group(1))
+            character['SNEAKY'] = int(re.search('Sneaky: *`([+-]?[0-9])`', match[3]).group(1))
+            
+            idd = self.options['ID'].max()+1 if self.options['ID'].max() is not np.nan else 1
+            character['ID'] = idd
+            character['SERVER'] = message.guild.name
+            character['MODIFIED_BIT'] = True
+            
         except:
-            pass
+            await message.channel.send(f"I'm sorry, I didn't quite get that (T.T)")
         else:
             print(character)
-            character_db[match[2]] = character
-        self.options.save()
-        self.options.update()
-        await message.channel.send(f"Following keys updated: `{match[2]}`.")
+            self.options = self.options.append(character,ignore_index=True)
+            await message.channel.send(f"Following character updated: `{match[2]}`.")
 
 class CharacterCheck(Command):
     
     async def action(self, message, match):
-        character_db = self.options.data["Characters"]
         alias = match[2]
-        key = match[3]
-        key = re.sub(r'\w+', lambda m:m.group(0).capitalize(), key)
-        print(key)
-        
-        if key in character_db[alias]:
-            value = character_db[alias][key]
-            name = character_db[alias]['Name']
-            await message.channel.send(f"{name} ({alias}) has a {value} in {key}.")
+        # TODO: Optional parameter that gives you the raw output for offline editing
+        row = self.options[self.options['CHARACTER_SHORT_NAME'] == alias]
+        if not row.empty:
+            row = row.iloc[0]
+            if row['SERVER'] == message.guild.name:
+                stress =('[x] '*row['STRESS']+'[ ] '*(3-row['STRESS'])).strip()
+                character_string = f" \n**{row['CHARACTER_NAME']}**\n\n**Fate Points:** {row['FATE_POINTS']}\n**Stress:** {stress}\n**Consequences:**\n2  Mild: {row['CONSEQUENCE_2']}\n4  Moderate: {row['CONSEQUENCE_4']}\n6  Severe: {row['CONSEQUENCE_6']}\n\n**Aspects**\n\n* {row['ASPECT_1']}\n* {row['ASPECT_2']}\n* {row['ASPECT_3']}\n* {row['ASPECT_4']}\n* {row['ASPECT_5']}\n\n**Approaches**\nCareful: `{row['CAREFUL']}`\nClever: `{row['CLEVER']}`\nFlashy: `{row['FLASHY']}`\nForceful: `{row['FORCEFUL']}`\nQuick: `{row['QUICK']}`\nSneaky: `{row['SNEAKY']}`"
+                
+                await message.channel.send(f"{alias}'s Character Sheet is as follows!\n{character_string}")
+            else:
+                await message.channel.send(f"{alias} isn't a Character I know, can you introduce me sometime? (^^)")
         else:
-            await message.channel.send(f"{alias} doesn't have that...")
+            await message.channel.send(f"{alias} isn't a Character I know, can you introduce me sometime? (^^)")
 
 class CharacterList(Command):
     
     async def action(self, message, match):
-        character_db = self.options.data["Characters"]
-        entries = ["Alias : Character Name"]
-        for character in character_db:
-            entries.append(f"{character} : {character_db[character]['Name']}")
-        
-        entries = ',\n'.join(entries)
-        await message.channel.send("I have the character sheets for these characters!\n ```{}```".format(entries))
+        li = self.options[self.options['SERVER'] == message.guild.name][['CHARACTER_SHORT_NAME', 'CHARACTER_NAME']].rename(columns={'CHARACTER_SHORT_NAME':"Alias"}).set_index('Alias')
+        await message.channel.send(f"I have the character sheets for these characters!\n ```{li}```")
 
 class CharacterRoll(Command):
     
     async def action(self, message, match):
-        character_db = self.options.data["Characters"]
         alias = match[2]
         key = match[3]
-        key = re.sub(r'\w+', lambda m:m.group(0).capitalize(), key)
-        
-        if key in character_db[alias]:
-            value = character_db[alias][key]
-            name = character_db[alias]['Name']
-            
-            roll, numbers = self.roll_fudge()
-            total = value+roll
-            m = f"{name} ({alias}) rolled **{roll}** *{numbers}*!\n\n Their `{key}` stat is **{value}**, so total is {roll}+{value}=**{total}**!"
-            await message.channel.send(m)
-            if roll == -4:
-                await message.channel.send("...oof.")
+        skey = re.sub(r'\w+', lambda m:m.group(0).upper(), key).replace(' ', '_')
+        # import IPython; IPython.embed()
+        row = self.options[self.options['CHARACTER_SHORT_NAME'] == alias]
+        if not row.empty:
+            row = row.iloc[0]
+            if row['SERVER'] == message.guild.name:
+                value = row[skey]
+                
+                if type(value) == np.int64:
+                    roll, numbers = self.roll_fudge()
+                    total = value+roll
+                    m = f"{row['CHARACTER_SHORT_NAME']} rolled **{roll}** *{numbers}*!\n\n Their `{key}` stat is **{value}**, so total is {roll}+{value}=**{total}**!"
+                    await message.channel.send(m)
+                    if roll == -4:
+                        await message.channel.send("...oof.")
+                else:
+                    try:
+                        og, rolls, total = rollparser.parse(value)
+                    except: 
+                        await message.channel.send(f"How do I roll that?! XT")
+                    else:
+                        await message.channel.send(f"{row['CHARACTER_SHORT_NAME']} rolled `{og}` and got {total}!\nThe rolls were :*{rolls}*")
         else:
-            await message.channel.send(f"{alias} doesn't have that...")
+            await message.channel.send(f"I don't know if {alias} can do that...")
 
+    # TODO: Merge into Rollparser
     @staticmethod
     def roll_fudge():
         sides = [-1, -1, 0, 0, 1, 1]
@@ -562,19 +578,28 @@ class CharacterRoll(Command):
 class CharacterMod(Command):
     
     async def action(self, message, match):
-        character_db = self.options.data["Characters"]
         alias = match[2]
         key = match[3]
-        value = int(match[4])
-        key = re.sub(r'\w+', lambda m:m.group(0).capitalize(), key)
-        
-        if key in character_db[alias]:
-            old_value = character_db[alias][key]
-            name = character_db[alias]['Name']
-            character_db[alias][key] = value
-            self.options.save()
-            self.options.update()
-            await message.channel.send(f"{name} ({alias}) had {old_value} in {key}, I changed it to {value}.")
+        value = match[4]
+        skey = re.sub(r'\w+', lambda m:m.group(0).upper(), key).replace(' ', '_')
+        # import IPython; IPython.embed()
+        row = self.options[self.options['CHARACTER_SHORT_NAME'] == alias]
+        if not row.empty:
+            row = row.iloc[0]
+            if row['SERVER'] == message.guild.name:
+                
+                try: 
+                    if self.options.dtypes[skey] == np.int64: value = int(value)
+                    if self.options.dtypes[skey] == object: value = str(value)
+                except ValueError:
+                    await message.channel.send(f"I don't think that's what goes in that category...")
+                else:
+                    old_value = row[skey]
+                    self.options.loc[self.options.index==row.name, skey] = value
+                    self.options.loc[self.options.index==row.name, 'MODIFIED_BIT'] = True
+                    await message.channel.send(f"{row['CHARACTER_SHORT_NAME']} had {old_value} in {key}, I changed it to {value}.")
+            else:
+                await message.channel.send(f"{alias} doesn't have that...")
         else:
             await message.channel.send(f"{alias} doesn't have that...")
 
