@@ -15,7 +15,6 @@ import rollparser
 
 # TODO Help input as a constructor value, which is placed in __str__.
 # TODO Help interator for the Commander object
-# TODO User stats (each user gets a document)
 
 # FIXME: The way the compile works for commands, the trigger is only appended to the front. This prevents use of OR statements that join two completely distinct commands
 
@@ -471,8 +470,7 @@ class QuestionPlease(Command):
         self.options.loc[self.options.ID==row.ID, 'DONE'] = 1
         self.options.loc[self.options.ID==row.ID, 'MODIFIED_BIT'] = True
 
-
-class CharacterLoad(Command):
+class FateAccelLoad(Command):
     
     async def action(self, message, match):
         # import IPython; IPython.embed()
@@ -480,6 +478,7 @@ class CharacterLoad(Command):
         try:
             character['CHARACTER_NAME'] = re.search('^\*\*(.*?)\*\*', match[3]).group(1)#.replace('*', '')
             character['CHARACTER_SHORT_NAME'] = match[2]
+            character['DEFAULT_DIE_CODE'] = '4dF'
             character['FATE_POINTS'] = int(re.search('\*\*Fate Points:\*\* *([0-9]+)', match[3]).group(1))
             
             s = re.search('\*\*Stress:\*\*((?: *\[.\])+)', match[3]).group(1).strip()
@@ -509,17 +508,19 @@ class CharacterLoad(Command):
             self.options = self.options.append(character,ignore_index=True)
             await message.channel.send(f"Following character updated: `{match[2]}`.")
 
-class CharacterCheck(Command):
+class FateAccelCheck(Command):
     
     async def action(self, message, match):
         alias = match[2]
-        # TODO: Optional parameter that gives you the raw output for offline editing
         row = self.options[self.options['CHARACTER_SHORT_NAME'] == alias]
         if not row.empty:
             row = row.iloc[0]
             if row['SERVER'] == message.guild.name:
                 stress =('[x] '*row['STRESS']+'[ ] '*(3-row['STRESS'])).strip()
-                character_string = f" \n**{row['CHARACTER_NAME']}**\n\n**Fate Points:** {row['FATE_POINTS']}\n**Stress:** {stress}\n**Consequences:**\n2  Mild: {row['CONSEQUENCE_2']}\n4  Moderate: {row['CONSEQUENCE_4']}\n6  Severe: {row['CONSEQUENCE_6']}\n\n**Aspects**\n\n* {row['ASPECT_1']}\n* {row['ASPECT_2']}\n* {row['ASPECT_3']}\n* {row['ASPECT_4']}\n* {row['ASPECT_5']}\n\n**Approaches**\nCareful: `{row['CAREFUL']}`\nClever: `{row['CLEVER']}`\nFlashy: `{row['FLASHY']}`\nForceful: `{row['FORCEFUL']}`\nQuick: `{row['QUICK']}`\nSneaky: `{row['SNEAKY']}`"
+                character_string = f"**{row['CHARACTER_NAME']}**\n\n**Fate Points:** {row['FATE_POINTS']}\n**Stress:** {stress}\n**Consequences:**\n2  Mild: {row['CONSEQUENCE_2']}\n4  Moderate: {row['CONSEQUENCE_4']}\n6  Severe: {row['CONSEQUENCE_6']}\n\n**Aspects**\n\n* {row['ASPECT_1']}\n* {row['ASPECT_2']}\n* {row['ASPECT_3']}\n* {row['ASPECT_4']}\n* {row['ASPECT_5']}\n\n**Approaches**\nCareful: `{row['CAREFUL']}`\nClever: `{row['CLEVER']}`\nFlashy: `{row['FLASHY']}`\nForceful: `{row['FORCEFUL']}`\nQuick: `{row['QUICK']}`\nSneaky: `{row['SNEAKY']}`"
+                
+                if len(match)==4: character_string = f"```{character_string}\n```"
+                else: character_string = f">>> {character_string}"
                 
                 await message.channel.send(f"{alias}'s Character Sheet is as follows!\n{character_string}")
             else:
@@ -539,7 +540,6 @@ class CharacterRoll(Command):
         alias = match[2]
         key = match[3]
         skey = re.sub(r'\w+', lambda m:m.group(0).upper(), key).replace(' ', '_')
-        # import IPython; IPython.embed()
         row = self.options[self.options['CHARACTER_SHORT_NAME'] == alias]
         if not row.empty:
             row = row.iloc[0]
@@ -547,12 +547,10 @@ class CharacterRoll(Command):
                 value = row[skey]
                 
                 if type(value) == np.int64:
-                    roll, numbers = self.roll_fudge()
-                    total = value+roll
-                    m = f"{row['CHARACTER_SHORT_NAME']} rolled **{roll}** *{numbers}*!\n\n Their `{key}` stat is **{value}**, so total is {roll}+{value}=**{total}**!"
+                    og, rolls, unmod = rollparser.parse(row['DEFAULT_DIE_CODE'])
+                    total = value+unmod
+                    m = f"{row['CHARACTER_SHORT_NAME']} rolled **{unmod}** *{rolls}*!\n\n Their `{key}` stat is **{value}**, so total is {unmod}+{value}=**{total}**!"
                     await message.channel.send(m)
-                    if roll == -4:
-                        await message.channel.send("...oof.")
                 else:
                     try:
                         og, rolls, total = rollparser.parse(value)
@@ -562,18 +560,6 @@ class CharacterRoll(Command):
                         await message.channel.send(f"{row['CHARACTER_SHORT_NAME']} rolled `{og}` and got {total}!\nThe rolls were :*{rolls}*")
         else:
             await message.channel.send(f"I don't know if {alias} can do that...")
-
-    # TODO: Merge into Rollparser
-    @staticmethod
-    def roll_fudge():
-        sides = [-1, -1, 0, 0, 1, 1]
-        rolls = []
-        tote = 0
-        for x in range(0, 4):
-            roll = sides[random.randint(0, 5)]
-            rolls.append(roll)
-            tote+=roll
-        return tote, rolls
 
 class CharacterMod(Command):
     
@@ -625,8 +611,8 @@ REFERENCE = {
     'CounterRemove' : CounterRemove,
     'CounterList' : CounterList,
     'QuestionPlease' : QuestionPlease,
-    'CharacterLoad' : CharacterLoad,
-    'CharacterCheck' : CharacterCheck,
+    'FateAccelLoad' : FateAccelLoad,
+    'FateAccelCheck' : FateAccelCheck,
     'CharacterList' : CharacterList,
     'CharacterRoll' : CharacterRoll,
     'CharacterMod' : CharacterMod

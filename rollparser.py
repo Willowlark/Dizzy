@@ -4,7 +4,7 @@ import numexpr
 
 def _adv_roll(match):
     n, s, t = match.groups()
-    n = int(n)
+    n = int(n) if n else 1
     s = int(s)
     
     rolls = []
@@ -20,7 +20,7 @@ def _adv_roll(match):
 
 def _top_roll(match):
     n, s, cnt = match.groups()
-    n = int(n)
+    n = int(n) if n else 1
     s = int(s)
     cnt = int(cnt) if int(cnt) > 0 else 1
     
@@ -36,8 +36,9 @@ def _top_roll(match):
     return f"({'+'.join(rolls)})"
 
 def _basic_roll(match):
+    print(match.groups())
     n, s = match.groups()
-    n = int(n)
+    n = int(n) if n else 1
     s = int(s)
     
     rolls = []
@@ -46,12 +47,25 @@ def _basic_roll(match):
         rolls.append(roll)
     return f"({'+'.join([str(x) for x in rolls])})"
     
+def _fudge_roll(match):
+    n = match.groups()[0]
+    n = int(n) if n else 4
+    
+    sides = [-1, -1, 0, 0, 1, 1]
+    rolls = []
+    for x in range(0, n):
+        roll = sides[random.randint(0, 5)]
+        rolls.append(roll)
+    
+    return f"({'+'.join([str(x) for x in rolls])})"
+    
 def parse(diestring):
     
     # Parse Dice notation
     rawstring = re.sub('(\d?|\d+)d(\d+)(a|d)', _adv_roll, diestring)
     rawstring = re.sub('(\d?|\d+)d(\d+)\^(\d+)', _top_roll, rawstring)
     rawstring = re.sub('(\d?|\d+)d(\d+)', _basic_roll, rawstring)
+    rawstring = re.sub('(\d?|\d+)dF', _fudge_roll, rawstring)
     
     # Compress Advantage/Disadvantage before doing math, removing Bolding and unused roll
     evalstring = re.sub('\(\*\*([0-9]+)\*\*,[0-9]+\)|\([0-9]+,\*\*([0-9]+)\*\*\)', r"\1\2",rawstring)

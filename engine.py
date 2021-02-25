@@ -60,8 +60,6 @@ class Engine(object):
         self.logmanager.log(message)
         
 class Diary(object):
-
-    # TODO: Add a call to connect wrapper that closes post use
     
     def __init__(self):
         self.conn = None
