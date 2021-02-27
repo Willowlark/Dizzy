@@ -49,4 +49,5 @@ INSERT INTO COMMANDS (COMMAND_ID, PYTHON_CLASS, CMD_TRIGGER, OPTIONS, OPTIONS_FR
         , (33, 'CharacterRoll', NULL, 'DATA_FATE_ACCEL_CHARS', True, False, '(chroll) ([^ ]*) ([^ ]*)', NULL)
         , (34, 'CharacterMod', NULL, 'DATA_FATE_ACCEL_CHARS', True, True, '(chmod) ([^ ]*) (?:"(.*)"|([^ ]*)) (.*)', NULL)
         -- , (35, 'Reply', NULL, 'How is @everyone today? How are you feeling? \n💛: I''m Amazing!\n:heart:: Pretty good.\n💗: Good!\n💜: I''m Okay\n:orange_heart:: I''m coming back\n💚: It''s tough\n💙: It''s Awful\n💔: I''m completely lost and broken inside\n🖤: I''m having suicidal thoughts', False, False, '(checkin)', NULL)
+        , (36, 'RandomReply', NULL, 'DATA_FOOD_PORN', True, False, '(porn)', NULL)
 ;
