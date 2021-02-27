@@ -153,7 +153,7 @@ class CommandCollection(object):
             # TODO: Move this parse into the Command Init, IE pass in cmd_spec & options
             
             cmd_class = commands.REFERENCE[cmd_spec['PYTHON_CLASS']]
-            cmd_trigger = cmd_spec['CMD_TRIGGER'] if cmd_spec['CMD_TRIGGER'] else cmd_spec['PREFIX']
+            cmd_trigger = cmd_spec['CMD_TRIGGER'] if cmd_spec['CMD_TRIGGER'] is not None else cmd_spec['PREFIX']
             if cmd_spec['OPTIONS_FROM_DB']:
                 cmd_options = self.diary.get_data_table(cmd_spec['OPTIONS'])
                 cmd_options_source = cmd_spec['OPTIONS']
