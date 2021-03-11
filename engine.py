@@ -67,6 +67,10 @@ class Diary(object):
 
     def connect(self):
         # Connect to MariaDB Platform
+        try: # Could already be instantiated. 
+            self.conn.close()
+        except:
+            pass
         try:
             self.conn = mariadb.connect(
                 user="dizzy",
@@ -84,56 +88,71 @@ class Diary(object):
         return self.conn
     
     def pd_execute(self, query):
-        return pd.read_sql(query, self.conn)
+        try:
+            ret = pd.read_sql(query, self.conn)
+        except pd.io.sql.DatabaseError:
+            self.connect()
+            ret = pd.read_sql(query, self.conn)
+        return ret
 
     def get_data_table(self, table_name):
-        query = f"select * from {table_name}"
-        data = self.pd_execute(query)
-        data['MODIFIED_BIT'] = False
-        return data
+        try:
+            query = f"select * from {table_name}"
+        except pd.io.sql.DatabaseError:
+            self.connect()
+            query = f"select * from {table_name}"
+        finally: 
+            data = self.pd_execute(query)
+            data['MODIFIED_BIT'] = False
+            return data
         
     def save(self, table_name, newdata):
         
         if not table_name:
-            # This command triggers a rebuiuld but has nothing to save
+            # This command triggers a rebuild but has nothing to save
             return None
+        try:
+            pks = list(self.pd_execute(f"SHOW KEYS FROM {table_name} WHERE Key_name = 'PRIMARY'").Column_name)
+            cur = self.conn.cursor()
+        except pd.io.sql.DatabaseError:
+            self.connect()
+            pks = list(self.pd_execute(f"SHOW KEYS FROM {table_name} WHERE Key_name = 'PRIMARY'").Column_name)
+            cur = self.conn.cursor()
+        finally: 
+            if 'RM' in newdata.columns:
+                indexes = []
+                for index, row in newdata[newdata.RM == True].iterrows():
+                    where_str = []
+                    for pk in pks:
+                        where_str.append(f"{pk} = {row[pk]}")
+                    where_str = ', '.join(where_str)
+                    delete_query = f"DELETE FROM {table_name} WHERE {where_str};"
+                    print(delete_query)
+                    cur.execute(delete_query)
+                    indexes.append(index)
+                newdata = newdata.drop(indexes)
+                newdata = newdata.drop('RM',axis=1)
             
-        cur = self.conn.cursor()
-        pks = list(self.pd_execute(f"SHOW KEYS FROM {table_name} WHERE Key_name = 'PRIMARY'").Column_name)
-        
-        if 'RM' in newdata.columns:
-            indexes = []
-            for index, row in newdata[newdata.RM == True].iterrows():
-                where_str = []
-                for pk in pks:
-                    where_str.append(f"{pk} = {row[pk]}")
-                where_str = ', '.join(where_str)
-                delete_query = f"DELETE FROM {table_name} WHERE {where_str};"
-                print(delete_query)
-                cur.execute(delete_query)
-                indexes.append(index)
-            newdata = newdata.drop(indexes)
-            newdata = newdata.drop('RM',axis=1)
-        
-        update_set = newdata[newdata.MODIFIED_BIT == True].drop('MODIFIED_BIT', axis=1)
-        
-        update_columns = set(update_set.columns) - set(pks)
-        for index, row in update_set.iterrows():
-            
-            update_str = []
-            for up in update_columns:
-                up_v = f"'{self.conn.escape_string(row[up])}'" if type(row[up]) is str else row[up]
-                update_str.append(f"{up} = {up_v}")
-            update_str = ', '.join(update_str)
-            
-            insert_str = []
-            for insert in list(update_set.columns):
-                insert_v = f"'{self.conn.escape_string(row[insert])}'" if type(row[insert]) is str else row[insert]
-                insert_str.append(f"{insert_v}")
-            insert_str = ', '.join(insert_str)
-            update_query = f"INSERT INTO {table_name} VALUES ({insert_str}) ON DUPLICATE KEY UPDATE {update_str};"
-            print(update_query)
-            cur.execute(update_query)
+            update_set = newdata[newdata.MODIFIED_BIT == True].drop('MODIFIED_BIT', axis=1)
+            import IPython; IPython.embed()
+            update_columns = set(update_set.columns) - set(pks)
+            for index, row in update_set.iterrows():
+                
+                update_str = []
+                for up in update_columns:
+                    up_v = f"'{self.conn.escape_string(row[up])}'" if type(row[up]) is str else row[up]
+                    update_str.append(f"{up} = {up_v}")
+                update_str = ', '.join(update_str)
+                
+                insert_str = []
+                for insert in list(update_set.columns):
+                    insert_v = f"'{self.conn.escape_string(row[insert])}'" if type(row[insert]) is str else row[insert]
+                    insert_str.append(f"{insert_v}")
+                insert_str = ', '.join(insert_str)
+                update_query = f"INSERT INTO {table_name} VALUES ({insert_str}) ON DUPLICATE KEY UPDATE {update_str};"
+                print(update_query)
+                cur.execute(update_query)
+            cur.close()
         
 class CommandCollection(object):
     
