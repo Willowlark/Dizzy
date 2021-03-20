@@ -134,7 +134,6 @@ class Diary(object):
                 newdata = newdata.drop('RM',axis=1)
             
             update_set = newdata[newdata.MODIFIED_BIT == True].drop('MODIFIED_BIT', axis=1)
-            import IPython; IPython.embed()
             update_columns = set(update_set.columns) - set(pks)
             for index, row in update_set.iterrows():
                 
