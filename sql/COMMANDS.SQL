@@ -51,3 +51,4 @@ INSERT INTO COMMANDS (COMMAND_ID, PYTHON_CLASS, CMD_TRIGGER, OPTIONS, OPTIONS_FR
         -- , (35, 'Reply', NULL, 'How is @everyone today? How are you feeling? \n💛: I''m Amazing!\n:heart:: Pretty good.\n💗: Good!\n💜: I''m Okay\n:orange_heart:: I''m coming back\n💚: It''s tough\n💙: It''s Awful\n💔: I''m completely lost and broken inside\n🖤: I''m having suicidal thoughts', False, False, '(checkin)', NULL)
         , (36, 'RandomReply', NULL, 'DATA_FOOD_PORN', True, False, '(porn)', NULL)
 ;
+INSERT INTO COMMANDS (COMMAND_ID, PYTHON_CLASS, CMD_TRIGGER, OPTIONS, OPTIONS_FROM_DB, UPDATE_ON_CALL, PATTERN, AUTHOR_WHITELIST) VALUES (37, 'Reply', NULL, 'https://i.imgur.com/qp1cf60.mp4', False, False, '(surething)', NULL);
