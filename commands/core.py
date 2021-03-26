@@ -4,6 +4,7 @@ import arrow
 import pandas as pd
 from sys import maxsize
 from os.path import join
+import emoji
 
 import commands.rollparser as rollparser
 
@@ -16,7 +17,7 @@ import commands.rollparser as rollparser
 
 class Command(object):
 
-    def __init__(self, triggers=None, options=[], options_source=None, pattern='', info=None, author=None, update_me=False):
+    def __init__(self, triggers=None, options=[], options_source=None, pattern='', info=None, author=None, server=None, update_me=False):
         self.triggers = triggers
         self.options = options
         self.options_source = options_source
@@ -26,6 +27,7 @@ class Command(object):
         self.compile()
 
         self.author = author
+        self.server = server
         self.update_me=update_me
         self.func = None
 
@@ -63,6 +65,10 @@ class Command(object):
             if message.author.name != self.author:
                 return False
 
+        if self.server:
+            if message.guild.id != self.server:
+                return False
+
         # Lambda 
         if self.func:
             if not self.func(message): 
@@ -82,7 +88,10 @@ class RandomReply(Command):
 class Reply(Command):
 
     async def action(self, message, match):
-        await message.channel.send(self.options)
+        emojis_used = re.findall(':\w+?::', self.options)
+        m = await message.channel.send(self.options)
+        for x in emojis_used:
+            await m.add_reaction(emoji.emojize(x[:-1], use_aliases=True))
 
 class Timecheck(Command):
 

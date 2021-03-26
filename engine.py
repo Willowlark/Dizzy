@@ -165,7 +165,6 @@ class CommandCollection(object):
         
         raw_cmds = raw_cmds.replace({nan: None})
         dicts = raw_cmds.to_dict(orient='index')
-        
         for key in dicts:
             cmd_spec = dicts[key]
             # TODO: Move this parse into the Command Init, IE pass in cmd_spec & options
@@ -181,9 +180,10 @@ class CommandCollection(object):
             cmd_pattern = cmd_spec['PATTERN']
             cmd_info = cmd_spec['HELP']
             cmd_author = cmd_spec['AUTHOR']
+            cmd_server = cmd_spec['UID'] if cmd_spec['SERVER_NAME'] != 'ALL SERVERS' else None
             cmd_updates = cmd_spec['UPDATE_ON_CALL']
             
-            self.commands.append(cmd_class(triggers=cmd_trigger, options=cmd_options, options_source=cmd_options_source, pattern=cmd_pattern, info=cmd_info, author=cmd_author, update_me=cmd_updates))
+            self.commands.append(cmd_class(triggers=cmd_trigger, options=cmd_options, options_source=cmd_options_source, pattern=cmd_pattern, info=cmd_info, author=cmd_author, server=cmd_server, update_me=cmd_updates))
     
     def rebuild(self):
         self.commands = []
