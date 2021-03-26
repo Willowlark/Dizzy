@@ -5,7 +5,7 @@ CREATE TABLE COMMANDS (
         , COMMAND_NAME VARCHAR(100)
         , PYTHON_CLASS VARCHAR(100)
         , CMD_TRIGGER VARCHAR(100)
-        , OPTIONS VARCHAR(100)
+        , OPTIONS VARCHAR(2000)
         , OPTIONS_FROM_DB BOOLEAN
         , UPDATE_ON_CALL BOOLEAN
         , PATTERN VARCHAR(100)
@@ -48,7 +48,8 @@ INSERT INTO COMMANDS (COMMAND_ID, PYTHON_CLASS, CMD_TRIGGER, OPTIONS, OPTIONS_FR
         , (32, 'CharacterList', NULL, 'DATA_FATE_ACCEL_CHARS', True, False, '(chlist)', NULL)
         , (33, 'CharacterRoll', NULL, 'DATA_FATE_ACCEL_CHARS', True, False, '(chroll) ([^ ]*) ([^ ]*)', NULL)
         , (34, 'CharacterMod', NULL, 'DATA_FATE_ACCEL_CHARS', True, True, '(chmod) ([^ ]*) (?:"(.*)"|([^ ]*)) (.*)', NULL)
-        -- , (35, 'Reply', NULL, 'How is @everyone today? How are you feeling? \n💛: I''m Amazing!\n:heart:: Pretty good.\n💗: Good!\n💜: I''m Okay\n:orange_heart:: I''m coming back\n💚: It''s tough\n💙: It''s Awful\n💔: I''m completely lost and broken inside\n🖤: I''m having suicidal thoughts', False, False, '(checkin)', NULL)
+        -- 35 is a separate insert
         , (36, 'RandomReply', NULL, 'DATA_FOOD_PORN', True, False, '(porn)', NULL)
 ;
 INSERT INTO COMMANDS (COMMAND_ID, PYTHON_CLASS, CMD_TRIGGER, OPTIONS, OPTIONS_FROM_DB, UPDATE_ON_CALL, PATTERN, AUTHOR_WHITELIST) VALUES (37, 'Reply', NULL, 'https://i.imgur.com/qp1cf60.mp4', False, False, '(surething)', NULL);
+INSERT INTO COMMANDS (COMMAND_ID, PYTHON_CLASS, CMD_TRIGGER, OPTIONS, OPTIONS_FROM_DB, UPDATE_ON_CALL, PATTERN, AUTHOR_WHITELIST) VALUES (35, 'Reply', NULL, 'How is everyone today? How are you feeling? \n:heartpulse:: I''m Amazing!\n:heart:: Pretty good.\n:orange_heart:: Good!\n:yellow_heart:: I''m Okay\n:green_heart:: I''m coming back\n:purple_heart:: It''s tough\n:blue_heart:: It''s Awful\n:broken_heart:: I''m completely lost and broken inside\n:black_heart:: I''m having suicidal thoughts', False, False, '(checkin)', NULL);
