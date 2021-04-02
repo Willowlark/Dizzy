@@ -10,6 +10,7 @@ cloudant==2.7.0
 decorator==4.1.2
 discord.py==1.4.1
 docopt==0.6.2
+emoji
 idna==2.6
 idna-ssl==1.1.0
 ipython==6.2.1
