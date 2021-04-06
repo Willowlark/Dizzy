@@ -79,6 +79,39 @@ class Command(object):
     def setfunc(self, func):
         self.func = func
 
+class Help(Command):
+    
+     async def action(self, message, match):
+                 
+        relevant = self.options.query(f'SERVER_ID == 1 or UID == {message.guild.id}')
+        response = []
+        longest = 0
+        
+        for i, row in relevant.iterrows():
+            m = row.HELP
+            if not m:
+                continue
+            nls = m.split('\n')
+            for x in nls:
+                s = x.split(':')
+                if len(s[0].strip()) > longest:
+                    longest = len(s[0].strip())
+                response.append([_.strip() for _ in s])
+        
+        response = [[f'**{x[0]}**', x[1]] for x in response]
+        final_response = []
+        rpart = ''
+        for x in response:
+            if len(rpart) + len('\n    '.join(x)) > 2000:
+                final_response.append(rpart+'')
+                rpart = ''
+            rpart = rpart + '\n    '.join(x)+'\n'
+        final_response.append(rpart+'')
+        
+        await message.channel.send("Here's all the things I can do! (^^)")
+        for x in final_response:
+            await message.channel.send(x)
+
 class RandomReply(Command):
 
     async def action(self, message, match):
@@ -327,6 +360,7 @@ class QuestionPlease(Command):
 
 REFERENCE = {
     'Command' : Command,
+    'Help' : Help,
     'RandomReply' : RandomReply,
     'Reply' : Reply,
     'Timecheck' : Timecheck,
