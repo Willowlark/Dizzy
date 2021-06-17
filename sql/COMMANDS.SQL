@@ -106,3 +106,8 @@ INSERT INTO COMMANDS
     (COMMAND_ID, PYTHON_CLASS, CMD_TRIGGER, OPTIONS, OPTIONS_FROM_DB, UPDATE_ON_CALL, PATTERN, AUTHOR_WHITELIST, HELP) 
 VALUES 
     (39, 'Help', NULL, 'V_COMMAND_HELP', True, False, '(help)', NULL, '!help : You know what this does, don''t you?');
+
+INSERT INTO COMMANDS 
+    (COMMAND_ID, PYTHON_CLASS, CMD_TRIGGER, OPTIONS, OPTIONS_FROM_DB, UPDATE_ON_CALL, PATTERN, AUTHOR_WHITELIST, HELP) 
+VALUES 
+    (40, 'TarotDraw', NULL, 'DATA_TAROT', True, True, '(tarot)( \\d+)?( (?:[M|m]ajor|[M|m]inor))?', NULL, '!tarot : Draw X Tarot cards')

@@ -358,6 +358,40 @@ class QuestionPlease(Command):
         self.options.loc[self.options.ID==row.ID, 'DONE'] = 1
         self.options.loc[self.options.ID==row.ID, 'MODIFIED_BIT'] = True
 
+class TarotDraw(Command):
+    
+    async def action(self, message, match):
+        # import IPython; IPython.embed()
+        if len(match) == 2:
+            cnt = 1
+            rank = None
+        elif len(match) == 3:
+            if match[2].strip().isdigit():
+                cnt = int(match[2])
+                rank = None
+            else:
+                rank = match[2].strip().lower()
+        elif len(match) == 4:
+            cnt = int(match[2])
+            rank = match[3].strip().lower()
+        
+        if rank:
+            opts = self.options[self.options.RANK == rank]
+        else:
+            opts = self.options
+        opts = opts[opts.DRAWN == 0]
+        drawn = opts.sample(cnt)
+        
+        reply = ["I drew:"]
+        for i, r in drawn.iterrows():
+            pos = 'UPRIGHT' if random.randint(0,1) else 'REVERSED'
+            x = f"The {r.RANK.capitalize()} Arcana {r.CARD} {pos}, which means *{r[pos]}*."
+            reply.append(x)
+            # self.options.loc[self.options.ID==r.ID, 'DRAWN'] = 1
+            self.options.loc[self.options.ID==r.ID, 'MODIFIED_BIT'] = True
+        
+        await message.channel.send('\n'.join(reply))
+
 REFERENCE = {
     'Command' : Command,
     'Help' : Help,
@@ -376,4 +410,5 @@ REFERENCE = {
     # 'RFAMode' : RFAMode,
     # 'RFAMembership' : RFAMembership,
     'QuestionPlease' : QuestionPlease,
+    'TarotDraw': TarotDraw
 }
