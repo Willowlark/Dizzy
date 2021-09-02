@@ -36,7 +36,7 @@ def _top_roll(match):
     return f"({'+'.join(rolls)})"
 
 def _basic_roll(match):
-    print(match.groups())
+    # print(match.groups())
     n, s = match.groups()
     n = int(n) if n else 1
     s = int(s)
@@ -58,14 +58,52 @@ def _fudge_roll(match):
         rolls.append(roll)
     
     return f"({'+'.join([str(x) for x in rolls])})"
+
+def _coin_flip(match):
+    n = match.groups()[0]
+    n = int(n) if n else 1
     
+    sides = [0, 1]
+    rolls = []
+    for x in range(0, n):
+        roll = sides[random.randint(0, 1)]
+        rolls.append(roll)
+    
+    return f"({'+'.join([str(x) for x in rolls])})"
+
+def _comparison(evalstring):
+
+    op = None
+    for x in ['<', '>', ">=", "<="]:
+        if x in evalstring:
+            opi = evalstring.index(x)
+            op = x
+    if not op:
+        return evalstring
+    else:
+        dice, target = evalstring.split(op)
+        if target[-1] == 'k':
+            keep=True
+            target=target[:-1]
+        else:
+            keep=False
+        
+        def fx(x):
+            if eval(f'{x.group(0)}{op}{target}'):
+                return x.group(0) if keep else '1'
+            else:
+                return '0'
+        return re.sub('\d+', fx, dice)
+        
+        
+
 def parse(diestring):
-    
     # Parse Dice notation
     rawstring = re.sub('(\d?|\d+)d(\d+)(a|d)', _adv_roll, diestring)
     rawstring = re.sub('(\d?|\d+)d(\d+)\^(\d+)', _top_roll, rawstring)
     rawstring = re.sub('(\d?|\d+)d(\d+)', _basic_roll, rawstring)
     rawstring = re.sub('(\d?|\d+)dF', _fudge_roll, rawstring)
+    rawstring = re.sub('(\d?|\d+)dC', _coin_flip, rawstring)
     
     # Compress Advantage/Disadvantage before doing math, removing Bolding and unused roll
     evalstring = re.sub('\(\*\*([0-9]+)\*\*,[0-9]+\)|\([0-9]+,\*\*([0-9]+)\*\*\)', r"\1\2",rawstring)
@@ -73,8 +111,11 @@ def parse(diestring):
     evalstring = re.sub('(?<=\d\*\*)((?:\+\d+)+)',r'',evalstring) 
     # Removes all bolded numbers and replaces with the raw number
     evalstring = re.sub('\*\*(\d+)\*\*', r'\1', evalstring)
+    # If there's a comparison op, compare all the numbers accordingly.
+    evalstring = _comparison(evalstring)
     
     print(evalstring)
+        
     total = int(numexpr.evaluate(evalstring))
     
     return diestring, rawstring, total
