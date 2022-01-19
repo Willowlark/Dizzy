@@ -5,13 +5,11 @@ import pandas as pd
 from sys import maxsize
 from os.path import join
 import emoji
-
+from sys import modules
+from inspect import getmembers, isclass
 import commands.rollparser as rollparser
 
 # CRIT: MATCH[0] IS THE STRING, MATCH[1] IS THE TRIGGER, MATCH[2] STARTS THE USER INPUT!!!!!!!
-
-# TODO Help input as a constructor value, which is placed in __str__.
-# TODO Help interator for the Commander object
 
 # FIXME: The way the compile works for commands, the trigger is only appended to the front. This prevents use of OR statements that join two completely distinct commands
 
@@ -392,23 +390,27 @@ class TarotDraw(Command):
         
         await message.channel.send('\n'.join(reply))
 
-REFERENCE = {
-    'Command' : Command,
-    'Help' : Help,
-    'RandomReply' : RandomReply,
-    'Reply' : Reply,
-    'Timecheck' : Timecheck,
-    'Choose' : Choose,
-    'Log' : Log,
-    'Stab' : Stab,
-    'Refresh' : Refresh,
-    'Ghost' : Ghost,
-    'Fudge' : Fudge,
-    'Roll' : Roll,
-    'Headpat' : Headpat,
-    'IrlRuby' : IrlRuby,
-    # 'RFAMode' : RFAMode,
-    # 'RFAMembership' : RFAMembership,
-    'QuestionPlease' : QuestionPlease,
-    'TarotDraw': TarotDraw
-}
+
+# REFERENCE = {
+#     'Command' : Command,
+#     'Help' : Help,
+#     'RandomReply' : RandomReply,
+#     'Reply' : Reply,
+#     'Timecheck' : Timecheck,
+#     'Choose' : Choose,
+#     'Log' : Log,
+#     'Stab' : Stab,
+#     'Refresh' : Refresh,
+#     'Ghost' : Ghost,
+#     'Fudge' : Fudge,
+#     'Roll' : Roll,
+#     'Headpat' : Headpat,
+#     'IrlRuby' : IrlRuby,
+#     # 'RFAMode' : RFAMode,
+#     # 'RFAMembership' : RFAMembership,
+#     'QuestionPlease' : QuestionPlease,
+#     'TarotDraw': TarotDraw
+# }
+
+clsmembers = getmembers(modules[__name__], isclass)
+REFERENCE = clsmembers

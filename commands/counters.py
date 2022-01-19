@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
 from datetime import datetime
-
+from sys import modules
+from inspect import getmembers, isclass
 from .core import Command
 
 class CounterBase(Command):
@@ -154,10 +155,13 @@ class CounterList(CounterBase):
 
         await message.channel.send("".join(lines))
 
-REFERENCE = {
-    'CounterIncrement' : CounterIncrement,
-    'CounterCheck' : CounterCheck,
-    'CounterSet' : CounterSet,
-    'CounterRemove' : CounterRemove,
-    'CounterList' : CounterList
-}
+# REFERENCE = {
+#     'CounterIncrement' : CounterIncrement,
+#     'CounterCheck' : CounterCheck,
+#     'CounterSet' : CounterSet,
+#     'CounterRemove' : CounterRemove,
+#     'CounterList' : CounterList
+# }
+
+clsmembers = getmembers(modules[__name__], isclass)
+REFERENCE = clsmembers

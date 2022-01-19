@@ -111,3 +111,9 @@ INSERT INTO COMMANDS
     (COMMAND_ID, PYTHON_CLASS, CMD_TRIGGER, OPTIONS, OPTIONS_FROM_DB, UPDATE_ON_CALL, PATTERN, AUTHOR_WHITELIST, HELP) 
 VALUES 
     (40, 'TarotDraw', NULL, 'DATA_TAROT', True, True, '(tarot)( \\d+)?( (?:[M|m]ajor|[M|m]inor))?', NULL, '!tarot : Draw X Tarot cards')
+    
+INSERT INTO COMMANDS 
+    (COMMAND_ID, PYTHON_CLASS, CMD_TRIGGER, OPTIONS, OPTIONS_FROM_DB, UPDATE_ON_CALL, PATTERN, AUTHOR_WHITELIST, HELP) 
+VALUES 
+    (41, 'RandomReply', NULL, 'DATA_AU_LIST', True, False, '(auidea)', NULL,
+        '!porn : Alternate Universe prompt!')

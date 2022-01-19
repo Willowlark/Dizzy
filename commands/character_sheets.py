@@ -1,5 +1,7 @@
 import numpy as np
 import re
+from sys import modules
+from inspect import getmembers, isclass
 
 import commands.rollparser as rollparser
 from .core import Command
@@ -123,10 +125,13 @@ class CharacterMod(Command):
         else:
             await message.channel.send(f"{alias} doesn't have that...")
 
-REFERENCE = {
-    'FateAccelLoad' : FateAccelLoad,
-    'FateAccelCheck' : FateAccelCheck,
-    'CharacterList' : CharacterList,
-    'CharacterRoll' : CharacterRoll,
-    'CharacterMod' : CharacterMod
-}
+# REFERENCE = {
+#     'FateAccelLoad' : FateAccelLoad,
+#     'FateAccelCheck' : FateAccelCheck,
+#     'CharacterList' : CharacterList,
+#     'CharacterRoll' : CharacterRoll,
+#     'CharacterMod' : CharacterMod
+# }
+
+clsmembers = getmembers(modules[__name__], isclass)
+REFERENCE = clsmembers

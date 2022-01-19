@@ -1,6 +1,9 @@
 import random
 import re
 import numexpr
+from simpleeval import simple_eval
+
+VERBOSE = False
 
 def _adv_roll(match):
     n, s, t = match.groups()
@@ -34,6 +37,21 @@ def _top_roll(match):
     cnt = cnt if cnt < len(rolls) else len(rolls)
     rolls = [f"**{x}**" for x in rolls[:cnt]]+rolls[cnt:]
     return f"({'+'.join(rolls)})"
+
+def _bool_roll(match):
+    n, s, op, comp = match.groups()
+    n = int(n) if n else 1
+    s = int(s)
+    comp = int(comp) if int(comp) > 0 else 1
+    
+    rolls = []
+    for x in range(0, n):
+        roll = random.randint(1, s)
+        rolls.append(roll)
+    
+    rolls = [f"**{x}**" if simple_eval(str(x)+op+str(comp)) else f"{x}" for x in rolls]
+    rolls = sorted(rolls, key=len, reverse=True)
+    return f"[{'+'.join(rolls)}]"
 
 def _basic_roll(match):
     # print(match.groups())
@@ -71,51 +89,48 @@ def _coin_flip(match):
     
     return f"({'+'.join([str(x) for x in rolls])})"
 
-def _comparison(evalstring):
-
-    op = None
-    for x in ['<', '>', ">=", "<="]:
-        if x in evalstring:
-            opi = evalstring.index(x)
-            op = x
-    if not op:
-        return evalstring
-    else:
-        dice, target = evalstring.split(op)
-        if target[-1] == 'k':
-            keep=True
-            target=target[:-1]
-        else:
-            keep=False
-        
-        def fx(x):
-            if eval(f'{x.group(0)}{op}{target}'):
-                return x.group(0) if keep else '1'
-            else:
-                return '0'
-        return re.sub('\d+', fx, dice)
-        
-        
-
+def _eval_bool(match):
+    s = match.groups()[0]
+    # Remove the dropped rolls from the bolded notation rolls
+    s = re.sub('(?<=\d\*\*)((?:\+\d+)+)',r'',s) 
+    # Removes all bolded numbers (Top rolls) and replaces with One
+    s = re.sub('\*\*(\d+)\*\*', r'1', s)
+    s = re.sub('\[', '(', s)
+    s = re.sub('\]', ')', s)
+    return s
+   
 def parse(diestring):
+    if VERBOSE: print('input', diestring)
     # Parse Dice notation
     rawstring = re.sub('(\d?|\d+)d(\d+)(a|d)', _adv_roll, diestring)
     rawstring = re.sub('(\d?|\d+)d(\d+)\^(\d+)', _top_roll, rawstring)
+    rawstring = re.sub('(\d?|\d+)d(\d+)(<|>|<=|>=|==)(\d+)', _bool_roll, rawstring)
     rawstring = re.sub('(\d?|\d+)d(\d+)', _basic_roll, rawstring)
     rawstring = re.sub('(\d?|\d+)dF', _fudge_roll, rawstring)
     rawstring = re.sub('(\d?|\d+)dC', _coin_flip, rawstring)
+    if VERBOSE: print('Rolling Finished', rawstring)
     
     # Compress Advantage/Disadvantage before doing math, removing Bolding and unused roll
     evalstring = re.sub('\(\*\*([0-9]+)\*\*,[0-9]+\)|\([0-9]+,\*\*([0-9]+)\*\*\)', r"\1\2",rawstring)
-    # Remove the dropped rolls from the Top roll notation
+    if VERBOSE: print('adv/disadv calc', evalstring)
+    # Removes all underscore numbers (Successes) and replaces with one
+    evalstring = re.sub('(\[.*?\])', _eval_bool, evalstring)
+    if VERBOSE: print('boolean calc', evalstring)
+    # Remove the dropped rolls from the bolded and underscore notation rolls
     evalstring = re.sub('(?<=\d\*\*)((?:\+\d+)+)',r'',evalstring) 
-    # Removes all bolded numbers and replaces with the raw number
+    # Removes all bolded numbers (Top rolls) and replaces with the raw number
     evalstring = re.sub('\*\*(\d+)\*\*', r'\1', evalstring)
-    # If there's a comparison op, compare all the numbers accordingly.
-    evalstring = _comparison(evalstring)
+    if VERBOSE: print('Top X calc', evalstring)
     
-    print(evalstring)
-        
-    total = int(numexpr.evaluate(evalstring))
+    total = int(simple_eval(evalstring))
     
     return diestring, rawstring, total
+    
+    # 1d20a+2d8+4d6^3+4d6>3
+    # ((**9**,6))+(5+2)+(**6**+**5**+**3**+2)
+    # (9)+(5+2)+(**6**+**5**+**3**+2)
+    # (9)+(5+2)+(**6**+**5**+**3**)
+    # (9)+(5+2)+(6+5+3)
+    
+if __name__ == "__main__":
+    VERBOSE = True
