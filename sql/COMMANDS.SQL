@@ -95,7 +95,7 @@ VALUES
 INSERT INTO COMMANDS 
     (COMMAND_ID, PYTHON_CLASS, CMD_TRIGGER, OPTIONS, OPTIONS_FROM_DB, UPDATE_ON_CALL, PATTERN, AUTHOR_WHITELIST, HELP) 
 VALUES 
-    (37, 'Reply', NULL, 'https://i.imgur.com/qp1cf60.mp4', False, False, '(surething)', NULL, '!surething : Ironwood says Sure Thing.');
+    (37, 'Reply', NULL, 'https://media.discordapp.net/attachments/502528337953030145/973086453426958336/IMG_6385.jpg', False, False, '(capitalism)', NULL, '!capitalism : Ho!');
 
 INSERT INTO COMMANDS 
     (COMMAND_ID, PYTHON_CLASS, CMD_TRIGGER, OPTIONS, OPTIONS_FROM_DB, UPDATE_ON_CALL, PATTERN, AUTHOR_WHITELIST, HELP) 
@@ -117,3 +117,4 @@ INSERT INTO COMMANDS
 VALUES 
     (41, 'RandomReply', NULL, 'DATA_AU_LIST', True, False, '(auidea)', NULL,
         '!porn : Alternate Universe prompt!')
+        
