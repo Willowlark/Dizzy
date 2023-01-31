@@ -110,11 +110,14 @@ VALUES
 INSERT INTO COMMANDS 
     (COMMAND_ID, PYTHON_CLASS, CMD_TRIGGER, OPTIONS, OPTIONS_FROM_DB, UPDATE_ON_CALL, PATTERN, AUTHOR_WHITELIST, HELP) 
 VALUES 
-    (40, 'TarotDraw', NULL, 'DATA_TAROT', True, True, '(tarot)( \\d+)?( (?:[M|m]ajor|[M|m]inor))?', NULL, '!tarot : Draw X Tarot cards')
-    
+    (40, 'TarotDraw', NULL, 'DATA_TAROT', True, True, '(tarot)( \\d+)?( (?:[M|m]ajor|[M|m]inor))?', NULL, '!tarot : Draw X Tarot cards');
 INSERT INTO COMMANDS 
     (COMMAND_ID, PYTHON_CLASS, CMD_TRIGGER, OPTIONS, OPTIONS_FROM_DB, UPDATE_ON_CALL, PATTERN, AUTHOR_WHITELIST, HELP) 
 VALUES 
-    (41, 'RandomReply', NULL, 'DATA_AU_LIST', True, False, '(auidea)', NULL,
-        '!porn : Alternate Universe prompt!')
+    (41, 'RandomReply', NULL, 'DATA_AU_LIST', True, False, '(auidea)', NULL, '!auidea : Alternate Universe prompt!';
+INSERT INTO COMMANDS 
+    (COMMAND_ID, PYTHON_CLASS, CMD_TRIGGER, OPTIONS, OPTIONS_FROM_DB, UPDATE_ON_CALL, PATTERN, AUTHOR_WHITELIST, HELP) 
+VALUES 
+    (42, 'Reply', NULL, 'https://images-ext-1.discordapp.net/external/ZrM07f5goX5GyBMtTJL33RMiXL5ZNYzO2t0HrmA3Euo/%3Fwidth%3D979%26height%3D563/https/media.discordapp.net/attachments/502526204402860032/965303297034575983/IMG_20220417_004946_140.webp', False, False, '(thursday)', NULL,
+        '!thursday : What a Concept.');
         

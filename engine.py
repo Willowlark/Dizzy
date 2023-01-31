@@ -76,7 +76,7 @@ class Diary(object):
                 user="dizzy",
                 password=MARIADB_PASS,
                 host="192.168.1.42",
-                port=3306,
+                port=3307,
                 database="dizzy",
                 autocommit=True
             )
