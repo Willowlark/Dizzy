@@ -84,6 +84,7 @@ class Diary(object):
             # self.cur = self.conn.cursor()
         except mariadb.Error as e:
             print(f"Error connecting to MariaDB Platform: {e}")
+            raise
     
         return self.conn
     
