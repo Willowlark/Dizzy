@@ -15,10 +15,15 @@ class DiceCog(commands.Cog):
     @app_commands.command(description="Roll Dice")
     async def roll(self, interaction, dice:str):
         og, rolls, total = parse(dice)
-        await interaction.response.send_message(f"Rolled `{og}` and got {total}!\nThe rolls were: *{rolls}*")
+        await interaction.response.send_message(
+            f"Rolled `{og}` and got {total}!\nThe rolls were: *{rolls}*")
 
 async def setup(bot: commands.Bot) -> None:
   await bot.add_cog(DiceCog(bot))
+
+
+# Non Discord Functions
+
 
 def _adv_roll(match):
     n, s, t = match.groups()

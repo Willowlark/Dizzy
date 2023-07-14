@@ -4,9 +4,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from datetime import datetime
 from time import sleep
-import discord
 from discord.ext import commands
-from discord import app_commands
 
 chrome_options = Options()
 chrome_options.add_argument("--headless")
@@ -15,7 +13,6 @@ chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 
 driver = webdriver.Chrome(options=chrome_options) 
-
 
 class ApartmentCog(commands.Cog):
     
@@ -27,7 +24,6 @@ class ApartmentCog(commands.Cog):
         await ctx.defer()
         text = await check()
         await ctx.reply(f"{text}")
-        # await ctx.channel.send(f"{text}")
 
 async def setup(bot: commands.Bot) -> None:
   await bot.add_cog(ApartmentCog(bot))

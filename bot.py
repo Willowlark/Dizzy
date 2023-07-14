@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import fire
+from config import BOT_TOKEN
 
 intents = discord.Intents.default()
 intents.members = True
@@ -17,13 +18,6 @@ cogs = [
 
 @bot.event
 async def on_ready():
-    # if CLEAR:
-    #     bot.tree.clear_commands(guild=None)
-    #     bot.tree.clear_commands(guild=MY_GUILD)
-    #     await bot.tree.sync(guild=MY_GUILD)
-    #     await bot.tree.sync()
-    #     exit()
-    
     for cog in cogs:
        await bot.load_extension(cog)
     await bot.tree.sync()
@@ -37,9 +31,24 @@ async def sync(interaction: discord.Interaction, local:bool=False):
         if local: 
             bot.tree.copy_global_to(guild=MY_GUILD)
             await bot.tree.sync(guild=MY_GUILD)
+            print('Guild Command tree synced.')
         else: 
             await bot.tree.sync()
         print('Command tree synced.')
+    else:
+        await interaction.response.send_message('You must be the owner to use this command!')
+
+@bot.tree.command(name='clear', description='Owner only')
+async def clear(interaction: discord.Interaction, local:bool=False):
+    if interaction.user.id == 184437198865563648:
+        if local: 
+            bot.tree.clear_commands(guild=MY_GUILD)
+            await bot.tree.sync(guild=MY_GUILD)
+            print('Guild Command tree cleared.')
+        else: 
+            bot.tree.clear_commands(guild=None)
+            await bot.tree.sync()
+        print('Command tree cleared.')
     else:
         await interaction.response.send_message('You must be the owner to use this command!')
 
@@ -51,9 +60,11 @@ async def reload(interaction: discord.Interaction):
             await bot.reload_extension(mycog)
             
         await interaction.response.send_message('Reloaded')
+    else:
+        await interaction.response.send_message('You must be the owner to use this command!')
 
 def run():
-    bot.run('MTEyMDE3MjcxNDgyMTQyNzIyMg.G3VhQe.d1PVzQLRhCR5G1Jbo-hFTRUCh7XCfKH363wZJ8')
+    bot.run(BOT_TOKEN)
   
 if __name__ == '__main__':
   fire.Fire(run)
