@@ -1,3 +1,3 @@
 #! /bin/bash
-docker tag dizzy:latest willowlark/dizzy:latest
-docker push willowlark/dizzy:latest
+docker tag lucybot:latest willowlark/lucybot:latest
+docker push willowlark/lucybot:latest

@@ -8,6 +8,15 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 
+chrome_options = Options()
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--window-size=1920x1080")
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--disable-dev-shm-usage")
+
+driver = webdriver.Chrome(options=chrome_options) 
+
+
 class ApartmentCog(commands.Cog):
     
     def __init__(self, bot):
@@ -23,12 +32,11 @@ class ApartmentCog(commands.Cog):
 async def setup(bot: commands.Bot) -> None:
   await bot.add_cog(ApartmentCog(bot))
 
+
+# Non-Discord Functions
+
+
 async def check():
-    chrome_options = Options()
-    chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--window-size=1920x1080")
-    
-    driver = webdriver.Chrome(options=chrome_options) 
     driver.get("https://www.sdkvillagegreen.com/Floor-Plans.aspx") 
 
     def get_prices(name, button_id, table_id):
@@ -41,7 +49,7 @@ async def check():
         print(element.text)
 
         message = f'# {name} Apartment Prices\n\n' + element.text + '\n\n'
-        open('log.txt', 'a').writelines([str(datetime.now()),'\n>>> ', element.text, '\n\n'])
+        open('data/apartment_log.txt', 'a').writelines([str(datetime.now()),'\n>>> ', element.text, '\n\n'])
         return message
 
     messages = ''
@@ -50,17 +58,3 @@ async def check():
     messages += get_prices('Two Bed Platinum', 'unit_show_hide_10960129', 'par_10960129')
     driver.close()
     return messages
-
-# Email part
-
-# import smtplib, ssl
-
-# port = 465  # For SSL
-# password = 'P3UZ55tp6vHu8eTF'
-
-# # Create a secure SSL context
-# context = ssl.create_default_context()
-
-# with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
-#     server.login("pawkun14@gmail.com", password)
-#     server.sendmail('pawkun14@gmail.com', 'willowlark@outlook.com', message)

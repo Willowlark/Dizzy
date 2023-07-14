@@ -1,38 +1,59 @@
 import discord
 from discord.ext import commands
-from cogs.dice_cog import DiceCog
-from cogs.apartments import ApartmentCog
+import fire
 
 intents = discord.Intents.default()
 intents.members = True
 intents.message_content = True
 
+MY_GUILD = discord.Object(id='992097929840050357') 
 bot = commands.Bot(command_prefix='?', description='description', intents=intents)
+
+cogs = [
+    'cogs.dice_cog', 
+    'cogs.rolltables_cog', 
+    'cogs.apartment_cog'
+    ]
 
 @bot.event
 async def on_ready():
-    await bot.add_cog(ApartmentCog(bot))
-    await bot.add_cog(DiceCog(bot))
-    await bot.tree.sync()
+    # if CLEAR:
+    #     bot.tree.clear_commands(guild=None)
+    #     bot.tree.clear_commands(guild=MY_GUILD)
+    #     await bot.tree.sync(guild=MY_GUILD)
+    #     await bot.tree.sync()
+    #     exit()
     
+    for cog in cogs:
+       await bot.load_extension(cog)
+    await bot.tree.sync()
+
     print(f'Logged in as {bot.user} (ID: {bot.user.id})')
     print('------')
 
+@bot.tree.command(name='sync', description='Owner only')
+async def sync(interaction: discord.Interaction, local:bool=False):
+    if interaction.user.id == 184437198865563648:
+        if local: 
+            bot.tree.copy_global_to(guild=MY_GUILD)
+            await bot.tree.sync(guild=MY_GUILD)
+        else: 
+            await bot.tree.sync()
+        print('Command tree synced.')
+    else:
+        await interaction.response.send_message('You must be the owner to use this command!')
 
-@bot.command()
-async def add(ctx, left: int, right: int):
-    """Adds two numbers together."""
-    await ctx.send(left + right)
-
-@bot.hybrid_command()
-async def refresh(ctx):
+@bot.tree.command(name='reload')
+async def reload(interaction: discord.Interaction):
     """Refresh"""
-    await bot.tree.sync()
-    await ctx.send('Refreshed')
+    if interaction.user.id == '184437198865563648':
+        for mycog in cogs:
+            await bot.reload_extension(mycog)
+            
+        await interaction.response.send_message('Reloaded')
 
-# @client.tree.command()
-# async def roll(interaction: discord.Interaction, *, dice:str):
-#     og, rolls, total = DiceCog.parse(dice)
-#     await interaction.response.send_message(f"Rolled `{og}` and got {total}!\nThe rolls were :*{rolls}*")
-
-bot.run('MTEyMDE3MjcxNDgyMTQyNzIyMg.G3VhQe.d1PVzQLRhCR5G1Jbo-hFTRUCh7XCfKH363wZJ8')
+def run():
+    bot.run('MTEyMDE3MjcxNDgyMTQyNzIyMg.G3VhQe.d1PVzQLRhCR5G1Jbo-hFTRUCh7XCfKH363wZJ8')
+  
+if __name__ == '__main__':
+  fire.Fire(run)

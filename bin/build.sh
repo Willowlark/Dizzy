@@ -1,2 +1,2 @@
 #! /bin/bash
-docker build --tag=dizzy:latest .
+docker build --tag=lucybot:latest .

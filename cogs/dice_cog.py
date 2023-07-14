@@ -1,9 +1,8 @@
-import discord
 from discord.ext import commands
 from discord import app_commands
 import random
 import re
-import numexpr
+import sys
 from simpleeval import simple_eval
 
 VERBOSE = False
@@ -16,7 +15,7 @@ class DiceCog(commands.Cog):
     @app_commands.command(description="Roll Dice")
     async def roll(self, interaction, dice:str):
         og, rolls, total = parse(dice)
-        await interaction.response.send_message(f"Rolled `{og}` and got {total}!\nThe rolls were :*{rolls}*")
+        await interaction.response.send_message(f"Rolled `{og}` and got {total}!\nThe rolls were: *{rolls}*")
 
 async def setup(bot: commands.Bot) -> None:
   await bot.add_cog(DiceCog(bot))
@@ -80,7 +79,7 @@ def _basic_roll(match):
         roll = random.randint(1, s)
         rolls.append(roll)
     return f"({'+'.join([str(x) for x in rolls])})"
-    
+
 def _fudge_roll(match):
     n = match.groups()[0]
     n = int(n) if n else 4
@@ -118,13 +117,14 @@ def _eval_bool(match):
 def parse(diestring):
     if VERBOSE: print('input', diestring)
     # Parse Dice notation
+    die = "(\d*)d(\d+)"
     
-    rawstring = re.sub('(\d?|\d+)d(\d+)(a|d)', _adv_roll, diestring) # 1d20a 3d6d
-    rawstring = re.sub('(\d?|\d+)d(\d+)\^(\d+)', _top_roll, rawstring) # 4d6^3 
-    rawstring = re.sub('(\d?|\d+)d(\d+)(<|>|<=|>=|==)(\d+)', _bool_roll, rawstring)
-    rawstring = re.sub('(\d?|\d+)d(\d+)', _basic_roll, rawstring)
-    rawstring = re.sub('(\d?|\d+)dF', _fudge_roll, rawstring)
-    rawstring = re.sub('(\d?|\d+)dC', _coin_flip, rawstring)
+    rawstring = re.sub(f'{die}(a|d)', _adv_roll, diestring) # 1d20a 3d6d
+    rawstring = re.sub(f'{die}\^(\d+)', _top_roll, rawstring) # 4d6^3 
+    rawstring = re.sub(f'{die}(<|>|<=|>=|==)(\d+)', _bool_roll, rawstring)
+    rawstring = re.sub(f'{die}', _basic_roll, rawstring)
+    rawstring = re.sub(f'(\d*)dF', _fudge_roll, rawstring)
+    rawstring = re.sub(f'(\d*)dC', _coin_flip, rawstring)
     if VERBOSE: print('Rolling Finished', rawstring)
     
     # Compress Advantage/Disadvantage before doing math, removing Bolding and unused roll
@@ -138,7 +138,11 @@ def parse(diestring):
     # Removes all bolded numbers (Top rolls) and replaces with the raw number
     evalstring = re.sub('\*\*(\d+)\*\*', r'\1', evalstring)
     if VERBOSE: print('Top X calc', evalstring)
-    
+    # Split when using literal combine notation ||
+    evalstrings = evalstring.split('||')
+    evalstring = ''
+    for e in evalstrings:
+        evalstring += str(simple_eval(e))
     total = int(simple_eval(evalstring))
     
     return diestring, rawstring, total
@@ -151,3 +155,4 @@ def parse(diestring):
     
 if __name__ == "__main__":
     VERBOSE = True
+    print(parse(''.join(sys.argv[1:])))

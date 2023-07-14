@@ -5,9 +5,10 @@
 **/*.pyc
 __
 
-posts
-issues
-auth.py
-iroha.pem
-minecraft/
-DizzyHoG
+dizzy/posts
+dizzy/issues
+dizzy/auth.py
+dizzy/iroha.pem
+dizzy/minecraft/
+dizzy/DizzyHoG
+data/apartment_log.txt

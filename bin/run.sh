@@ -1,2 +1,2 @@
 #! /bin/bash
-docker run -it -v /Volumes/Files/DizzyHoG/:/Dizzy/DizzyHoG dizzy:latest
+docker run -it lucybot:latest
