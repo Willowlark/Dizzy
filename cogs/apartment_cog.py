@@ -12,7 +12,6 @@ chrome_options.add_argument("--window-size=1920x1080")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 
-driver = webdriver.Chrome(options=chrome_options) 
 
 class ApartmentCog(commands.Cog):
     
@@ -26,13 +25,15 @@ class ApartmentCog(commands.Cog):
         await ctx.reply(f"{text}")
 
 async def setup(bot: commands.Bot) -> None:
-  await bot.add_cog(ApartmentCog(bot))
+    # pass
+    await bot.add_cog(ApartmentCog(bot))
 
 
 # Non-Discord Functions
 
 
 async def check():
+    driver = webdriver.Chrome(options=chrome_options) 
     driver.get("https://www.sdkvillagegreen.com/Floor-Plans.aspx") 
 
     def get_prices(name, button_id, table_id):

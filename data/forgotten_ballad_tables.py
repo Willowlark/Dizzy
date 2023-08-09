@@ -5,14 +5,17 @@ cur = conn.cursor()
 cur.execute("DROP TABLE rolltables")
 cur.execute("CREATE TABLE rolltables(game, name, dice, roll, result)")
 
+# Dice notation same as used by Dice Cog
+# Prefix>game>table >> ...
+
 cur.execute("""
     INSERT INTO rolltables VALUES
-        ('Forgotten Ballad', 'Relic Type', '1d6', 1, 'Weapon:>Forgotten Ballad>Weapon >> Property:>Forgotten Ballad>Relic Property'),
-        ('Forgotten Ballad', 'Relic Type', '1d6', 2, 'Weapon:>Forgotten Ballad>Weapon >> Property:>Forgotten Ballad>Relic Property'),
-        ('Forgotten Ballad', 'Relic Type', '1d6', 3, 'Armor:>Forgotten Ballad>Armor >> Property:>Forgotten Ballad>Relic Property'),
-        ('Forgotten Ballad', 'Relic Type', '1d6', 4, 'Armor:>Forgotten Ballad>Armor >> Property:>Forgotten Ballad>Relic Property'),
-        ('Forgotten Ballad', 'Relic Type', '1d6', 5, 'Instrument:>Forgotten Ballad>Instrument >> Property:>Forgotten Ballad>Relic Property'),
-        ('Forgotten Ballad', 'Relic Type', '1d6', 6, 'Utility:>Forgotten Ballad>Utility >> Property:>Forgotten Ballad>Relic Property')
+        ('Forgotten Ballad', 'Relic', '1d6', 1, 'Weapon:>Forgotten Ballad>Weapon >> Property:>Forgotten Ballad>Relic Property'),
+        ('Forgotten Ballad', 'Relic', '1d6', 2, 'Weapon:>Forgotten Ballad>Weapon >> Property:>Forgotten Ballad>Relic Property'),
+        ('Forgotten Ballad', 'Relic', '1d6', 3, 'Armor:>Forgotten Ballad>Armor >> Property:>Forgotten Ballad>Relic Property'),
+        ('Forgotten Ballad', 'Relic', '1d6', 4, 'Armor:>Forgotten Ballad>Armor >> Property:>Forgotten Ballad>Relic Property'),
+        ('Forgotten Ballad', 'Relic', '1d6', 5, 'Instrument:>Forgotten Ballad>Instrument >> Property:>Forgotten Ballad>Relic Property'),
+        ('Forgotten Ballad', 'Relic', '1d6', 6, 'Utility:>Forgotten Ballad>Utility >> Property:>Forgotten Ballad>Relic Property')
 """)
 
 cur.execute("""
