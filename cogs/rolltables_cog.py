@@ -17,35 +17,26 @@ class RollTableCog(commands.Cog):
         self.bot = bot
     
     async def rolltable_game_autocomplete(self, 
-                interaction: discord.Interaction, 
-                current: str
-                ) -> list[app_commands.Choice[str]]:
-        options = [
-            x[0] for x in 
-            cur.execute("SELECT DISTINCT game FROM rolltables").fetchall()
-            ]
-        return [
-            app_commands.Choice(name=choice, value=choice)
-            for choice in options if current.lower() in choice.lower()
-            ][:25]
+                                          interaction: discord.Interaction, 
+                                          current: str
+                                          ) -> list[app_commands.Choice[str]]:
+        query = "SELECT DISTINCT game FROM rolltables"
+        options = [ x[0] for x in cur.execute(query).fetchall() ]
+        choices = [c for c in options if current.lower() in c.lower()][:25]
+        return [app_commands.Choice(name=choice, value=choice) for choice in choices]
     
     async def rolltable_table_autocomplete(self, 
-                interaction: discord.Interaction, 
-                current: str
-                ) -> list[app_commands.Choice[str]]:
+                                          interaction: discord.Interaction, 
+                                          current: str
+                                          ) -> list[app_commands.Choice[str]]:
         if len(current) < -1:
             return []
         else:
-            options = [x[0] 
-                       for x in cur.execute(f"""
-                            SELECT DISTINCT name FROM rolltables
-                            WHERE game = '{interaction.namespace.game}'
-                        """).fetchall()
-                        ]
-            return [
-                app_commands.Choice(name=choice, value=choice)
-                for choice in options if current.lower() in choice.lower()
-                ][:25]
+            query = f""" SELECT DISTINCT name FROM rolltables 
+                WHERE game = '{interaction.namespace.game}' """
+            options = [x[0]  for x in cur.execute(query).fetchall()]
+            choices = [c for c in options if current.lower() in c.lower()][:25]
+            return [app_commands.Choice(name=choice, value=choice) for choice in choices]
     
     @app_commands.command(description="Roll on a Table")
     @app_commands.autocomplete(table = rolltable_table_autocomplete)
@@ -53,7 +44,7 @@ class RollTableCog(commands.Cog):
     async def rolltables(self, interaction, game:str, table:str):
         try:
             result, dice = _roll_table(game, table)
-            await interaction.response.send_message(f"Rolled **{''.join(result)}**.")
+            await interaction.response.send_message(f"Rolled *{''.join(result)}*.")
         except Exception as e:
             await interaction.response.send_message(
                 f"There was a problem... I had an {e.args[0]}")
