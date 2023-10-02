@@ -1,2 +1,2 @@
 #! /bin/bash
-docker run -it lucybot:latest
+docker run -v "/Volumes/Files/Coding Work/IronWhiskers/data":/Lucy/data -it lucybot:latest 

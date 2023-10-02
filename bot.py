@@ -12,7 +12,8 @@ bot = commands.Bot(command_prefix='?', description='description', intents=intent
 
 cogs = [
     'cogs.dice_cog', 
-    'cogs.rolltables_cog'
+    'cogs.rolltables_cog',
+    'cogs.role_cog'
     ]
 
 @bot.event
