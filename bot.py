@@ -25,6 +25,11 @@ async def on_ready():
     print(f'Logged in as {bot.user} (ID: {bot.user.id})')
     print('------')
 
+@bot.tree.command(name='pokerolefaq', description='Share the Pokerole FAQ')
+async def pokerolefaq(interaction: discord.Interaction):
+    await interaction.response.send_message('Check the FAQ here: https://wiki.aurii.us/doku.php?id=pokerole-server:server_faq ')
+   
+
 @bot.tree.command(name='sync', description='Owner only')
 async def sync(interaction: discord.Interaction, local:bool=False):
     if interaction.user.id == 184437198865563648:
