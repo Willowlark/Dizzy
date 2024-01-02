@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from discord import app_commands
+from random import sample
 import re
 import sqlite3
 import cogs.dice_cog as dice_cog
@@ -8,7 +9,7 @@ import re
 
 VERBOSE = False
 result_re = re.compile('([^>]*)(?:\>([^>]*)\>([^>]*))?')
-conn = sqlite3.connect("data/roll_tables.db")
+conn = sqlite3.connect("data/rollable.db")
 cur = conn.cursor()
 
 class RollTableCog(commands.Cog):
@@ -20,7 +21,7 @@ class RollTableCog(commands.Cog):
                                           interaction: discord.Interaction, 
                                           current: str
                                           ) -> list[app_commands.Choice[str]]:
-        query = "SELECT DISTINCT game FROM rolltables"
+        query = "SELECT DISTINCT database FROM rollable"
         options = [ x[0] for x in cur.execute(query).fetchall() ]
         choices = [c for c in options if current.lower() in c.lower()][:25]
         return [app_commands.Choice(name=choice, value=choice) for choice in choices]
@@ -32,8 +33,8 @@ class RollTableCog(commands.Cog):
         if len(current) < -1:
             return []
         else:
-            query = f""" SELECT DISTINCT name FROM rolltables 
-                WHERE game = '{interaction.namespace.game}' """
+            query = f""" SELECT DISTINCT table_name FROM rollable 
+                WHERE database = '{interaction.namespace.game}' """
             options = [x[0]  for x in cur.execute(query).fetchall()]
             choices = [c for c in options if current.lower() in c.lower()][:25]
             return [app_commands.Choice(name=choice, value=choice) for choice in choices]
@@ -43,7 +44,7 @@ class RollTableCog(commands.Cog):
     @app_commands.autocomplete(game = rolltable_game_autocomplete)
     async def rolltables(self, interaction, game:str, table:str):
         try:
-            result, dice = _roll_table(game, table)
+            result = _roll_table(game, table)
             await interaction.response.send_message(f"Rolled *{''.join(result)}*.")
         except Exception as e:
             await interaction.response.send_message(
@@ -56,47 +57,40 @@ async def setup(bot: commands.Bot) -> None:
 # Non Discord Functions
 
 
-def _roll_table(game, table):
+def _roll_table(database, table):
     try:
-        rows = cur.execute(f"""
-                    SELECT * FROM rolltables 
-                    WHERE 
-                        game = '{game.strip()}' 
-                    AND
-                        name = '{table.strip()}'
+        tdata = cur.execute(f"""
+                    SELECT *
+                    FROM rollable WHERE 
+                    database = '{database}' AND
+                    table_name = '{table.strip()}'
                     """)
         
-        rows = rows.fetchall()
-        # print(rows)
-        dietype = rows[0][2]
-    except:
+        tdata = tdata.fetchall()[0]
+        _, db, table, diecode, prefix, postfix = tdata
+        if prefix is None: prefix = ""
+        if postfix is None: postfix = ""
+        table = table.strip().lower().replace(' ', '_')
+        roll = sample(dice_cog.faces(diecode),1)[0]
+        print(tdata, table, roll)
+        row_conn = sqlite3.connect(f"data/{db}.db")
+        row_cur = row_conn.cursor()
+        trows = row_cur.execute(f"""SELECT * FROM {table} WHERE roll={roll}""")
+        roll, result, cnt_schema, cnt_tables = trows.fetchall()[0]
+        
+        if cnt_schema and cnt_tables:
+            subtable = ""
+            subtables = [x.strip() for x in cnt_tables.split('>>')]
+            for subtab in subtables:
+                subtable += _roll_table(cnt_schema, subtab)
+                if len(subtables) > 1: subtable+=' '
+        else: subtable = ""
+        
+        return f"{prefix}{result}{postfix}{subtable}"
+    except IOError:
         raise Exception('Issue fetching table data')
-    try:
-        dieroll = dice_cog.parse(dietype)[2]
-        # print(dietype, dieroll)
-        rolled_row = [r for r in rows if r[3] == dieroll].pop()
-        # print(rolled_row)
-    except:
-        raise Exception('Issue rolling a result')
-    
-    roll_result = []
-    dicerolled = [dieroll]
-    for section in rolled_row[4].split('>>'):
-        if roll_result: roll_result.append(', ')
-        
-        rolled_cell, subgame, subtable = result_re.match(section).groups()
-        roll_result.append(rolled_cell.strip())
-        
-        # print(rolled_cell, subgame, subtable)
-        rolled_cell = [rolled_cell]
-        if subgame and subtable:
-            subresult, subdice = _roll_table(subgame, subtable)
-            roll_result.extend(subresult)
-            dicerolled.extend(subdice)
-    
-    return roll_result, dicerolled
     
 if __name__ == '__main__':
-    r, dices = _roll_table('Forgotten Ballad', 'Relic Type')
-    print(r, dices)
-    ''.join([x for x in r if x])
+    r = _roll_table('Avatar TTRPG', 'Fire Nation Names')
+    # r = _roll_table('Forgotten Ballad', 'Relic')
+    print(r)

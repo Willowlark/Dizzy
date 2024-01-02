@@ -1,0 +1,13 @@
+database,table_name,die_code,prefix,postfix
+Avatar TTRPG,Air Nomad Names,1d20
+Avatar TTRPG,Earth Kingdom Names,1d20
+Avatar TTRPG,Water Tribe Names,1d20
+Avatar TTRPG,Fire Nation Names,1d20
+Avatar TTRPG,Random Name,1d4
+Forgotten Ballad,Weapon,1d3||1d6
+Forgotten Ballad,Armor,1d6
+Forgotten Ballad,Utility,1d3||1d6
+Forgotten Ballad,Instrument,1d2||1d6
+Forgotten Ballad,Relic Property,1d6||1d6
+Forgotten Ballad,Relic,1d6
+Pokerole,Trainer Class,1d200,, wants to Battle!

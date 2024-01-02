@@ -13,7 +13,9 @@ bot = commands.Bot(command_prefix='?', description='description', intents=intent
 cogs = [
     'cogs.dice_cog', 
     'cogs.rolltables_cog',
-    'cogs.role_cog'
+    'cogs.role_cog',
+    'cogs.twit_cog',
+    'cogs.trainer_cog'
     ]
 
 @bot.event
@@ -67,6 +69,14 @@ async def reload(interaction: discord.Interaction):
         await interaction.response.send_message('Reloaded')
     else:
         await interaction.response.send_message('You must be the owner to use this command!')
+
+# @bot.listen('on_message')
+# async def twitter_url_fix(message):
+#     if re.match("(https?:\/\/)x(.com.*)", message.content):
+#         replaced = re.sub("(https?:\/\/)x(.com.*)", "\g<1>fxtwitter\g<2>", message.content)
+#         print(replaced)
+#         await message.channel.send(replaced)
+#         await message.delete()
 
 def run():
     bot.run(BOT_TOKEN)

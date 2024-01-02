@@ -4,6 +4,7 @@ import random
 import re
 import sys
 from simpleeval import simple_eval
+from itertools import product, chain
 
 VERBOSE = False
 
@@ -157,7 +158,38 @@ def parse(diestring):
     # (9)+(5+2)+(**6**+**5**+**3**+2)
     # (9)+(5+2)+(**6**+**5**+**3**)
     # (9)+(5+2)+(6+5+3)
+
+def _die_faces(match):
+    # print(match.groups())
+    n, s = match.groups()
+    n = int(n) if n else 1
+    s = int(s)
+    
+    return f"({','.join([str(x) for x in [i for i in range(n, (n*s)+1)]])})"
+
+def faces(diestring):
+    if VERBOSE: print('Permutations', diestring)
+    # Parse Dice notation
+    die = "(\d*)d(\d+)"
+    
+    rawstring = re.sub(f'{die}', _die_faces, diestring)
+    if VERBOSE: print('Rolls Replaced:', rawstring)
+    
+    # Split when using literal combine notation ||
+    evalstrings = rawstring.split('||')
+    # print(evalstrings)
+    products = []
+    for e in evalstrings:
+        faces = re.sub(f'\(|\)', '', e)
+        products.append([int(x) for x in faces.split(',')])
+    if VERBOSE: print("Products:", products)
+    
+    total = [int(''.join([str(y) for y in x])) for x in product(*products)]
+    # total = list(chain(*total))
+    if VERBOSE: print("Total is:", total)
+    
+    return total
     
 if __name__ == "__main__":
     VERBOSE = True
-    print(parse(''.join(sys.argv[1:])))
+    faces(''.join(sys.argv[1:]))
