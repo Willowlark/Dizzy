@@ -1,2 +1,2 @@
 #! /bin/bash
-docker build --tag=lucybot:latest .
+docker build --platform linux/amd64 --tag=lucybot:latest .

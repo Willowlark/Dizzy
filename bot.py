@@ -12,10 +12,11 @@ bot = commands.Bot(command_prefix='?', description='description', intents=intent
 
 cogs = [
     'cogs.dice_cog', 
-    'cogs.rolltables_cog',
+    # 'cogs.rolltables_cog',
     'cogs.role_cog',
     'cogs.twit_cog',
-    'cogs.trainer_cog'
+    'cogs.trainer_cog',
+    'cogs.madlibs_cog'
     ]
 
 @bot.event
@@ -62,7 +63,7 @@ async def clear(interaction: discord.Interaction, local:bool=False):
 @bot.tree.command(name='reload')
 async def reload(interaction: discord.Interaction):
     """Refresh"""
-    if interaction.user.id == '184437198865563648':
+    if interaction.user.id == 184437198865563648:
         for mycog in cogs:
             await bot.reload_extension(mycog)
             

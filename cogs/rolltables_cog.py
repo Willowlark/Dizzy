@@ -56,7 +56,6 @@ async def setup(bot: commands.Bot) -> None:
 
 # Non Discord Functions
 
-
 def _roll_table(database, table):
     try:
         tdata = cur.execute(f"""
@@ -89,8 +88,9 @@ def _roll_table(database, table):
         return f"{prefix}{result}{postfix}{subtable}"
     except IOError:
         raise Exception('Issue fetching table data')
-    
+
 if __name__ == '__main__':
-    r = _roll_table('Avatar TTRPG', 'Fire Nation Names')
-    # r = _roll_table('Forgotten Ballad', 'Relic')
-    print(r)
+    pass
+    # r = _roll_table('Avatar TTRPG', 'Fire Nation Names')
+    # # r = _roll_table('Forgotten Ballad', 'Relic')
+    # print(r)
