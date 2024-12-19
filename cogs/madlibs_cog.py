@@ -1,9 +1,6 @@
-import discord
 from discord.ext import commands
-from discord import app_commands
+import discord
 from random import choice
-import re
-import cogs.dice_cog as dice_cog
 import re
 import yaml
 
@@ -16,51 +13,47 @@ class MadlibCog(commands.Cog):
         self.bot = bot
         self.tableset = self._load_tables()
     
-    async def source_autocomplete(self, 
-                                          interaction: discord.Interaction, 
-                                          current: str
-                                          ) -> list[app_commands.Choice[str]]:
-        choices = [c for c in self._all_sources() if current.lower() in c.lower()][:25]
-        return [app_commands.Choice(name=choice, value=choice) for choice in choices]
+    table = discord.SlashCommandGroup("table", "Interact with random tables.")
     
-    async def title_autocomplete(self, 
-                                          interaction: discord.Interaction, 
-                                          current: str
-                                          ) -> list[app_commands.Choice[str]]:
-        if len(current) < -1:
-            return []
-        else:
-            options = self._all_titles(interaction.namespace.game)
-            choices = [c for c in options if current.lower() in c.lower()][:25]
-            return [app_commands.Choice(name=choice, value=choice) for choice in choices]
+    async def game_autocomplete(self, ctx: discord.AutocompleteContext):
+        choices = [c for c in self._all_sources() if ctx.value.lower() in c.lower()][:25]
+        return choices
     
-    @app_commands.command(description="Roll on a Table")
-    @app_commands.autocomplete(game = source_autocomplete)
-    @app_commands.autocomplete(table = title_autocomplete)
-    async def rollon(self, interaction, game:str, table:str, number:int):
+    async def table_autocomplete(self, ctx: discord.AutocompleteContext):
+        options = self._all_titles(ctx.options['game'])
+        choices = [c for c in options if ctx.value.lower() in c.lower()][:25]
+        return choices
+    
+    @table.command(description="Roll on a Random Table")
+    @discord.option("game", autocomplete=game_autocomplete, description="System / Game the Table is for.")
+    @discord.option("table", autocomplete=table_autocomplete, description="Table to roll on.")
+    @discord.option("number", default=1, description="Number of times to roll on the table.")
+    async def roll(self, ctx, game:str, table:str, number:int):
         try:
             table_id = self._find_table(game, table)
             results = []
             for i in range(number):
-                results.append(self._yaml_table(table_id))
+                results.append(f'*{self._yaml_table(table_id)}*')
             result = '\n'.join(results)
-            await interaction.response.send_message(f"Rolled:\n*{result}*.")
+            if number > 1: result = '\n'+result
+            await ctx.respond(f"Rolled: {result}.")
         except Exception as e:
-            await interaction.response.send_message(
+            await ctx.respond(
                 f"There was a problem... I had an {e.args[0]}")
 
-    @app_commands.command(description="Generate a Markdown Table")
-    @app_commands.autocomplete(game = source_autocomplete)
-    @app_commands.autocomplete(table = title_autocomplete)
-    async def printtable(self, interaction, game:str, table:str):
+    @table.command(description="Print a table as Markdown.")
+    @discord.option("game", autocomplete=game_autocomplete, description="System / Game the Table is for.")
+    @discord.option("table", autocomplete=table_autocomplete, description="Table to print.")
+    async def print(self, ctx, game:str, table:str):
         try:
             table_id = self._find_table(game, table)
             result = self._markdown(table_id)
-            await interaction.response.send_message(f"Here's your table:\n\n### {table}\n\n```\n{result}\n```")
+            await ctx.respond(f"Here's your table:\n\n### {table}\n\n```\n{result}\n```")
         except Exception as e:
-            await interaction.response.send_message(
-                f"There was a problem... I had an {e.args[0]}")
-    
+            await ctx.respond(f"There was a problem... I had an {e.args[0]}")
+
+# # Non Discord Functions
+
     def _load_tables(self):
         return yaml.safe_load(open('data/tables.yaml'))
     
@@ -137,9 +130,9 @@ class MadlibCog(commands.Cog):
                     else:
                         raise Exception("Weird Case Found, 3 dimensions")
         raise Exception(f"Can't Make Table for {op_cnt} Options")
-    
-async def setup(bot: commands.Bot) -> None:
-  await bot.add_cog(MadlibCog(bot))
+
+def setup(bot):
+    bot.add_cog(MadlibCog(bot))
     
 if __name__ == '__main__':
     m = MadlibCog('bot')

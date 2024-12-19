@@ -1,10 +1,10 @@
 from discord.ext import commands
-from discord import app_commands
+import discord
 import random
 import re
 import sys
 from simpleeval import simple_eval
-from itertools import product, chain
+from itertools import product
 
 VERBOSE = False
 
@@ -13,18 +13,19 @@ class DiceCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
-    @app_commands.command(description="Roll Dice")
-    async def roll(self, interaction, dice:str):
+    @discord.slash_command(description="Roll Dice")
+    @discord.option("dice", 
+                    type=discord.SlashCommandOptionType.string, 
+                    description="Supports Advantage, Top X, Fudge dice, Coin dice, XdY.")
+    async def roll(self, ctx, dice:str):
         og, rolls, total = parse(dice)
-        await interaction.response.send_message(
+        await ctx.respond(
             f"Rolled `{og}` and got {total}!\nThe rolls were: *{rolls}*")
 
-async def setup(bot: commands.Bot) -> None:
-  await bot.add_cog(DiceCog(bot))
-
+def setup(bot):
+    bot.add_cog(DiceCog(bot))
 
 # Non Discord Functions
-
 
 def _adv_roll(match):
     n, s, t = match.groups()
