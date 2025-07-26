@@ -29,17 +29,18 @@ class MadlibCog(commands.Cog):
     @discord.option("table", autocomplete=table_autocomplete, description="Table to roll on.")
     @discord.option("number", default=1, description="Number of times to roll on the table.")
     async def roll(self, ctx, game:str, table:str, number:int):
+        reroller = self.RerollTableView()
+        reroller.set_values(self, game, table, number)
         try:
-            table_id = self._find_table(game, table)
-            results = []
-            for i in range(number):
-                results.append(f'*{self._yaml_table(table_id)}*')
-            result = '\n'.join(results)
-            if number > 1: result = '\n'+result
-            await ctx.respond(f"Rolled: {result}.")
+            text = self._table_roll_gen(game, table, number)
+            await ctx.respond(f"Rolled: {text}.", view=reroller)
         except Exception as e:
             await ctx.respond(
                 f"There was a problem... I had an {e.args[0]}")
+
+    # @table.command() # Create a slash command
+    # async def button(self, ctx):
+    #     await ctx.respond("This is a button!", view=RerollTableView()) # Send a message with our View class that contains the button
 
     @table.command(description="Print a table as Markdown.")
     @discord.option("game", autocomplete=game_autocomplete, description="System / Game the Table is for.")
@@ -51,11 +52,27 @@ class MadlibCog(commands.Cog):
             await ctx.respond(f"Here's your table:\n\n### {table}\n\n```\n{result}\n```")
         except Exception as e:
             await ctx.respond(f"There was a problem... I had an {e.args[0]}")
+    
+    @table.command(description="Reload the tables databse.")
+    async def reload(self, ctx: discord.ApplicationContext):
+        self.tableset = self._load_tables()
+        await ctx.respond('reloaded.')
 
 # # Non Discord Functions
 
     def _load_tables(self):
-        return yaml.safe_load(open('data/tables.yaml'))
+        x = yaml.safe_load(open('data/tables.yaml'))
+        print(x)
+        return x
+    
+    def _table_roll_gen(self, game, table, number):
+        table_id = self._find_table(game, table)
+        results = []
+        for i in range(number):
+            results.append(f'*{self._yaml_table(table_id)}*')
+        result = '\n'.join(results)
+        if number > 1: result = '\n'+result
+        return result
     
     def _all_sources(self):
         return set([self.tableset[table][0]['source'] for table in self.tableset])
@@ -131,9 +148,22 @@ class MadlibCog(commands.Cog):
                         raise Exception("Weird Case Found, 3 dimensions")
         raise Exception(f"Can't Make Table for {op_cnt} Options")
 
+    class RerollTableView(discord.ui.View): 
+        
+        def set_values(self, parent, game, table, number):
+            self.caller = parent
+            self.game = game
+            self.table = table
+            self.number = number
+        @discord.ui.button(label="Reroll", style=discord.ButtonStyle.primary) 
+        async def button_callback(self, button, interaction):
+            await interaction.response.send_message(f"Rolled {self.caller._table_roll_gen(self.game, self.table, self.number)}") 
+
 def setup(bot):
     bot.add_cog(MadlibCog(bot))
-    
+
+
+            
 if __name__ == '__main__':
     m = MadlibCog('bot')
     print(m._all_sources())
