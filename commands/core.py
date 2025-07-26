@@ -1,41 +1,37 @@
 import re
 import random
-import asyncio
-import pastebin
 import arrow
-import rollparser
-
-from datetime import datetime
-from datetime import timedelta
+import pandas as pd
 from sys import maxsize
 from os.path import join
+import emoji
+from sys import modules
+from inspect import getmembers, isclass
+import commands.rollparser as rollparser
 
 # CRIT: MATCH[0] IS THE STRING, MATCH[1] IS THE TRIGGER, MATCH[2] STARTS THE USER INPUT!!!!!!!
-
-# TODO Help input as a constructor value, which is placed in __str__.
-# TODO Help interator for the Commander object
-# TODO User stats (each user gets a document)
 
 # FIXME: The way the compile works for commands, the trigger is only appended to the front. This prevents use of OR statements that join two completely distinct commands
 
 class Command(object):
 
-    def __init__(self, triggers=None, options=[], pattern='', info=None):
+    def __init__(self, triggers=None, options=[], options_source=None, pattern='', info=None, author=None, server=None, update_me=False):
         self.triggers = triggers
         self.options = options
+        self.options_source = options_source
         self.pattern = pattern
         self.info = info if info else "A command using pattern: "+self.pattern
 
         self.compile()
 
-        self.author = []
-        self.notauthor = []
-        self.guild = []
-        self.notguild = []
+        self.author = author
+        self.server = server
+        self.update_me=update_me
         self.func = None
 
     def compile(self):
         triggers = [''] if not self.triggers else self.triggers
+        triggers = [triggers] if type(triggers) == str else self.triggers
         #TODO Accomodate | in this pattern.
         self.trigger_match = '^({t}){c}|^({t}) {c}'.format(t='|'.join(triggers), c='{c}') 
         self.expression = re.compile(self.trigger_match.format(c=self.pattern), flags=re.DOTALL)
@@ -58,25 +54,17 @@ class Command(object):
                 return False
 
     async def action(self, message, match):
-        await asyncio.sleep(10)
-        await message.channel.send('Waited!')
+        pass
 
     def check(self, message):
         
         # Author must/not
         if self.author:
-            if message.author.name not in self.author:
+            if message.author.name != self.author:
                 return False
-        if self.notauthor:
-            if message.author.name in self.notauthor:
-                return False
-                
-        # Server must/not
-        if self.guild:
-            if message.guild.name not in self.guild:
-                return False
-        if self.notguild:
-            if message.guild.name in self.notguild:
+
+        if self.server:
+            if message.guild.id != self.server:
                 return False
 
         # Lambda 
@@ -86,31 +74,55 @@ class Command(object):
         
         return True
 
-    def banauthor(self, name):
-        self.notauthor.append(name)
-    
-    def requireauthor(self, name):
-        self.author.append(name)
-        
-    def banserver(self, name):
-        self.notguild.append(name)
-    
-    def requireserver(self, name):
-        self.guild.append(name)
-
     def setfunc(self, func):
         self.func = func
+
+class Help(Command):
+    
+     async def action(self, message, match):
+                 
+        relevant = self.options.query(f'SERVER_ID == 1 or UID == {message.guild.id}')
+        response = []
+        longest = 0
+        
+        for i, row in relevant.iterrows():
+            m = row.HELP
+            if not m:
+                continue
+            nls = m.split('\n')
+            for x in nls:
+                s = x.split(':')
+                if len(s[0].strip()) > longest:
+                    longest = len(s[0].strip())
+                response.append([_.strip() for _ in s])
+        
+        response = [[f'**{x[0]}**', x[1]] for x in response]
+        final_response = []
+        rpart = ''
+        for x in response:
+            if len(rpart) + len('\n    '.join(x)) > 2000:
+                final_response.append(rpart+'')
+                rpart = ''
+            rpart = rpart + '\n    '.join(x)+'\n'
+        final_response.append(rpart+'')
+        
+        await message.channel.send("Here's all the things I can do! (^^)")
+        for x in final_response:
+            await message.channel.send(x)
 
 class RandomReply(Command):
 
     async def action(self, message, match):
-        link = random.choice(self.options)
+        link = random.choice(self.options.REPLY)
         await message.channel.send(link)
 
 class Reply(Command):
 
     async def action(self, message, match):
-        await message.channel.send(self.options)
+        emojis_used = re.findall(':\w+?::', self.options)
+        m = await message.channel.send(self.options)
+        for x in emojis_used:
+            await m.add_reaction(emoji.emojize(x[:-1], use_aliases=True))
 
 class Timecheck(Command):
 
@@ -127,7 +139,7 @@ class Choose(Command):
     async def action(self, message, match):
         options = match[2].split(',')
         options = [op.strip() for op in options]
-        option = random.choice(options) if "knight light" not in options else "knight light"
+        option = random.choice(options)
         await message.channel.send('You should choose '+ option)
 
 class Log(Command):
@@ -151,8 +163,7 @@ class Log(Command):
         queue.append(attrition)
         # TODO use makedirs here
         open(join('DizzyHoG/batch-logs', channel+'.md'), 'w').writelines(reversed(queue))
-        url = pastebin.paste(channel, '\n'.join(reversed(queue)))
-        await message.channel.send('Logging done @ ' + repr(url))
+        await message.channel.send('Logging done')
 
     @staticmethod
     def logged_format(log):
@@ -174,10 +185,7 @@ class Stab(Command):
         
         act = '*{} {}!*'.format(what, who) if random.randint(1,10) != 1 else '*attempts to {} {}; but trips and stabs herself instead*!'.format(what, who)
         
-        if message.author.name == "Halim": # Create the fork command for this.
-            await message.channel.send("Stop making me do this...")
-        else:
-            await message.channel.send(act)
+        await message.channel.send(act)
 
 class Refresh(Command):
 
@@ -228,7 +236,6 @@ class Roll(Command):
         await message.channel.send(f"Rolled `{og}` and got {total}!\nThe rolls were :*{rolls}*")
             
 
-
 class Headpat(Command):
 
     async def action(self, message, match):
@@ -250,23 +257,15 @@ class Headpat(Command):
         else:
             save_name = 'Dizzy'
             mention = 'Dizzy'
-        
-        FRENS = self.options.data['Headpats']
-        
-        if save_name not in FRENS:
-            value = 1
-            FRENS[save_name] = 1
-        else:
-            value = FRENS[save_name]+1
-            FRENS[save_name]+=1
+                
+        self.options = self.options.append(pd.Series({'ID':self.options['ID'].max()+1, 'PATTER':message.author.name, 'USER_TARGET':save_name, 'MODIFIED_BIT':True}), ignore_index=True)
+        pat_count = self.options[self.options['USER_TARGET'] == save_name]['USER_TARGET'].count()
             
         await message.channel.send(f"*{message.author.mention} headpats {mention}*")
         if save_name != 'Dizzy':
-            await message.channel.send(f"{mention} has been headpatted {value} times.")
+            await message.channel.send(f"{mention} has been headpatted {pat_count} times.")
         else:
             await message.channel.send(f"{message.author.mention} is so nice <3")
-        self.options.save()
-        self.options.update()
 
 class IrlRuby(Command):
 
@@ -291,7 +290,7 @@ class IrlRuby(Command):
             await user.add_roles(r)
             await message.channel.send(f"*{user.mention} is now irl Ruby*")
 
-class RFAMode(Command):
+class _RFAMode(Command):
     
     async def action(self, message, match):
         target, op = match[2:]
@@ -315,7 +314,7 @@ class RFAMode(Command):
         self.options.save()
         self.options.update()
 
-class RFAMembership(Command):
+class _RFAMembership(Command):
     
     async def action(self, message, match):
         rfa, target = match[2:]
@@ -346,199 +345,72 @@ class RFAMembership(Command):
         self.options.save()
         self.options.update()
 
-class CounterIncrement(Command):
-
-    async def action(self, message, match):
-        op, target, amnt = match[2:]
-        amnt = int(amnt)
-        COUNTERS = self.options.data['Counters']
-
-        if target not in COUNTERS:
-            await message.channel.send("I'm not counting those right now.")
-        else:
-            value = COUNTERS[target]
-            if op == "add":
-                COUNTERS[target]+=amnt
-                await message.channel.send("The {} count is now {}!".format(target, COUNTERS[target]))
-            elif op == "sub":
-                COUNTERS[target]-=amnt
-                await message.channel.send("The {} count is now {}!".format(target, COUNTERS[target]))
-            else:
-                await message.channel.send("I don't know how to do that, sorry.")
-        self.options.save()
-        self.options.update()
-
-class CounterCheck(Command):
-    
-    async def action(self, message, match):
-        op, target = match[2:]
-        COUNTERS = self.options.data['Counters']
-
-        if target not in COUNTERS:
-            await message.channel.send("I'm not counting those right now.")
-        else:
-            await message.channel.send("The {} count is {}.".format(target, COUNTERS[target]))
-
-class CounterSet(Command):
-
-    async def action(self, message, match):
-        op, target, amnt = match[2:]
-        amnt = int(amnt)
-        COUNTERS = self.options.data['Counters']
-
-        COUNTERS[target] = amnt
-        
-        await message.channel.send("The {} count is now {}!".format(target, COUNTERS[target]))
-        
-        self.options.save()
-        self.options.update()
-
-class CounterRemove(Command):
-
-    async def action(self, message, match):
-        target = match[3]
-        COUNTERS = self.options.data['Counters']
-
-        if target not in COUNTERS:
-            await message.channel.send("I'm not counting those right now.")
-        else:
-            del COUNTERS[target]
-            await message.channel.send("No longer counting {}!".format(target))
-        
-        self.options.save()
-        self.options.update()
-
-class CounterList(Command):
-
-    async def action(self, message, match):
-        
-        COUNTERS = self.options.data['Counters']
-
-        lines = ["Here's what I have.\n", '```']
-        for key, value in COUNTERS.items():
-            if key[0] != '_':
-                lines.append("{} count is at {}.\n".format(key, value))
-        lines.append('```')
-
-        await message.channel.send("".join(lines))
-
 class QuestionPlease(Command):
     
     async def action(self, message, match):
-        QUESTIONS = self.options.data['Questions']["Questions"]
-        cnt = len(QUESTIONS)
-        while 1:
-            roll = random.randint(0, cnt-1)
-            QUESTION = QUESTIONS[roll]
-            if not QUESTION['done']: break
-        
-        await message.channel.send(f"Here's the Question!\n**{QUESTION['question']}**\n\n:one: {QUESTION['option1']}\n:two: {QUESTION['option2']}")
-        
-        QUESTION['done'] = True
-        
-        self.options.save()
-        self.options.update()
+        # import IPython; IPython.embed()
+        row = self.options[self.options.DONE == 0].sample().iloc[0]
 
+        await message.channel.send(f"Here's the Question!\n**{row['QUESTION']}**\n\n:one: {row['OPTION_1']}\n:two: {row['OPTION_2']}")
+        
+        self.options.loc[self.options.ID==row.ID, 'DONE'] = 1
+        self.options.loc[self.options.ID==row.ID, 'MODIFIED_BIT'] = True
 
-
-class CharacterLoad(Command):
+class TarotDraw(Command):
     
     async def action(self, message, match):
-        character_db = self.options.data["Characters"]
-
-        character = {}
-        try:
-            character['Name'] = re.search('(.*)\n', match[3]).group(1).replace('*', '')
-            character['Fate Points'] = int(re.search('Fate Points:.*?([0-9])', match[3]).group(1))
-            character['Careful'] = int(re.search('Careful:.*?([0-9])', match[3]).group(1))
-            character['Clever'] = int(re.search('Clever:.*?([0-9])', match[3]).group(1))
-            character['Flashy'] = int(re.search('Flashy:.*?([0-9])', match[3]).group(1))
-            character['Forceful'] = int(re.search('Forceful:.*?([0-9])', match[3]).group(1))
-            character['Quick'] = int(re.search('Quick:.*?([0-9])', match[3]).group(1))
-            character['Sneaky'] = int(re.search('Sneaky:.*?([0-9])', match[3]).group(1))
-        except:
-            pass
+        # import IPython; IPython.embed()
+        if len(match) == 2:
+            cnt = 1
+            rank = None
+        elif len(match) == 3:
+            if match[2].strip().isdigit():
+                cnt = int(match[2])
+                rank = None
+            else:
+                rank = match[2].strip().lower()
+        elif len(match) == 4:
+            cnt = int(match[2])
+            rank = match[3].strip().lower()
+        
+        if rank:
+            opts = self.options[self.options.RANK == rank]
         else:
-            print(character)
-            character_db[match[2]] = character
-        self.options.save()
-        self.options.update()
-        await message.channel.send(f"Following keys updated: `{match[2]}`.")
-
-class CharacterCheck(Command):
-    
-    async def action(self, message, match):
-        character_db = self.options.data["Characters"]
-        alias = match[2]
-        key = match[3]
-        key = re.sub(r'\w+', lambda m:m.group(0).capitalize(), key)
-        print(key)
+            opts = self.options
+        opts = opts[opts.DRAWN == 0]
+        drawn = opts.sample(cnt)
         
-        if key in character_db[alias]:
-            value = character_db[alias][key]
-            name = character_db[alias]['Name']
-            await message.channel.send(f"{name} ({alias}) has a {value} in {key}.")
-        else:
-            await message.channel.send(f"{alias} doesn't have that...")
-
-class CharacterList(Command):
-    
-    async def action(self, message, match):
-        character_db = self.options.data["Characters"]
-        entries = ["Alias : Character Name"]
-        for character in character_db:
-            entries.append(f"{character} : {character_db[character]['Name']}")
+        reply = ["I drew:"]
+        for i, r in drawn.iterrows():
+            pos = 'UPRIGHT' if random.randint(0,1) else 'REVERSED'
+            x = f"The {r.RANK.capitalize()} Arcana {r.CARD} {pos}, which means *{r[pos]}*."
+            reply.append(x)
+            # self.options.loc[self.options.ID==r.ID, 'DRAWN'] = 1
+            self.options.loc[self.options.ID==r.ID, 'MODIFIED_BIT'] = True
         
-        entries = ',\n'.join(entries)
-        await message.channel.send("I have the character sheets for these characters!\n ```{}```".format(entries))
+        await message.channel.send('\n'.join(reply))
 
-class CharacterRoll(Command):
-    
-    async def action(self, message, match):
-        character_db = self.options.data["Characters"]
-        alias = match[2]
-        key = match[3]
-        key = re.sub(r'\w+', lambda m:m.group(0).capitalize(), key)
-        
-        if key in character_db[alias]:
-            value = character_db[alias][key]
-            name = character_db[alias]['Name']
-            
-            roll, numbers = self.roll_fudge()
-            total = value+roll
-            m = f"{name} ({alias}) rolled **{roll}** *{numbers}*!\n\n Their `{key}` stat is **{value}**, so total is {roll}+{value}=**{total}**!"
-            await message.channel.send(m)
-            if roll == -4:
-                await message.channel.send("...oof.")
-        else:
-            await message.channel.send(f"{alias} doesn't have that...")
 
-    @staticmethod
-    def roll_fudge():
-        sides = [-1, -1, 0, 0, 1, 1]
-        rolls = []
-        tote = 0
-        for x in range(0, 4):
-            roll = sides[random.randint(0, 5)]
-            rolls.append(roll)
-            tote+=roll
-        return tote, rolls
+# REFERENCE = {
+#     'Command' : Command,
+#     'Help' : Help,
+#     'RandomReply' : RandomReply,
+#     'Reply' : Reply,
+#     'Timecheck' : Timecheck,
+#     'Choose' : Choose,
+#     'Log' : Log,
+#     'Stab' : Stab,
+#     'Refresh' : Refresh,
+#     'Ghost' : Ghost,
+#     'Fudge' : Fudge,
+#     'Roll' : Roll,
+#     'Headpat' : Headpat,
+#     'IrlRuby' : IrlRuby,
+#     # 'RFAMode' : RFAMode,
+#     # 'RFAMembership' : RFAMembership,
+#     'QuestionPlease' : QuestionPlease,
+#     'TarotDraw': TarotDraw
+# }
 
-class CharacterMod(Command):
-    
-    async def action(self, message, match):
-        character_db = self.options.data["Characters"]
-        alias = match[2]
-        key = match[3]
-        value = int(match[4])
-        key = re.sub(r'\w+', lambda m:m.group(0).capitalize(), key)
-        
-        if key in character_db[alias]:
-            old_value = character_db[alias][key]
-            name = character_db[alias]['Name']
-            character_db[alias][key] = value
-            self.options.save()
-            self.options.update()
-            await message.channel.send(f"{name} ({alias}) had {old_value} in {key}, I changed it to {value}.")
-        else:
-            await message.channel.send(f"{alias} doesn't have that...")
+clsmembers = getmembers(modules[__name__], isclass)
+REFERENCE = clsmembers

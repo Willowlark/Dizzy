@@ -1,31 +1,14 @@
 import discord
 import asyncio
 import random
-import json
-import argparse
-
 from datetime import datetime
 import arrow
-from os.path import join
-from os import chdir, listdir, makedirs
 
-import server 
 from auth import TOKEN
-
-parser = argparse.ArgumentParser(description='Process some integers.')
-parser.add_argument('--disablelogs', action='store_false',
-                    help='disable logging')
-
+from engine import Engine
 
 client = discord.Client()
-configs_path = 'configs'
-# chdir(configs_path)
-configs = [join(configs_path,f) for f in listdir('configs') if 'json' in f]
-
-servers = {}
-for config in configs:
-    x = server.create(client, config)
-    servers[x.name] = x
+engine = Engine()
 
 @client.event
 async def on_ready():
@@ -38,33 +21,28 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+    await engine.on_message(message)
     
-    source_server = message.guild.name
+# @client.event
+# async def on_member_update(before, after):
     
-    if source_server in servers:
-        await servers[source_server].handle(message, logging=args.disablelogs)
-    else:
-        print("server {} not handled right now.".format(source_server))
+#     source_server = after.guild
+#     if source_server.name in servers:
+#         await servers[source_server.name].on_member_update(before, after, source_server)
+#     # else:
+#     #     print("server {} not handled right now.".format(source_server.name))
 
-@client.event
-async def on_member_update(before, after):
+# @client.event
+# async def on_message_delete(message):
     
-    source_server = after.guild
-    if source_server.name in servers:
-        await servers[source_server.name].on_member_update(before, after, source_server)
-    # else:
-    #     print("server {} not handled right now.".format(source_server.name))
-
-@client.event
-async def on_message_delete(message):
-    
-    source_server = message.guild
-    if source_server.name in servers:
-        await servers[source_server.name].on_message_delete(message)
-    # else:
-    #     print("server {} not handled right now.".format(source_server.name))
+#     source_server = message.guild
+#     if source_server.name in servers:
+#         await servers[source_server.name].on_message_delete(message)
+#     # else:
+#     #     print("server {} not handled right now.".format(source_server.name))
 
 # Find a channel object via the name of the channel.
+
 def get_channel_by_name(string, server=None):
     for channel in client.get_all_channels():
         if channel.name == string and (server == channel.guild.name or server is None):
@@ -84,6 +62,4 @@ async def minute_ticker():
         await asyncio.sleep(1)
 
 if __name__ == '__main__':
-    args = parser.parse_args()
-    client.loop.create_task(minute_ticker())
     client.run(TOKEN)
